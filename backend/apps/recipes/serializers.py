@@ -4,14 +4,14 @@ from .models import Recipe, RecipeIngredient
 
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
-    suggested_product_name = serializers.CharField(
-        source="suggested_product.name",
-        read_only=True,
-    )
-
     class Meta:
         model = RecipeIngredient
-        fields = "__all__"
+        fields = [
+            "id",
+            "ingredient_name",
+            "amount",
+            "optional",
+        ]
 
 
 class RecipeSerializer(serializers.ModelSerializer):
@@ -20,8 +20,20 @@ class RecipeSerializer(serializers.ModelSerializer):
         read_only=True,
     )
 
-    total_time = serializers.ReadOnlyField()
+    total_time = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Recipe
-        fields = "__all__"
+        fields = [
+            "id",
+            "title",
+            "description",
+            "servings",
+            "prep_time",
+            "cook_time",
+            "total_time",
+            "difficulty",
+            "image",
+            "instructions",
+            "ingredients",
+        ]
