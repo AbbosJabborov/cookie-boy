@@ -7,6 +7,8 @@ import { router } from "@/app/router";
 
 import "./index.css";
 
+import "@fontsource/inter";
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Providers>

@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
+import { motion } from "motion/react";
+
 import ShoppingSheet from "@/components/shopping/ShoppingSheet";
 import { useRecipe } from "@/hooks/useRecipe";
 
@@ -38,7 +40,15 @@ export default function RecipePage() {
 
   return (
     <>
-      <main className="mx-auto max-w-6xl px-6 py-10">
+      <motion.main
+        className="mx-auto max-w-6xl px-6 py-10"
+        initial={{ opacity: 0, y: 25 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 0.45,
+          ease: "easeOut",
+        }}
+      >
         <div className="bg-muted overflow-hidden rounded-2xl">
           {recipe.image ? (
             <img
@@ -129,7 +139,7 @@ export default function RecipePage() {
             Shopping List
           </Button>
         </div>
-      </main>
+      </motion.main>
 
       <ShoppingSheet
         recipeId={recipeId}

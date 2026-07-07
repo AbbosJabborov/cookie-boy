@@ -1,52 +1,89 @@
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Clock } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Clock3, Users, ArrowRight, Wallet } from "lucide-react";
 
-interface RecipeCardProps {
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+
+interface Props {
   id: number;
   title: string;
-  time: number;
-  difficulty: string;
   image?: string | null;
+  difficulty: string;
+  time: number;
 }
 
 export default function RecipeCard({
   id,
   title,
-  time,
-  difficulty,
   image,
-}: RecipeCardProps) {
+  difficulty,
+  time,
+}: Props) {
+  const color =
+    difficulty.toLowerCase() === "easy"
+      ? "bg-green-500"
+      : difficulty.toLowerCase() === "medium"
+        ? "bg-yellow-500"
+        : "bg-red-500";
+
   return (
     <Link to={`/recipes/${id}`}>
-      <Card className="overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-        <div className="bg-muted aspect-video overflow-hidden">
+      <Card className="overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+        <div className="relative">
           {image ? (
             <img
               src={image}
-              alt={title}
-              className="h-full w-full object-cover"
+              className="h-56 w-full object-cover transition duration-500 hover:scale-105"
             />
           ) : (
-            <div className="flex h-full items-center justify-center text-5xl">
-              🍽️
+            <div className="flex h-56 items-center justify-center bg-orange-50 text-7xl">
+              🍝
             </div>
           )}
+
+          <Badge className={`absolute top-4 left-4 text-white ${color}`}>
+            {difficulty}
+          </Badge>
         </div>
 
-        <CardContent className="space-y-3 pt-5">
-          <h3 className="line-clamp-2 text-lg font-semibold">{title}</h3>
+        <div className="space-y-4 p-5">
+          <div>
+            <h3 className="text-xl font-bold">{title}</h3>
 
-          <div className="text-muted-foreground flex items-center gap-2 text-sm">
-            <Clock className="h-4 w-4" />
-            {time} min
+            <p className="text-muted-foreground mt-1 text-sm">
+              AI optimized recipe with smart ingredient replacements.
+            </p>
           </div>
-        </CardContent>
 
-        <CardFooter>
-          <Badge>{difficulty}</Badge>
-        </CardFooter>
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex gap-4">
+              <div className="flex items-center gap-1">
+                <Clock3 size={15} />
+                {time} min
+              </div>
+
+              <div className="flex items-center gap-1">
+                <Users size={15} />2
+              </div>
+            </div>
+
+            <div className="flex items-center gap-1 font-semibold text-green-600">
+              <Wallet size={15} />
+              52k UZS
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium text-green-600">
+              ✓ Products Available
+            </span>
+
+            <ArrowRight
+              className="transition group-hover:translate-x-1"
+              size={18}
+            />
+          </div>
+        </div>
       </Card>
     </Link>
   );

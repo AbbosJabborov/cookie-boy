@@ -1,29 +1,49 @@
-import { ChefHat, Settings } from "lucide-react";
+import { ChefHat, Search, ShoppingBasket, Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
+
 import { Button } from "@/components/ui/button";
 
 export default function Navbar() {
   return (
-    <header className="bg-background border-b">
+    <header className="bg-background/80 sticky top-0 z-50 border-b backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-        <div className="flex items-center gap-3">
-          <div className="bg-primary text-primary-foreground round  ed-lg p-2">
-            <ChefHat className="h-5 w-5" />
+        <Link to="/" className="flex items-center gap-3">
+          <div className="rounded-xl bg-orange-500 p-2 text-white">
+            <ChefHat size={22} />
           </div>
 
           <div>
-            <h1 className="text-xl font-bold">ShelfChef</h1>
+            <h1 className="text-lg font-bold">ShelfChef</h1>
+
             <p className="text-muted-foreground text-xs">
-              Smart cooking assistant
+              AI Grocery Assistant
             </p>
           </div>
-        </div>
+        </Link>
+
+        <nav className="hidden gap-8 md:flex">
+          <Link to="/">Recipes</Link>
+
+          <Link to="/">Pantry</Link>
+
+          <Link to="/">Shopping</Link>
+
+          <Link to="/">Assistant</Link>
+        </nav>
 
         <div className="flex gap-2">
           <Button variant="ghost" size="icon">
-            <Settings className="h-5 w-5" />
+            <Search size={18} />
           </Button>
 
-          <Button>Login</Button>
+          <Button variant="ghost" size="icon">
+            <ShoppingBasket size={18} />
+          </Button>
+
+          <Button size="sm">
+            <Sparkles className="mr-2 h-4 w-4" />
+            AI
+          </Button>
         </div>
       </div>
     </header>
