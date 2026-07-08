@@ -30,7 +30,7 @@ class Recipe(models.Model):
         null=True,
     )
 
-    instructions = models.JSONField(default=list)
+    instructions = models.TextField(default=list)
 
     created_at = models.DateTimeField(auto_now_add=True)
 

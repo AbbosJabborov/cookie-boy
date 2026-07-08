@@ -20,6 +20,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     search_fields = [
         "title",
         "description",
+        "ingredients__ingredient_name",
     ]
 
     ordering_fields = [
