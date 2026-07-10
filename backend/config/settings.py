@@ -41,14 +41,15 @@ INSTALLED_APPS = [
     "corsheaders",
     "drf_spectacular",
     "django_filters",
-    "apps.core",
     "apps.accounts",
+    "apps.assistant",
+    "apps.core",
+    "apps.ingredients",
+    "apps.pantry",
     "apps.products",
     "apps.recipes",
+    "apps.recommendations",
     "apps.shopping",
-    "apps.pantry",
-    "apps.assistant",
-    "apps.ingredients",
 ]
 
 MIDDLEWARE = [

@@ -184,6 +184,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
 
+        ingredient_map = {
+            ingredient.name: ingredient
+            for ingredient in Ingredient.objects.all()
+        }
+
         created = 0
 
         for recipe_data in RECIPES:
@@ -205,11 +210,13 @@ class Command(BaseCommand):
 
             for ingredient_name, quantity, unit in ingredients:
 
-                try:
-                    ingredient = Ingredient.objects.get(name=ingredient_name)
-                except Ingredient.DoesNotExist:
+                ingredient = ingredient_map.get(ingredient_name)
+
+                if ingredient is None:
                     self.stdout.write(
-                        self.style.ERROR(f"Missing ingredient: {ingredient_name}")
+                        self.style.ERROR(
+                            f"Missing ingredient: {ingredient_name}"
+                        )
                     )
                     continue
 
