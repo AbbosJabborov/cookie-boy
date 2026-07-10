@@ -1,17 +1,26 @@
 from rest_framework import serializers
 
-from .models import Recipe, RecipeIngredient
+from .models import Recipe
+from .models import RecipeIngredient
 
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
+    ingredient_name = serializers.CharField(
+        source="ingredient.name",
+        read_only=True,
+    )
+
     class Meta:
         model = RecipeIngredient
-        fields = [
+        fields = (
             "id",
+            "ingredient",
             "ingredient_name",
-            "amount",
+            "quantity",
+            "unit",
             "optional",
-        ]
+            "suggested_product",
+        )
 
 
 class RecipeSerializer(serializers.ModelSerializer):
@@ -20,11 +29,11 @@ class RecipeSerializer(serializers.ModelSerializer):
         read_only=True,
     )
 
-    total_time = serializers.IntegerField(read_only=True)
+    total_time = serializers.ReadOnlyField()
 
     class Meta:
         model = Recipe
-        fields = [
+        fields = (
             "id",
             "title",
             "description",
@@ -33,7 +42,7 @@ class RecipeSerializer(serializers.ModelSerializer):
             "cook_time",
             "total_time",
             "difficulty",
-            "image",
             "instructions",
+            "image",
             "ingredients",
-        ]
+        )

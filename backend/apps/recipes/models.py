@@ -1,6 +1,10 @@
 from apps.products.models import Product
 from django.db import models
 
+from apps.ingredients.models import Ingredient
+from apps.pantry.models import PantryItem
+from apps.core.choices import Unit
+
 
 class Recipe(models.Model):
     class Difficulty(models.TextChoices):
@@ -48,15 +52,30 @@ class Recipe(models.Model):
 
 
 class RecipeIngredient(models.Model):
+
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
         related_name="ingredients",
     )
 
-    ingredient_name = models.CharField(max_length=255)
+    ingredient = models.ForeignKey(
+        Ingredient,
+        on_delete=models.CASCADE,
+        related_name="recipe_ingredients",
+    )
 
-    amount = models.CharField(max_length=50)
+    quantity = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+    )
+
+    unit = models.CharField(
+        max_length=10,
+        choices=Unit.choices,
+    )
+
+    optional = models.BooleanField(default=False)
 
     suggested_product = models.ForeignKey(
         Product,
@@ -65,10 +84,5 @@ class RecipeIngredient(models.Model):
         blank=True,
     )
 
-    optional = models.BooleanField(default=False)
-
-    class Meta:
-        ordering = ["id"]
-
     def __str__(self):
-        return f"{self.ingredient_name} ({self.amount})"
+        return f"{self.recipe.title} - {self.ingredient.name}"
