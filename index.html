@@ -1,654 +1,1730 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>plate. — bugun nimani pishirishga pulim yetadi?</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --paper:#F6F4EC;
-    --ink:#161611;
-    --forest:#1F3B2C;
-    --tomato:#E4572E;
-    --mustard:#E8A93B;
-    --line: rgba(22,22,17,0.14);
-    --radius: 14px;
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
-  body{ background:var(--paper); color:var(--ink); font-family:'Work Sans', sans-serif; line-height:1.5; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
-  .display{ font-family:'Archivo Black', sans-serif; text-transform:uppercase; letter-spacing:-0.01em; }
-  .mono{ font-family:'IBM Plex Mono', monospace; }
-  a{color:inherit;}
-  .wrap{ max-width:1120px; margin:0 auto; padding:0 28px; }
-  section{ padding:96px 0; position:relative; }
-  @media(max-width:720px){ section{ padding:60px 0; } }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>plate. — AI oshpaz yordamchisi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --paper: #F6F4EC;
+            --ink: #161611;
+            --forest: #1F3B2C;
+            --tomato: #E4572E;
+            --mustard: #E8A93B;
+            --line: rgba(22, 22, 17, 0.14);
+            --radius: 14px;
+            --ai-glow: #7C5CFC;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background: var(--paper);
+            color: var(--ink);
+            font-family: 'Work Sans', sans-serif;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        .display {
+            font-family: 'Archivo Black', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+        }
+        .mono {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .wrap {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 28px;
+        }
+        section {
+            padding: 88px 0;
+            position: relative;
+        }
+        @media(max-width:720px) {
+            section {
+                padding: 56px 0;
+            }
+        }
 
-  nav{ position:sticky; top:0; z-index:50; background:rgba(246,244,236,0.9); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
-  nav .wrap{ display:flex; align-items:center; justify-content:space-between; padding-top:16px; padding-bottom:16px; gap:16px; }
-  .brand{ display:flex; align-items:center; gap:10px; }
-  .brand-mark{ width:30px; height:30px; border-radius:7px; background:var(--forest); display:flex; align-items:center; justify-content:center; color:var(--mustard); font-family:'Archivo Black'; font-size:15px; }
-  .brand-name{ font-family:'Archivo Black'; font-size:16px; }
-  .nav-links{ display:flex; gap:24px; font-size:13.5px; font-weight:600; flex:1; }
-  .nav-links a{ opacity:0.72; transition:opacity .15s; }
-  .nav-links a:hover{ opacity:1; }
-  @media(max-width:820px){ .nav-links{ display:none; } }
-  .nav-right{ display:flex; align-items:center; gap:12px; }
-  .lang-toggle{ display:flex; border:1.5px solid var(--ink); border-radius:100px; overflow:hidden; font-family:'IBM Plex Mono'; font-size:12px; font-weight:700; }
-  .lang-btn{ padding:8px 13px; cursor:pointer; background:transparent; border:none; color:var(--ink); transition:background .15s, color .15s; }
-  .lang-btn.active{ background:var(--ink); color:var(--paper); }
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(246, 244, 236, 0.92);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--line);
+        }
+        nav .wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 14px;
+            padding-bottom: 14px;
+            gap: 14px;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .brand-mark {
+            width: 30px;
+            height: 30px;
+            border-radius: 7px;
+            background: var(--forest);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--mustard);
+            font-family: 'Archivo Black';
+            font-size: 15px;
+        }
+        .brand-name {
+            font-family: 'Archivo Black';
+            font-size: 16px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 22px;
+            font-size: 13px;
+            font-weight: 600;
+            flex: 1;
+        }
+        .nav-links a {
+            opacity: 0.7;
+            transition: opacity .15s;
+        }
+        .nav-links a:hover {
+            opacity: 1;
+        }
+        @media(max-width:820px) {
+            .nav-links {
+                display: none;
+            }
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .lang-toggle {
+            display: flex;
+            border: 1.5px solid var(--ink);
+            border-radius: 100px;
+            overflow: hidden;
+            font-family: 'IBM Plex Mono';
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .lang-btn {
+            padding: 7px 12px;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            color: var(--ink);
+            transition: background .15s, color .15s;
+        }
+        .lang-btn.active {
+            background: var(--ink);
+            color: var(--paper);
+        }
 
-  .hero{ padding-top:72px; padding-bottom:36px; }
-  .hero-grid{ display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center; }
-  @media(max-width:900px){ .hero-grid{ grid-template-columns:1fr; } }
-  .eyebrow{ display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono'; font-size:12.5px; background:var(--forest); color:var(--paper); padding:6px 12px; border-radius:100px; margin-bottom:24px; }
-  .eyebrow::before{ content:''; width:7px; height:7px; border-radius:50%; background:var(--mustard); }
-  h1.display{ font-size:clamp(32px, 4.6vw, 54px); line-height:1.05; }
-  h1 .accent{ color:var(--tomato); }
-  .hero-sub{ margin-top:24px; max-width:54ch; font-size:clamp(16px,1.9vw,18px); color:rgba(22,22,17,0.72); }
-  .hero-cta{ margin-top:32px; display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
-  .btn{ font-family:'IBM Plex Mono'; font-size:13px; font-weight:600; padding:14px 22px; border-radius:100px; border:1.5px solid var(--ink); display:inline-flex; align-items:center; gap:8px; transition:transform .15s, background .15s, color .15s; cursor:pointer; background:transparent; }
-  .btn-solid{ background:var(--ink); color:var(--paper); }
-  .btn-solid:hover{ transform:translateY(-2px); background:var(--forest); border-color:var(--forest); }
-  .btn-ghost:hover{ transform:translateY(-2px); background:var(--ink); color:var(--paper); }
-  .platform-note{ margin-top:16px; font-family:'IBM Plex Mono'; font-size:12px; opacity:0.55; }
+        .hero {
+            padding-top: 64px;
+            padding-bottom: 28px;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 48px;
+            align-items: center;
+        }
+        @media(max-width:900px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'IBM Plex Mono';
+            font-size: 12px;
+            background: var(--ai-glow);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 100px;
+            margin-bottom: 20px;
+            letter-spacing: 0.03em;
+        }
+        .eyebrow::before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #fff;
+            animation: pulse-dot 2s infinite;
+        }
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.35;
+            }
+        }
+        h1.display {
+            font-size: clamp(30px, 4.2vw, 50px);
+            line-height: 1.06;
+        }
+        h1 .accent {
+            color: var(--ai-glow);
+        }
+        .hero-sub {
+            margin-top: 22px;
+            max-width: 52ch;
+            font-size: clamp(15px, 1.8vw, 17px);
+            color: rgba(22, 22, 17, 0.7);
+            line-height: 1.6;
+        }
+        .hero-cta {
+            margin-top: 28px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .btn {
+            font-family: 'IBM Plex Mono';
+            font-size: 13px;
+            font-weight: 600;
+            padding: 13px 20px;
+            border-radius: 100px;
+            border: 1.5px solid var(--ink);
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            transition: transform .15s, background .15s, color .15s;
+            cursor: pointer;
+            background: transparent;
+        }
+        .btn-solid {
+            background: var(--ink);
+            color: var(--paper);
+        }
+        .btn-solid:hover {
+            transform: translateY(-2px);
+            background: var(--forest);
+            border-color: var(--forest);
+        }
+        .btn-ghost:hover {
+            transform: translateY(-2px);
+            background: var(--ink);
+            color: var(--paper);
+        }
+        .btn-accent {
+            background: var(--ai-glow);
+            color: #fff;
+            border-color: var(--ai-glow);
+        }
+        .btn-accent:hover {
+            transform: translateY(-2px);
+            background: #6848e0;
+            border-color: #6848e0;
+        }
 
-  .phone{ width:264px; margin:0 auto; background:var(--ink); border-radius:34px; padding:12px; box-shadow:0 40px 70px -30px rgba(22,22,17,0.45); }
-  .phone-screen{ background:var(--paper); border-radius:24px; overflow:hidden; height:490px; display:flex; flex-direction:column; }
-  .phone-status{ display:flex; justify-content:space-between; padding:12px 18px 0; font-family:'IBM Plex Mono'; font-size:10.5px; opacity:0.5; }
-  .phone-head{ padding:16px 18px 8px; }
-  .phone-head .greet{ font-size:11px; opacity:0.55; font-family:'IBM Plex Mono'; }
-  .phone-head .recipe{ font-family:'Archivo Black'; font-size:17px; margin-top:5px; }
-  .phone-head .cost{ font-family:'IBM Plex Mono'; font-size:13px; color:var(--tomato); margin-top:4px; font-weight:600; }
-  .phone-check{ padding:6px 18px; display:flex; flex-direction:column; gap:6px; }
-  .prow{ display:flex; align-items:center; gap:8px; font-size:12.5px; }
-  .prow .ok{ color:var(--forest); font-weight:700; }
-  .prow .miss{ color:var(--tomato); font-weight:700; }
-  .phone-budget{ margin:auto 18px 18px; background:var(--forest); color:var(--paper); border-radius:12px; padding:14px; text-align:center; }
-  .phone-budget .lbl{ font-family:'IBM Plex Mono'; font-size:10px; opacity:0.7; }
-  .phone-budget .verdict{ font-family:'Archivo Black'; font-size:15px; margin-top:4px; color:var(--mustard); }
+        .phone {
+            width: 260px;
+            margin: 0 auto;
+            background: var(--ink);
+            border-radius: 34px;
+            padding: 12px;
+            box-shadow: 0 40px 70px -30px rgba(22, 22, 17, 0.45);
+        }
+        .phone-screen {
+            background: #1a1a1a;
+            border-radius: 24px;
+            overflow: hidden;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .phone-status {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 18px 0;
+            font-family: 'IBM Plex Mono';
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        .phone-video-area {
+            background: #0d0d0d;
+            margin: 8px 10px;
+            border-radius: 10px;
+            flex: 0 0 28%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .phone-video-area .play-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #1a1a1a;
+        }
+        .phone-video-area .live-tag {
+            position: absolute;
+            top: 6px;
+            right: 8px;
+            font-family: 'IBM Plex Mono';
+            font-size: 9px;
+            background: var(--tomato);
+            color: #fff;
+            padding: 2px 7px;
+            border-radius: 100px;
+        }
+        .phone-instruction {
+            flex: 1;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .phone-step-badge {
+            font-family: 'IBM Plex Mono';
+            font-size: 10px;
+            color: var(--mustard);
+            letter-spacing: 0.05em;
+        }
+        .phone-instruction .step-title {
+            font-family: 'Work Sans';
+            font-weight: 700;
+            font-size: 15px;
+            color: #fff;
+            line-height: 1.3;
+        }
+        .phone-instruction .step-detail {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.5;
+        }
+        .phone-timer-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: auto;
+        }
+        .phone-timer {
+            font-family: 'IBM Plex Mono';
+            font-size: 28px;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 0.02em;
+        }
+        .phone-timer-label {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.45);
+        }
+        .phone-nav {
+            display: flex;
+            gap: 6px;
+            padding: 0 16px 14px;
+        }
+        .phone-nav-btn {
+            flex: 1;
+            padding: 9px;
+            border-radius: 100px;
+            text-align: center;
+            font-family: 'IBM Plex Mono';
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.7);
+            background: transparent;
+            transition: all .15s;
+        }
+        .phone-nav-btn.primary {
+            background: #fff;
+            color: #1a1a1a;
+            border-color: #fff;
+        }
+        .phone-ai-fab {
+            position: absolute;
+            bottom: 60px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--ai-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            box-shadow: 0 6px 20px rgba(124, 92, 252, 0.5);
+            cursor: pointer;
+        }
 
-  .problem-block{ background:var(--ink); color:var(--paper); border-radius:28px; margin:0 20px; }
-  .problem-block .wrap{ padding-top:76px; padding-bottom:76px; }
-  .kicker{ font-family:'IBM Plex Mono'; font-size:12.5px; color:var(--mustard); letter-spacing:0.06em; margin-bottom:16px; }
-  .problem-block h2.display{ font-size:clamp(24px,3.4vw,38px); max-width:20ch; line-height:1.1; }
-  .three-things{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(246,244,236,0.14); border:1px solid rgba(246,244,236,0.14); border-radius:var(--radius); overflow:hidden; margin-top:44px; }
-  @media(max-width:760px){ .three-things{ grid-template-columns:1fr; } }
-  .thing{ background:var(--ink); padding:26px 22px; }
-  .thing .tnum{ font-family:'IBM Plex Mono'; font-size:12px; color:var(--mustard); }
-  .thing .ttitle{ font-size:16px; font-weight:600; margin-top:12px; }
-  .why-uz{ margin-top:52px; display:grid; grid-template-columns:1fr 1fr; gap:40px; }
-  @media(max-width:760px){ .why-uz{ grid-template-columns:1fr; } }
-  .why-uz p{ font-size:15.5px; color:rgba(246,244,236,0.75); margin-bottom:14px; max-width:46ch; }
-  .chain-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:6px; }
-  .chain-chip{ font-family:'IBM Plex Mono'; font-size:12px; border:1px solid rgba(246,244,236,0.3); padding:6px 12px; border-radius:100px; }
-  .assume-chip{ font-family:'IBM Plex Mono'; font-size:12px; border:1px solid rgba(246,244,236,0.3); padding:6px 12px; border-radius:100px; opacity:0.4; text-decoration:line-through; }
+        .story-block {
+            background: var(--ink);
+            color: var(--paper);
+            border-radius: 28px;
+            margin: 0 20px;
+        }
+        .story-block .wrap {
+            padding-top: 72px;
+            padding-bottom: 72px;
+        }
+        .kicker {
+            font-family: 'IBM Plex Mono';
+            font-size: 12px;
+            color: var(--mustard);
+            letter-spacing: 0.06em;
+            margin-bottom: 14px;
+        }
+        .story-block h2.display {
+            font-size: clamp(22px, 3.2vw, 36px);
+            max-width: 22ch;
+            line-height: 1.12;
+            margin-bottom: 32px;
+        }
+        .story-narrative {
+            max-width: 58ch;
+            font-size: 15.5px;
+            line-height: 1.75;
+            color: rgba(246, 244, 236, 0.85);
+        }
+        .story-narrative p {
+            margin-bottom: 14px;
+            padding-left: 16px;
+            border-left: 2px solid rgba(246, 244, 236, 0.2);
+        }
+        .story-narrative .highlight {
+            color: var(--mustard);
+            font-weight: 600;
+        }
+        .story-pain-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: rgba(246, 244, 236, 0.12);
+            border: 1px solid rgba(246, 244, 236, 0.12);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-top: 36px;
+        }
+        @media(max-width:760px) {
+            .story-pain-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .pain-item {
+            background: var(--ink);
+            padding: 22px 18px;
+        }
+        .pain-item .picon {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+        .pain-item .ptitle {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .pain-item .pdesc {
+            font-size: 13px;
+            color: rgba(246, 244, 236, 0.6);
+            margin-top: 4px;
+            line-height: 1.4;
+        }
 
-  .usp-band{ text-align:center; padding:76px 0; }
-  .usp-band .kicker{ color:var(--tomato); justify-content:center; display:flex; }
-  .usp-line{ font-family:'Archivo Black'; text-transform:uppercase; font-size:clamp(20px,3vw,32px); max-width:24ch; margin:0 auto; line-height:1.3; }
-  .usp-line em{ font-style:normal; color:var(--tomato); }
-  .usp-sub{ margin-top:20px; font-family:'IBM Plex Mono'; font-size:14px; opacity:0.6; max-width:50ch; margin-left:auto; margin-right:auto; }
+        .usp-band {
+            text-align: center;
+            padding: 72px 0;
+            background: #fff;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+        .usp-band .kicker {
+            color: var(--ai-glow);
+            justify-content: center;
+            display: flex;
+        }
+        .usp-line {
+            font-family: 'Archivo Black';
+            text-transform: uppercase;
+            font-size: clamp(19px, 2.8vw, 30px);
+            max-width: 26ch;
+            margin: 0 auto;
+            line-height: 1.3;
+        }
+        .usp-line em {
+            font-style: normal;
+            color: var(--ai-glow);
+        }
+        .usp-sub {
+            margin-top: 18px;
+            font-family: 'IBM Plex Mono';
+            font-size: 13.5px;
+            opacity: 0.55;
+            max-width: 48ch;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-  .solution-grid{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
-  @media(max-width:900px){ .solution-grid{ grid-template-columns:1fr; } }
-  .solution-copy .kicker{ color:var(--tomato); }
-  .solution-copy h2.display{ font-size:clamp(24px,3.4vw,38px); margin-bottom:18px; }
-  .solution-copy p{ color:rgba(22,22,17,0.7); font-size:16px; margin-bottom:14px; max-width:48ch; }
+        .how-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 44px;
+            align-items: start;
+        }
+        @media(max-width:900px) {
+            .how-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .how-copy .kicker {
+            color: var(--ai-glow);
+        }
+        .how-copy h2.display {
+            font-size: clamp(22px, 3.2vw, 34px);
+            margin-bottom: 16px;
+        }
+        .how-copy p {
+            color: rgba(22, 22, 17, 0.7);
+            font-size: 15px;
+            margin-bottom: 12px;
+            max-width: 46ch;
+            line-height: 1.6;
+        }
+        .how-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .how-step {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 20px 18px;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+        .how-step .step-num {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--ai-glow);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Archivo Black';
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+        .how-step .step-content h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+        .how-step .step-content p {
+            font-size: 13px;
+            color: rgba(22, 22, 17, 0.6);
+            max-width: 40ch;
+            line-height: 1.5;
+        }
 
-  .demo-card{ background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:28px; box-shadow:0 30px 60px -35px rgba(22,22,17,0.3); }
-  .demo-card .dtitle{ font-family:'Archivo Black'; font-size:19px; }
-  .demo-card .dsub{ font-family:'IBM Plex Mono'; font-size:12px; opacity:0.5; margin-top:4px; }
-  .demo-list{ margin-top:20px; display:flex; flex-direction:column; gap:2px; }
-  .demo-item{ display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--line); cursor:pointer; user-select:none; }
-  .demo-item:last-child{ border-bottom:none; }
-  .demo-item .box{ width:20px; height:20px; border-radius:5px; border:1.5px solid var(--ink); display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; transition:background .15s, border-color .15s; }
-  .demo-item.owned .box{ background:var(--forest); border-color:var(--forest); color:var(--paper); }
-  .demo-item .iname{ flex:1; font-size:14.5px; font-weight:500; }
-  .demo-item .iprice{ font-family:'IBM Plex Mono'; font-size:13px; opacity:0.6; }
-  .demo-item.owned .iprice{ opacity:0.3; text-decoration:line-through; }
-  .demo-item .itag{ font-family:'IBM Plex Mono'; font-size:10.5px; padding:3px 8px; border-radius:100px; }
-  .demo-item.owned .itag{ background:rgba(31,59,44,0.12); color:var(--forest); }
-  .demo-item:not(.owned) .itag{ background:rgba(228,87,46,0.12); color:var(--tomato); }
-  .demo-totals{ margin-top:20px; border-top:1px dashed var(--line); padding-top:16px; display:flex; justify-content:space-between; align-items:center; }
-  .demo-totals .tlabel{ font-family:'IBM Plex Mono'; font-size:12px; opacity:0.55; }
-  .demo-totals .tvalue{ font-family:'Archivo Black'; font-size:20px; }
-  .demo-verdict{ margin-top:14px; text-align:center; padding:12px; border-radius:10px; font-family:'IBM Plex Mono'; font-size:13px; font-weight:600; transition:background .2s, color .2s; }
-  .demo-verdict.good{ background:rgba(31,59,44,0.12); color:var(--forest); }
-  .demo-verdict.bad{ background:rgba(228,87,46,0.12); color:var(--tomato); }
-  .demo-hint{ margin-top:10px; text-align:center; font-family:'IBM Plex Mono'; font-size:11px; opacity:0.45; }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+        @media(max-width:820px) {
+            .feature-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media(max-width:560px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .feat-card {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 22px 18px;
+            transition: transform .2s, box-shadow .2s;
+        }
+        .feat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px -12px rgba(22, 22, 17, 0.15);
+        }
+        .feat-card .ficon {
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+        .feat-card h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        .feat-card p {
+            font-size: 13px;
+            color: rgba(22, 22, 17, 0.6);
+            line-height: 1.5;
+        }
+        .feat-card.star {
+            border-color: var(--ai-glow);
+            border-width: 2px;
+            position: relative;
+        }
+        .feat-card.star::after {
+            content: '⭐';
+            position: absolute;
+            top: -10px;
+            right: 14px;
+            font-size: 18px;
+        }
 
-  .compare-head{ max-width:56ch; margin-bottom:40px; }
-  .compare-scroll{ overflow-x:auto; }
-  .compare-table{ width:100%; border-collapse:collapse; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; min-width:600px; }
-  .compare-table th, .compare-table td{ padding:15px 18px; text-align:left; border-bottom:1px solid var(--line); font-size:14px; }
-  .compare-table th{ font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase; letter-spacing:0.04em; color:rgba(22,22,17,0.55); background:#fff; }
-  .compare-table tr:last-child td{ border-bottom:none; }
-  .yes{ color:var(--forest); font-weight:700; }
-  .no{ color:var(--tomato); font-weight:700; }
-  .some{ opacity:0.6; }
-  .plate-col{ background:rgba(31,59,44,0.06); font-weight:600; }
-  th.plate-col{ background:var(--forest); color:var(--paper); }
+        .demo-card {
+            background: #fff;
+            border: 2px solid var(--line);
+            border-radius: var(--radius);
+            padding: 26px;
+            box-shadow: 0 30px 60px -35px rgba(22, 22, 17, 0.3);
+        }
+        .demo-card .dtitle {
+            font-family: 'Archivo Black';
+            font-size: 18px;
+        }
+        .demo-card .dsub {
+            font-family: 'IBM Plex Mono';
+            font-size: 11px;
+            opacity: 0.5;
+            margin-top: 3px;
+        }
+        .demo-list {
+            margin-top: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .demo-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--line);
+            cursor: pointer;
+            user-select: none;
+            flex-wrap: wrap;
+        }
+        .demo-item:last-child {
+            border-bottom: none;
+        }
+        .demo-item .box {
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+            border: 1.5px solid var(--ink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            flex-shrink: 0;
+            transition: background .15s, border-color .15s;
+        }
+        .demo-item.owned .box {
+            background: var(--forest);
+            border-color: var(--forest);
+            color: var(--paper);
+        }
+        .demo-item .iname {
+            flex: 1;
+            font-size: 14px;
+            font-weight: 500;
+            min-width: 100px;
+        }
+        .demo-item .iprice {
+            font-family: 'IBM Plex Mono';
+            font-size: 12px;
+            opacity: 0.6;
+        }
+        .demo-item.owned .iprice {
+            opacity: 0.3;
+            text-decoration: line-through;
+        }
+        .demo-item .itag {
+            font-family: 'IBM Plex Mono';
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 100px;
+            white-space: nowrap;
+        }
+        .demo-item.owned .itag {
+            background: rgba(31, 59, 44, 0.12);
+            color: var(--forest);
+        }
+        .demo-item:not(.owned) .itag {
+            background: rgba(228, 87, 46, 0.12);
+            color: var(--tomato);
+        }
+        .demo-item .ai-note {
+            width: 100%;
+            font-family: 'IBM Plex Mono';
+            font-size: 10px;
+            color: var(--ai-glow);
+            margin-top: 2px;
+            padding-left: 30px;
+            display: none;
+        }
+        .demo-item:not(.owned) .ai-note {
+            display: block;
+        }
+        .demo-totals {
+            margin-top: 18px;
+            border-top: 1px dashed var(--line);
+            padding-top: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .demo-totals .tlabel {
+            font-family: 'IBM Plex Mono';
+            font-size: 11px;
+            opacity: 0.5;
+        }
+        .demo-totals .tvalue {
+            font-family: 'Archivo Black';
+            font-size: 19px;
+        }
+        .demo-verdict {
+            margin-top: 12px;
+            text-align: center;
+            padding: 12px;
+            border-radius: 10px;
+            font-family: 'IBM Plex Mono';
+            font-size: 12px;
+            font-weight: 600;
+            transition: background .2s, color .2s;
+        }
+        .demo-verdict.good {
+            background: rgba(31, 59, 44, 0.12);
+            color: var(--forest);
+        }
+        .demo-verdict.bad {
+            background: rgba(228, 87, 46, 0.12);
+            color: var(--tomato);
+        }
+        .demo-hint {
+            margin-top: 8px;
+            text-align: center;
+            font-family: 'IBM Plex Mono';
+            font-size: 10px;
+            opacity: 0.4;
+        }
 
-  .split-head{ max-width:52ch; margin-bottom:40px; }
-  .audience-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-  @media(max-width:760px){ .audience-grid{ grid-template-columns:1fr; } }
-  .aud-card{ border:1px solid var(--line); border-radius:var(--radius); padding:24px; background:#fff; }
-  .aud-card h3{ font-family:'IBM Plex Mono'; font-size:11.5px; text-transform:uppercase; color:var(--forest); margin-bottom:14px; }
-  .aud-card ul{ list-style:none; display:flex; flex-direction:column; gap:8px; }
-  .aud-card li{ font-size:14.5px; }
+        .compare-scroll {
+            overflow-x: auto;
+        }
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            overflow: hidden;
+            min-width: 600px;
+        }
+        .compare-table th,
+        .compare-table td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--line);
+            font-size: 13.5px;
+        }
+        .compare-table th {
+            font-family: 'IBM Plex Mono';
+            font-size: 10.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: rgba(22, 22, 17, 0.5);
+            background: #fff;
+        }
+        .compare-table tr:last-child td {
+            border-bottom: none;
+        }
+        .yes {
+            color: var(--forest);
+            font-weight: 700;
+        }
+        .no {
+            color: var(--tomato);
+            font-weight: 700;
+        }
+        .some {
+            opacity: 0.55;
+        }
+        .plate-col {
+            background: rgba(124, 92, 252, 0.06);
+            font-weight: 600;
+        }
+        th.plate-col {
+            background: var(--ai-glow);
+            color: #fff;
+        }
 
-  .roadmap{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
-  @media(max-width:820px){ .roadmap{ grid-template-columns:1fr; } }
-  .phase{ background:#fff; padding:26px 22px; }
-  .phase .pnum{ font-family:'IBM Plex Mono'; font-size:12px; color:var(--tomato); }
-  .phase h3{ font-size:16px; margin:10px 0 14px; }
-  .phase ul{ list-style:none; display:flex; flex-direction:column; gap:8px; }
-  .phase li{ font-size:14px; color:rgba(22,22,17,0.72); }
+        .audience-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        @media(max-width:760px) {
+            .audience-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .aud-card {
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 22px;
+            background: #fff;
+        }
+        .aud-card h3 {
+            font-family: 'IBM Plex Mono';
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--ai-glow);
+            margin-bottom: 12px;
+        }
+        .aud-card ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+        .aud-card li {
+            font-size: 14px;
+        }
 
-  .biz-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-  @media(max-width:760px){ .biz-grid{ grid-template-columns:1fr; } }
-  .biz-card{ border:1px solid var(--line); border-radius:var(--radius); padding:26px; background:#fff; }
-  .biz-card h3{ font-family:'IBM Plex Mono'; font-size:12px; text-transform:uppercase; color:var(--forest); margin-bottom:14px; }
-  .biz-card ul{ list-style:none; display:flex; flex-direction:column; gap:8px; }
-  .biz-card li{ font-size:14.5px; }
+        .roadmap {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--line);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        @media(max-width:820px) {
+            .roadmap {
+                grid-template-columns: 1fr;
+            }
+        }
+        .phase {
+            background: #fff;
+            padding: 24px 20px;
+        }
+        .phase .pnum {
+            font-family: 'IBM Plex Mono';
+            font-size: 11px;
+            color: var(--ai-glow);
+        }
+        .phase h3 {
+            font-size: 15px;
+            margin: 8px 0 12px;
+        }
+        .phase ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+        .phase li {
+            font-size: 13.5px;
+            color: rgba(22, 22, 17, 0.7);
+        }
 
-  .demo-script{ background:var(--forest); color:var(--paper); border-radius:28px; margin:0 20px; }
-  .demo-script .wrap{ padding-top:76px; padding-bottom:76px; }
-  .demo-script h2.display{ font-size:clamp(24px,3.4vw,36px); max-width:20ch; margin-bottom:36px; }
-  .script-quote{ font-size:18px; line-height:1.7; max-width:64ch; color:rgba(246,244,236,0.92); }
-  .script-quote p{ margin-bottom:18px; padding-left:18px; border-left:2px solid var(--mustard); }
-  .script-note{ margin-top:32px; font-family:'IBM Plex Mono'; font-size:13px; color:var(--mustard); }
+        .biz-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        @media(max-width:760px) {
+            .biz-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .biz-card {
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 22px;
+            background: #fff;
+        }
+        .biz-card h3 {
+            font-family: 'IBM Plex Mono';
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--forest);
+            margin-bottom: 12px;
+        }
+        .biz-card ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+        .biz-card li {
+            font-size: 14px;
+        }
 
-  .cta{ text-align:center; }
-  .cta h2.display{ font-size:clamp(26px,4.2vw,44px); max-width:20ch; margin:0 auto 20px; }
-  .cta p{ color:rgba(22,22,17,0.68); max-width:48ch; margin:0 auto 32px; font-size:16px; }
-  .cta-btns{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+        .script-block {
+            background: var(--forest);
+            color: var(--paper);
+            border-radius: 28px;
+            margin: 0 20px;
+        }
+        .script-block .wrap {
+            padding-top: 72px;
+            padding-bottom: 72px;
+        }
+        .script-block h2.display {
+            font-size: clamp(22px, 3.2vw, 34px);
+            max-width: 20ch;
+            margin-bottom: 28px;
+        }
+        .script-quote {
+            font-size: 16px;
+            line-height: 1.75;
+            max-width: 60ch;
+            color: rgba(246, 244, 236, 0.9);
+        }
+        .script-quote p {
+            margin-bottom: 16px;
+            padding-left: 16px;
+            border-left: 2px solid var(--mustard);
+        }
 
-  footer{ border-top:1px solid var(--line); padding:30px 0; }
-  footer .wrap{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
-  footer .fmark{ font-family:'IBM Plex Mono'; font-size:12px; opacity:0.6; }
+        .cta {
+            text-align: center;
+        }
+        .cta h2.display {
+            font-size: clamp(24px, 4vw, 42px);
+            max-width: 20ch;
+            margin: 0 auto 18px;
+        }
+        .cta p {
+            color: rgba(22, 22, 17, 0.65);
+            max-width: 46ch;
+            margin: 0 auto 28px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .cta-btns {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
-  ::selection{ background:var(--mustard); color:var(--ink); }
-  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } *{ animation:none !important; transition:none !important; } }
-  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
-  .reveal.in{ opacity:1; transform:translateY(0); }
-</style>
+        footer {
+            border-top: 1px solid var(--line);
+            padding: 26px 0;
+        }
+        footer .wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        footer .fmark {
+            font-family: 'IBM Plex Mono';
+            font-size: 12px;
+            opacity: 0.55;
+        }
+
+        ::selection {
+            background: var(--ai-glow);
+            color: #fff;
+        }
+        @media(prefers-reduced-motion:reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .split-head {
+            max-width: 50ch;
+            margin-bottom: 36px;
+        }
+        .split-head .kicker {
+            color: var(--ai-glow);
+        }
+        .split-head h2.display {
+            font-size: clamp(20px, 2.8vw, 32px);
+        }
+    </style>
 </head>
 <body>
 
-<nav>
-  <div class="wrap">
-    <div class="brand"><div class="brand-mark">p</div><div class="brand-name">plate.</div></div>
-    <div class="nav-links">
-      <a href="#problem" data-i18n="nav.problem"></a>
-      <a href="#solution" data-i18n="nav.solution"></a>
-      <a href="#compare" data-i18n="nav.compare"></a>
-      <a href="#business" data-i18n="nav.business"></a>
-      <a href="#script" data-i18n="nav.script"></a>
-    </div>
-    <div class="nav-right">
-      <a href="#cta" class="btn btn-solid" style="padding:10px 18px; font-size:12px;" data-i18n="nav.cta"></a>
-      <div class="lang-toggle">
-        <button class="lang-btn" data-lang="uz">UZ</button>
-        <button class="lang-btn" data-lang="en">EN</button>
-      </div>
-    </div>
-  </div>
-</nav>
-
-<section class="hero">
-  <div class="wrap">
-    <div class="hero-grid">
-      <div>
-        <div class="eyebrow" data-i18n="hero.eyebrow"></div>
-        <h1 class="display" data-i18n-html="hero.title"></h1>
-        <p class="hero-sub" data-i18n="hero.sub"></p>
-        <div class="hero-cta">
-          <a href="#solution" class="btn btn-solid" data-i18n="hero.cta1"></a>
-          <a href="#compare" class="btn btn-ghost" data-i18n="hero.cta2"></a>
+    <nav>
+        <div class="wrap">
+            <div class="brand"><div class="brand-mark">p</div><div class="brand-name">plate.</div></div>
+            <div class="nav-links">
+                <a href="#story" data-i18n="nav.story"></a>
+                <a href="#how" data-i18n="nav.how"></a>
+                <a href="#features" data-i18n="nav.features"></a>
+                <a href="#compare" data-i18n="nav.compare"></a>
+                <a href="#roadmap" data-i18n="nav.roadmap"></a>
+            </div>
+            <div class="nav-right">
+                <a href="#cta" class="btn btn-accent" style="padding:9px 16px;font-size:11px;" data-i18n="nav.cta"></a>
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="uz">UZ</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+            </div>
         </div>
-        <div class="platform-note" data-i18n="hero.platform"></div>
-      </div>
+    </nav>
 
-      <div class="phone">
-        <div class="phone-screen">
-          <div class="phone-status"><span>9:41</span><span>plate.</span></div>
-          <div class="phone-head">
-            <div class="greet mono" data-i18n="phone.label"></div>
-            <div class="recipe" data-i18n="phone.dish"></div>
-            <div class="cost" data-i18n="phone.cost"></div>
-          </div>
-          <div class="phone-check">
-            <div class="prow"><span class="ok">✅</span> <span data-i18n="phone.item1"></span></div>
-            <div class="prow"><span class="ok">✅</span> <span data-i18n="phone.item2"></span></div>
-            <div class="prow"><span class="miss">🛒</span> <span data-i18n="phone.item3"></span></div>
-            <div class="prow"><span class="miss">🛒</span> <span data-i18n="phone.item4"></span></div>
-          </div>
-          <div class="phone-budget">
-            <div class="lbl mono" data-i18n="phone.budget"></div>
-            <div class="verdict" data-i18n="phone.verdict"></div>
-          </div>
+    <section class="hero">
+        <div class="wrap">
+            <div class="hero-grid">
+                <div>
+                    <div class="eyebrow" data-i18n="hero.eyebrow"></div>
+                    <h1 class="display" data-i18n-html="hero.title"></h1>
+                    <p class="hero-sub" data-i18n="hero.sub"></p>
+                    <div class="hero-cta">
+                        <a href="#how" class="btn btn-accent" data-i18n="hero.cta1"></a>
+                        <a href="#story" class="btn btn-ghost" data-i18n="hero.cta2"></a>
+                    </div>
+                </div>
+                <div class="phone">
+                    <div class="phone-screen">
+                        <div class="phone-status"><span>9:41</span><span>plate. AI</span></div>
+                        <div class="phone-video-area">
+                            <div class="play-btn">▶</div>
+                            <div class="live-tag">LIVE</div>
+                        </div>
+                        <div class="phone-instruction">
+                            <div class="phone-step-badge" data-i18n="phone.step"></div>
+                            <div class="step-title" data-i18n="phone.step_title"></div>
+                            <div class="step-detail" data-i18n="phone.step_detail"></div>
+                            <div class="phone-timer-row">
+                                <span class="phone-timer">0:45</span>
+                                <span class="phone-timer-label" data-i18n="phone.timer_label"></span>
+                            </div>
+                        </div>
+                        <div class="phone-nav">
+                            <button class="phone-nav-btn" data-i18n="phone.prev"></button>
+                            <button class="phone-nav-btn primary" data-i18n="phone.next"></button>
+                        </div>
+                        <div class="phone-ai-fab">✨</div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section class="problem-block" id="problem">
-  <div class="wrap">
-    <div class="kicker" data-i18n="problem.kicker"></div>
-    <h2 class="display" data-i18n="problem.title"></h2>
-    <div class="three-things reveal">
-      <div class="thing"><div class="tnum">01</div><div class="ttitle" data-i18n="problem.thing1"></div></div>
-      <div class="thing"><div class="tnum">02</div><div class="ttitle" data-i18n="problem.thing2"></div></div>
-      <div class="thing"><div class="tnum">03</div><div class="ttitle" data-i18n="problem.thing3"></div></div>
-    </div>
-    <div class="why-uz reveal">
-      <div>
-        <p data-i18n="problem.result"></p>
-      </div>
-      <div>
-        <p style="margin-bottom:8px;" data-i18n-html="problem.why"></p>
-        <div class="chain-row">
-          <span class="assume-chip">Walmart</span><span class="assume-chip">Tesco</span><span class="assume-chip">Costco</span><span class="assume-chip">Amazon Fresh</span>
+    <section class="story-block" id="story">
+        <div class="wrap">
+            <div class="kicker" data-i18n="story.kicker"></div>
+            <h2 class="display" data-i18n="story.title"></h2>
+            <div class="story-narrative reveal">
+                <p data-i18n="story.p1"></p>
+                <p data-i18n="story.p2"></p>
+                <p data-i18n="story.p3"></p>
+                <p data-i18n="story.p4"></p>
+            </div>
+            <div class="story-pain-grid reveal">
+                <div class="pain-item">
+                    <div class="picon">🌍</div>
+                    <div class="ptitle" data-i18n="story.pain1_title"></div>
+                    <div class="pdesc" data-i18n="story.pain1_desc"></div>
+                </div>
+                <div class="pain-item">
+                    <div class="picon">🏪</div>
+                    <div class="ptitle" data-i18n="story.pain2_title"></div>
+                    <div class="pdesc" data-i18n="story.pain2_desc"></div>
+                </div>
+                <div class="pain-item">
+                    <div class="picon">💰</div>
+                    <div class="ptitle" data-i18n="story.pain3_title"></div>
+                    <div class="pdesc" data-i18n="story.pain3_desc"></div>
+                </div>
+            </div>
         </div>
-        <p style="margin-top:16px; margin-bottom:8px;" data-i18n="problem.none"></p>
-        <div class="chain-row">
-          <span class="chain-chip">Korzinka</span><span class="chain-chip">Havas</span><span class="chain-chip">Makro</span><span class="chain-chip">Baraka Market</span>
+    </section>
+
+    <section class="usp-band" id="usp">
+        <div class="wrap">
+            <div class="kicker" data-i18n="usp.kicker"></div>
+            <div class="usp-line reveal" data-i18n-html="usp.line"></div>
+            <div class="usp-sub" data-i18n="usp.sub"></div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section class="usp-band">
-  <div class="wrap">
-    <div class="kicker" data-i18n="usp.kicker"></div>
-    <div class="usp-line reveal" data-i18n-html="usp.line"></div>
-    <div class="usp-sub" data-i18n="usp.sub"></div>
-  </div>
-</section>
-
-<section id="solution">
-  <div class="wrap">
-    <div class="solution-grid">
-      <div class="solution-copy reveal">
-        <div class="kicker" data-i18n="solution.kicker"></div>
-        <h2 class="display" data-i18n="solution.title"></h2>
-        <p data-i18n="solution.p1"></p>
-        <p data-i18n="solution.p2"></p>
-      </div>
-
-      <div class="demo-card reveal">
-        <div class="dtitle" data-i18n="demo.dish"></div>
-        <div class="dsub mono" data-i18n="demo.source"></div>
-        <div class="demo-list" id="demoList">
-          <div class="demo-item owned" data-price="6000" data-key="pasta">
-            <div class="box">✓</div>
-            <div class="iname" data-i18n="demo.pasta"></div>
-            <div class="iprice mono">6,000</div>
-            <span class="itag" data-i18n="demo.owned"></span>
-          </div>
-          <div class="demo-item owned" data-price="2000" data-key="garlic">
-            <div class="box">✓</div>
-            <div class="iname" data-i18n="demo.garlic"></div>
-            <div class="iprice mono">2,000</div>
-            <span class="itag" data-i18n="demo.owned"></span>
-          </div>
-          <div class="demo-item" data-price="30000" data-key="cream">
-            <div class="box"></div>
-            <div class="iname" data-i18n="demo.cream"></div>
-            <div class="iprice mono">30,000</div>
-            <span class="itag" data-i18n="demo.buy"></span>
-          </div>
-          <div class="demo-item" data-price="18000" data-key="parmesan">
-            <div class="box"></div>
-            <div class="iname" data-i18n="demo.parmesan"></div>
-            <div class="iprice mono">18,000</div>
-            <span class="itag" data-i18n="demo.buy"></span>
-          </div>
+    <section id="how">
+        <div class="wrap">
+            <div class="how-grid">
+                <div class="how-copy reveal">
+                    <div class="kicker" data-i18n="how.kicker"></div>
+                    <h2 class="display" data-i18n="how.title"></h2>
+                    <p data-i18n="how.p1"></p>
+                    <p data-i18n="how.p2"></p>
+                </div>
+                <div class="how-steps reveal">
+                    <div class="how-step">
+                        <div class="step-num">1</div>
+                        <div class="step-content">
+                            <h4 data-i18n="how.step1_title"></h4>
+                            <p data-i18n="how.step1_desc"></p>
+                        </div>
+                    </div>
+                    <div class="how-step">
+                        <div class="step-num">2</div>
+                        <div class="step-content">
+                            <h4 data-i18n="how.step2_title"></h4>
+                            <p data-i18n="how.step2_desc"></p>
+                        </div>
+                    </div>
+                    <div class="how-step">
+                        <div class="step-num">3</div>
+                        <div class="step-content">
+                            <h4 data-i18n="how.step3_title"></h4>
+                            <p data-i18n="how.step3_desc"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="demo-totals">
-          <span class="tlabel" data-i18n="demo.costlabel"></span>
-          <span class="tvalue" id="demoTotal">48,000</span>
+    </section>
+
+    <section id="features">
+        <div class="wrap">
+            <div class="split-head reveal">
+                <div class="kicker" data-i18n="features.kicker"></div>
+                <h2 class="display" data-i18n="features.title"></h2>
+            </div>
+            <div class="feature-grid reveal">
+                <div class="feat-card star">
+                    <div class="ficon">🤖</div>
+                    <h4 data-i18n="features.f1_title"></h4>
+                    <p data-i18n="features.f1_desc"></p>
+                </div>
+                <div class="feat-card">
+                    <div class="ficon">⏱️</div>
+                    <h4 data-i18n="features.f2_title"></h4>
+                    <p data-i18n="features.f2_desc"></p>
+                </div>
+                <div class="feat-card">
+                    <div class="ficon">🛒</div>
+                    <h4 data-i18n="features.f3_title"></h4>
+                    <p data-i18n="features.f3_desc"></p>
+                </div>
+                <div class="feat-card">
+                    <div class="ficon">🧠</div>
+                    <h4 data-i18n="features.f4_title"></h4>
+                    <p data-i18n="features.f4_desc"></p>
+                </div>
+                <div class="feat-card">
+                    <div class="ficon">📊</div>
+                    <h4 data-i18n="features.f5_title"></h4>
+                    <p data-i18n="features.f5_desc"></p>
+                </div>
+                <div class="feat-card">
+                    <div class="ficon">🎯</div>
+                    <h4 data-i18n="features.f6_title"></h4>
+                    <p data-i18n="features.f6_desc"></p>
+                </div>
+            </div>
         </div>
-        <div class="demo-verdict good" id="demoVerdict"></div>
-        <div class="demo-hint" data-i18n="demo.hint"></div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section id="compare">
-  <div class="wrap">
-    <div class="compare-head reveal">
-      <div class="kicker" style="color:var(--tomato);" data-i18n="compare.kicker"></div>
-      <h2 class="display" style="font-size:clamp(22px,3vw,34px);" data-i18n="compare.title"></h2>
-    </div>
-    <div class="compare-scroll reveal">
-      <table class="compare-table">
-        <thead>
-          <tr>
-            <th data-i18n="compare.h1"></th>
-            <th data-i18n="compare.h2"></th>
-            <th class="plate-col">plate.</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td data-i18n="compare.r1"></td><td class="yes">✓</td><td class="plate-col yes">✓</td></tr>
-          <tr><td data-i18n="compare.r2"></td><td class="some" data-i18n="compare.some"></td><td class="plate-col yes">✓</td></tr>
-          <tr><td data-i18n="compare.r3"></td><td class="some" data-i18n="compare.limited"></td><td class="plate-col yes">✓</td></tr>
-          <tr><td data-i18n="compare.r4"></td><td class="no">✕</td><td class="plate-col yes">✓</td></tr>
-          <tr><td data-i18n="compare.r5"></td><td class="no">✕</td><td class="plate-col yes">✓</td></tr>
-          <tr><td data-i18n="compare.r6"></td><td class="no">✕</td><td class="plate-col yes">✓</td></tr>
-          <tr><td data-i18n="compare.r7"></td><td class="no">✕</td><td class="plate-col yes">✓</td></tr>
-          <tr><td data-i18n="compare.r8"></td><td class="some" data-i18n="compare.partial"></td><td class="plate-col yes">✓</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
+    <section id="demo">
+        <div class="wrap">
+            <div class="how-grid">
+                <div class="how-copy reveal">
+                    <div class="kicker" style="color:var(--ai-glow);" data-i18n="demo.kicker"></div>
+                    <h2 class="display" style="font-size:clamp(20px,2.8vw,30px);" data-i18n="demo.title"></h2>
+                    <p data-i18n="demo.desc"></p>
+                </div>
+                <div class="demo-card reveal" id="demoCard">
+                    <div class="dtitle" data-i18n="demo.dish"></div>
+                    <div class="dsub mono" data-i18n="demo.source"></div>
+                    <div class="demo-list" id="demoList">
+                        <div class="demo-item owned" data-price="6000" data-key="pasta">
+                            <div class="box">✓</div>
+                            <div class="iname" data-i18n="demo.pasta"></div>
+                            <div class="iprice mono">6,000</div>
+                            <span class="itag" data-i18n="demo.owned"></span>
+                            <div class="ai-note"></div>
+                        </div>
+                        <div class="demo-item owned" data-price="2000" data-key="garlic">
+                            <div class="box">✓</div>
+                            <div class="iname" data-i18n="demo.garlic"></div>
+                            <div class="iprice mono">2,000</div>
+                            <span class="itag" data-i18n="demo.owned"></span>
+                            <div class="ai-note"></div>
+                        </div>
+                        <div class="demo-item" data-price="28000" data-key="cream">
+                            <div class="box"></div>
+                            <div class="iname" data-i18n="demo.cream"></div>
+                            <div class="iprice mono">28,000</div>
+                            <span class="itag" data-i18n="demo.buy"></span>
+                            <div class="ai-note" data-i18n="demo.ai_cream"></div>
+                        </div>
+                        <div class="demo-item" data-price="32000" data-key="parmesan">
+                            <div class="box"></div>
+                            <div class="iname" data-i18n="demo.parmesan"></div>
+                            <div class="iprice mono">32,000</div>
+                            <span class="itag" data-i18n="demo.buy"></span>
+                            <div class="ai-note" data-i18n="demo.ai_parmesan"></div>
+                        </div>
+                    </div>
+                    <div class="demo-totals">
+                        <span class="tlabel" data-i18n="demo.costlabel"></span>
+                        <span class="tvalue" id="demoTotal">60,000</span>
+                    </div>
+                    <div class="demo-verdict good" id="demoVerdict"></div>
+                    <div class="demo-hint" data-i18n="demo.hint"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<section id="audience">
-  <div class="wrap">
-    <div class="split-head reveal">
-      <div class="kicker" style="color:var(--tomato);" data-i18n="audience.kicker"></div>
-      <h2 class="display" style="font-size:clamp(22px,3vw,34px);" data-i18n="audience.title"></h2>
-    </div>
-    <div class="audience-grid reveal">
-      <div class="aud-card">
-        <h3 data-i18n="audience.primary"></h3>
-        <ul>
-          <li data-i18n="audience.p1"></li>
-          <li data-i18n="audience.p2"></li>
-          <li data-i18n="audience.p3"></li>
-          <li data-i18n="audience.p4"></li>
-        </ul>
-      </div>
-      <div class="aud-card">
-        <h3 data-i18n="audience.secondary"></h3>
-        <ul>
-          <li data-i18n="audience.s1"></li>
-          <li data-i18n="audience.s2"></li>
-          <li data-i18n="audience.s3"></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
+    <section id="compare">
+        <div class="wrap">
+            <div class="split-head reveal">
+                <div class="kicker" data-i18n="compare.kicker"></div>
+                <h2 class="display" data-i18n="compare.title"></h2>
+            </div>
+            <div class="compare-scroll reveal">
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th data-i18n="compare.h1"></th>
+                            <th data-i18n="compare.h2"></th>
+                            <th class="plate-col">plate.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td data-i18n="compare.r1"></td><td class="yes">✓</td><td class="plate-col yes">✓</td></tr>
+                        <tr><td data-i18n="compare.r2"></td><td class="some" data-i18n="compare.some"></td><td class="plate-col yes">✓</td></tr>
+                        <tr><td data-i18n="compare.r3"></td><td class="no">✕</td><td class="plate-col yes">✓</td></tr>
+                        <tr><td data-i18n="compare.r4"></td><td class="no">✕</td><td class="plate-col yes">✓</td></tr>
+                        <tr><td data-i18n="compare.r5"></td><td class="no">✕</td><td class="plate-col yes">✓</td></tr>
+                        <tr><td data-i18n="compare.r6"></td><td class="no">✕</td><td class="plate-col yes">✓</td></tr>
+                        <tr><td data-i18n="compare.r7"></td><td class="no">✕</td><td class="plate-col yes">✓</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
 
-<section id="roadmap">
-  <div class="wrap">
-    <div class="split-head reveal">
-      <div class="kicker" style="color:var(--tomato);" data-i18n="roadmap.kicker"></div>
-      <h2 class="display" style="font-size:clamp(22px,3vw,34px);" data-i18n="roadmap.title"></h2>
-    </div>
-    <div class="roadmap reveal">
-      <div class="phase">
-        <div class="pnum" data-i18n="roadmap.phase1"></div>
-        <h3 data-i18n="roadmap.phase1title"></h3>
-        <ul><li data-i18n="roadmap.p1a"></li><li data-i18n="roadmap.p1b"></li><li data-i18n="roadmap.p1c"></li><li data-i18n="roadmap.p1d"></li></ul>
-      </div>
-      <div class="phase">
-        <div class="pnum" data-i18n="roadmap.phase2"></div>
-        <h3 data-i18n="roadmap.phase2title"></h3>
-        <ul><li data-i18n="roadmap.p2a"></li><li data-i18n="roadmap.p2b"></li><li data-i18n="roadmap.p2c"></li><li data-i18n="roadmap.p2d"></li></ul>
-      </div>
-      <div class="phase">
-        <div class="pnum" data-i18n="roadmap.phase3"></div>
-        <h3 data-i18n="roadmap.phase3title"></h3>
-        <ul><li data-i18n="roadmap.p3a"></li><li data-i18n="roadmap.p3b"></li><li data-i18n="roadmap.p3c"></li><li data-i18n="roadmap.p3d"></li></ul>
-      </div>
-    </div>
-  </div>
-</section>
+    <section id="audience">
+        <div class="wrap">
+            <div class="split-head reveal">
+                <div class="kicker" data-i18n="audience.kicker"></div>
+                <h2 class="display" data-i18n="audience.title"></h2>
+            </div>
+            <div class="audience-grid reveal">
+                <div class="aud-card">
+                    <h3 data-i18n="audience.primary"></h3>
+                    <ul>
+                        <li data-i18n="audience.p1"></li>
+                        <li data-i18n="audience.p2"></li>
+                        <li data-i18n="audience.p3"></li>
+                        <li data-i18n="audience.p4"></li>
+                    </ul>
+                </div>
+                <div class="aud-card">
+                    <h3 data-i18n="audience.secondary"></h3>
+                    <ul>
+                        <li data-i18n="audience.s1"></li>
+                        <li data-i18n="audience.s2"></li>
+                        <li data-i18n="audience.s3"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<section id="business">
-  <div class="wrap">
-    <div class="split-head reveal">
-      <div class="kicker" style="color:var(--tomato);" data-i18n="business.kicker"></div>
-      <h2 class="display" style="font-size:clamp(22px,3vw,34px);" data-i18n="business.title"></h2>
-    </div>
-    <div class="biz-grid reveal">
-      <div class="biz-card">
-        <h3 data-i18n="business.free"></h3>
-        <ul><li data-i18n="business.f1"></li><li data-i18n="business.f2"></li><li data-i18n="business.f3"></li></ul>
-      </div>
-      <div class="biz-card">
-        <h3 data-i18n="business.premium"></h3>
-        <ul><li data-i18n="business.pr1"></li><li data-i18n="business.pr2"></li><li data-i18n="business.pr3"></li><li data-i18n="business.pr4"></li></ul>
-      </div>
-    </div>
-    <div class="biz-card reveal" style="margin-top:18px;">
-      <h3 data-i18n="business.b2b"></h3>
-      <ul style="display:grid; grid-template-columns:repeat(2,1fr); gap:8px;">
-        <li data-i18n="business.b1"></li><li data-i18n="business.b2"></li><li data-i18n="business.b3"></li><li data-i18n="business.b4"></li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <section id="roadmap">
+        <div class="wrap">
+            <div class="split-head reveal">
+                <div class="kicker" data-i18n="roadmap.kicker"></div>
+                <h2 class="display" data-i18n="roadmap.title"></h2>
+            </div>
+            <div class="roadmap reveal">
+                <div class="phase">
+                    <div class="pnum" data-i18n="roadmap.phase1"></div>
+                    <h3 data-i18n="roadmap.phase1title"></h3>
+                    <ul><li data-i18n="roadmap.p1a"></li><li data-i18n="roadmap.p1b"></li><li data-i18n="roadmap.p1c"></li><li data-i18n="roadmap.p1d"></li></ul>
+                </div>
+                <div class="phase">
+                    <div class="pnum" data-i18n="roadmap.phase2"></div>
+                    <h3 data-i18n="roadmap.phase2title"></h3>
+                    <ul><li data-i18n="roadmap.p2a"></li><li data-i18n="roadmap.p2b"></li><li data-i18n="roadmap.p2c"></li><li data-i18n="roadmap.p2d"></li></ul>
+                </div>
+                <div class="phase">
+                    <div class="pnum" data-i18n="roadmap.phase3"></div>
+                    <h3 data-i18n="roadmap.phase3title"></h3>
+                    <ul><li data-i18n="roadmap.p3a"></li><li data-i18n="roadmap.p3b"></li><li data-i18n="roadmap.p3c"></li><li data-i18n="roadmap.p3d"></li></ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<section class="demo-script" id="script">
-  <div class="wrap">
-    <div class="kicker" style="color:var(--mustard);" data-i18n="script.kicker"></div>
-    <h2 class="display" data-i18n="script.title"></h2>
-    <div class="script-quote reveal">
-      <p data-i18n="script.p1"></p>
-      <p data-i18n="script.p2"></p>
-      <p data-i18n="script.p3"></p>
-    </div>
-    <div class="script-note reveal" data-i18n="script.note"></div>
-  </div>
-</section>
+    <section id="business">
+        <div class="wrap">
+            <div class="split-head reveal">
+                <div class="kicker" data-i18n="business.kicker"></div>
+                <h2 class="display" data-i18n="business.title"></h2>
+            </div>
+            <div class="biz-grid reveal">
+                <div class="biz-card">
+                    <h3 data-i18n="business.free"></h3>
+                    <ul><li data-i18n="business.f1"></li><li data-i18n="business.f2"></li><li data-i18n="business.f3"></li></ul>
+                </div>
+                <div class="biz-card">
+                    <h3 data-i18n="business.premium"></h3>
+                    <ul><li data-i18n="business.pr1"></li><li data-i18n="business.pr2"></li><li data-i18n="business.pr3"></li><li data-i18n="business.pr4"></li></ul>
+                </div>
+            </div>
+            <div class="biz-card reveal" style="margin-top:14px;">
+                <h3 data-i18n="business.b2b"></h3>
+                <ul style="display:grid;grid-template-columns:repeat(2,1fr);gap:7px;">
+                    <li data-i18n="business.b1"></li><li data-i18n="business.b2"></li><li data-i18n="business.b3"></li><li data-i18n="business.b4"></li>
+                </ul>
+            </div>
+        </div>
+    </section>
 
-<section class="cta" id="cta">
-  <div class="wrap">
-    <h2 class="display" data-i18n="cta.title"></h2>
-    <p data-i18n="cta.sub"></p>
-    <div class="cta-btns">
-      <a href="https://github.com/AbbosJabborov/cookie-boy" class="btn btn-solid" data-i18n="cta.btn1"></a>
-      <a href="#solution" class="btn btn-ghost" data-i18n="cta.btn2"></a>
-    </div>
-  </div>
-</section>
+    <section class="script-block" id="script">
+        <div class="wrap">
+            <div class="kicker" style="color:var(--mustard);" data-i18n="script.kicker"></div>
+            <h2 class="display" data-i18n="script.title"></h2>
+            <div class="script-quote reveal">
+                <p data-i18n="script.p1"></p>
+                <p data-i18n="script.p2"></p>
+                <p data-i18n="script.p3"></p>
+            </div>
+        </div>
+    </section>
 
-<footer>
-  <div class="wrap">
-    <div class="fmark" data-i18n="footer.made"></div>
-    <div class="fmark">Django REST · React 19 · PostgreSQL · Mobile-first</div>
-  </div>
-</footer>
+    <section class="cta" id="cta">
+        <div class="wrap">
+            <h2 class="display" data-i18n="cta.title"></h2>
+            <p data-i18n="cta.sub"></p>
+            <div class="cta-btns">
+                <a href="https://github.com/AbbosJabborov/cookie-boy" class="btn btn-accent" data-i18n="cta.btn1"></a>
+                <a href="#demo" class="btn btn-ghost" data-i18n="cta.btn2"></a>
+            </div>
+        </div>
+    </section>
 
-<script>
-const I18N = {
-  uz: {
-    "nav.problem":"Muammo","nav.solution":"Yechim","nav.compare":"Bozor","nav.business":"Biznes","nav.script":"Demo ssenariysi","nav.cta":"Taqdimot",
-    "hero.eyebrow":"Mintaqaviy Startap Musobaqasi — Jonli Demo",
-    "hero.title":"Muammo «buni qanday pishirsam» emas. <span class=\"accent\">«Bugun nimani pishirishga pulim yetadi.»</span>",
-    "hero.sub":"plate. haqiqiy mahalliy do'kon narxlarini, oshxonangizdagi mavjud mahsulotlarni va byudjetingizni bitta javobga birlashtiradi — pishirishni boshlashdan oldin.",
-    "hero.cta1":"Qanday ishlashini ko'ring ↓",
-    "hero.cta2":"Nega boshqa hech kim buni qilmaydi",
-    "hero.platform":"📱 Asosiy mahsulot — mobil ilova · bu sahifa faqat taqdimot uchun",
-    "phone.label":"RETSEPT","phone.dish":"Tovuqli Alfredo","phone.cost":"Taxminiy narx: 48,000 so'm",
-    "phone.item1":"Makaron — bor","phone.item2":"Sarimsoq — bor","phone.item3":"Qaymoq — sotib olish kerak","phone.item4":"Parmezan — sotib olish kerak",
-    "phone.budget":"BYUDJET: 50,000 SO'M","phone.verdict":"✓ Bugun pishirish mumkin",
-    "problem.kicker":"// MUAMMO","problem.title":"Odamlar pishirishdan oldin uchta narsani bilishmaydi.",
-    "problem.thing1":"Nima pishirish kerak","problem.thing2":"Bu qancha turadi","problem.thing3":"Uyda nima borligi",
-    "problem.result":"Natijada: odamlar oziq-ovqatga ortiqcha pul sarflaydi, mahsulotlarni isrof qiladi, tayyor ovqat buyurtma qiladi va imkoniyati yetmaydigan retseptlarni qidirib 20 daqiqa vaqt yo'qotadi.",
-    "problem.why":"<strong style=\"color:var(--paper);\">Nega aynan O'zbekiston:</strong> xalqaro retsept ilovalari bu yerda mavjud bo'lmagan tarmoqlar asosida qurilgan.",
-    "problem.none":"Ularning hech biri quyidagilarni tushunmaydi:",
-    "usp.kicker":"// NOYOB TAKLIF",
-    "usp.line":"O'zbekistondagi yagona platforma — <em>haqiqiy mahalliy do'kon narxlarini</em> oshxonangiz va byudjetingizga asoslangan tavsiyalar bilan birlashtiradi.",
-    "usp.sub":"Kaloriya emas. «Sun'iy intellekt» emas. Narxni hisoblash — haqiqiy supermarket narxlariga asoslangan.",
-    "solution.kicker":"// YECHIM","solution.title":"Nimangiz borligini belgilang. Narx qanday tushishini kuzating.",
-    "solution.p1":"plate. retsept tavsiyalarini mahalliy supermarketlardagi haqiqiy narxlar bilan bog'laydi — har bir retsept qancha turishini, nimangiz borligini va yana nima sotib olish kerakligini ko'rsatadi.",
-    "solution.p2":"Bu karta interaktiv — oshxonangizda mavjud narsalarni belgilang va hisob-kitob qanday o'zgarishini kuzating.",
-    "demo.dish":"Tovuqli Alfredo","demo.source":"Korzinka chakana narxlari asosida hisoblangan",
-    "demo.pasta":"Makaron","demo.garlic":"Sarimsoq","demo.cream":"Qaymoq","demo.parmesan":"Parmezan",
-    "demo.owned":"bor","demo.buy":"sotib olish","demo.costlabel":"Sotib olish narxi",
-    "demo.hint":"har qanday mahsulotni bosing — bor / sotib olish deb belgilang",
-    "compare.kicker":"// RAQOBATCHILAR TAHLILI","compare.title":"Boshqalar «qanday» deb javob beradi. plate. — «pulim yetadimi» deb.",
-    "compare.h1":"Xususiyat","compare.h2":"An'anaviy retsept ilovalari",
-    "compare.r1":"Retseptlar","compare.r2":"Ozuqa tarkibi","compare.r3":"Oshxona nazorati","compare.r4":"Mahalliy do'kon narxlari",
-    "compare.r5":"Ovqat narxini hisoblash","compare.r6":"Byudjetga asoslangan tavsiyalar","compare.r7":"O'zbekistonga yo'naltirilgan","compare.r8":"Aqlli xarid ro'yxati",
-    "compare.some":"Qisman","compare.limited":"Cheklangan","compare.partial":"Qisman",
-    "audience.kicker":"// KIM UCHUN","audience.title":"Maqsadli auditoriya.",
-    "audience.primary":"Asosiy","audience.p1":"Talabalar","audience.p2":"Yosh mutaxassislar","audience.p3":"Oilalar","audience.p4":"Byudjetga e'tiborli uy xo'jaliklari",
-    "audience.secondary":"Qo'shimcha","audience.s1":"Sport bilan shug'ullanuvchilar","audience.s2":"Band ishchilar","audience.s3":"Yangi boshlovchi oshpazlar",
-    "roadmap.kicker":"// YO'L XARITASI","roadmap.title":"Uch bosqich: avval O'zbekiston, keyin Markaziy Osiyo.",
-    "roadmap.phase1":"1-BOSQICH","roadmap.phase1title":"Poydevor",
-    "roadmap.p1a":"Oshxona","roadmap.p1b":"Retseptlar","roadmap.p1c":"Ovqat narxini hisoblash","roadmap.p1d":"Byudjet rejalashtiruvchi",
-    "roadmap.phase2":"2-BOSQICH","roadmap.phase2title":"Avtomatlashtirish",
-    "roadmap.p2a":"Shtrix-kod skanerlash","roadmap.p2b":"Chek skanerlash","roadmap.p2c":"Sun'iy intellekt bilan reja tuzish","roadmap.p2d":"Muddat nazorati",
-    "roadmap.phase3":"3-BOSQICH","roadmap.phase3title":"Platforma",
-    "roadmap.p3a":"Yetkazib berish integratsiyasi","roadmap.p3b":"Ozuqa bo'yicha maslahat","roadmap.p3c":"Ovozli yordamchi","roadmap.p3d":"Oilaviy oshxona sinxronizatsiyasi",
-    "business.kicker":"// BIZNES MODELI","business.title":"Freemium model, aniq B2B yo'nalishi bilan.",
-    "business.free":"Bepul","business.f1":"Retseptlar","business.f2":"Oshxona","business.f3":"Byudjetlash",
-    "business.premium":"Premium","business.pr1":"Sun'iy intellekt bilan reja tuzish","business.pr2":"Kengaytirilgan ozuqa nazorati","business.pr3":"Oilaviy hisoblar","business.pr4":"Shaxsiylashtirilgan haftalik menyular",
-    "business.b2b":"Potentsial B2B daromad","business.b1":"Do'kon tarmoqlari bilan hamkorlik","business.b2":"Homiylik qilingan mahsulotlar","business.b3":"Chakana savdo tahlili","business.b4":"Ilova ichidagi reklamalar",
-    "script.kicker":"// HAKAMLAR UCHUN DEMO SSENARIYSI","script.title":"Ikki daqiqalik hikoya.",
-    "script.p1":"«Tasavvur qiling: siz Toshkentdagi talabasiz va bu hafta ovqatga atigi 80,000 so'mingiz qoldi. Mavjud retsept ilovalari lazanyani qanday pishirishni aytib berishi mumkin — lekin pulingiz yetadimi, buni aytib bera olmaydi.»",
-    "script.p2":"«plate. bilan siz byudjetingizni belgilaysiz, uyda nima borligini ilovaga aytasiz, u esa mahalliy supermarket narxlaridan foydalangan holda tayyorlay oladigan taomlarni tavsiya qiladi. Har bir retsept umumiy taxminiy narxni, oshxonangizda nima borligini va yana nima sotib olish kerakligini aniq ko'rsatadi.»",
-    "script.p3":"«'Nima pishiray?' deb so'rash o'rniga, plate. muhimroq savolga javob beradi: 'Bugun byudjetim doirasida nimani pishira olaman?'»",
-    "script.note":"Pozitsiyalash bo'yicha eslatma: buni retsept ilovasi sifatida taqdim etmang. Bu aqlli ovqat rejalashtirish va oziq-ovqat byudjetlash platformasi — retseptlar esa faqat bitta funksiya.",
-    "cta.title":"Aqlliroq pishiring. Kamroq sarflang. Kamroq isrof qiling.",
-    "cta.sub":"plate. O'zbekistondagi har bir oilaga plitani yoqishdan oldin bitta savolga javob berishga yordam beradi: men bugun aslida nimani pishira olaman?",
-    "cta.btn1":"Repozitoriyni ko'rish","cta.btn2":"Demoni qayta ko'rish",
-    "footer.made":"plate. — Tonto Studio tomonidan yaratilgan"
-  },
-  en: {
-    "nav.problem":"Problem","nav.solution":"Solution","nav.compare":"Landscape","nav.business":"Business","nav.script":"Demo script","nav.cta":"Pitch deck",
-    "hero.eyebrow":"Regional Startup Competition — Live Demo",
-    "hero.title":"Not \"how do I cook this.\" <span class=\"accent\">\"What can I afford to cook today.\"</span>",
-    "hero.sub":"plate. combines real local grocery prices, what's already in your kitchen, and your budget into one answer — before you ever start cooking.",
-    "hero.cta1":"See it work ↓",
-    "hero.cta2":"Why nothing else does this",
-    "hero.platform":"📱 Flagship product is mobile · this page exists purely for the pitch",
-    "phone.label":"RECIPE","phone.dish":"Chicken Alfredo","phone.cost":"Estimated cost: 48,000 UZS",
-    "phone.item1":"Pasta — already have","phone.item2":"Garlic — already have","phone.item3":"Cream — need to buy","phone.item4":"Parmesan — need to buy",
-    "phone.budget":"BUDGET: 50,000 UZS","phone.verdict":"✓ Can cook today",
-    "problem.kicker":"// THE PROBLEM","problem.title":"Three things people don't know before they cook.",
-    "problem.thing1":"What to cook","problem.thing2":"How much it will cost","problem.thing3":"What they already have at home",
-    "problem.result":"The result: people overspend on groceries, waste food, order takeout instead, and burn 20 minutes searching for recipes they can't actually afford.",
-    "problem.why":"<strong style=\"color:var(--paper);\">Why Uzbekistan specifically:</strong> international recipe apps are built around chains that don't exist here.",
-    "problem.none":"None of them understand:",
-    "usp.kicker":"// USP",
-    "usp.line":"The only recipe platform in Uzbekistan combining <em>real local grocery prices</em> with recommendations based on your pantry and your budget.",
-    "usp.sub":"Not calories. Not \"AI.\" Price estimation — grounded in real supermarket prices.",
-    "solution.kicker":"// THE SOLUTION","solution.title":"Tap what you own. Watch the real cost fall.",
-    "solution.p1":"plate. connects recipe recommendations to real grocery prices from local supermarkets — so every recipe shows what it costs, what you already have, and what's left to buy.",
-    "solution.p2":"This card is live — toggle what's already in your kitchen and watch the estimate change.",
-    "demo.dish":"Chicken Alfredo","demo.source":"estimated using Korzinka retail prices",
-    "demo.pasta":"Pasta","demo.garlic":"Garlic","demo.cream":"Cream","demo.parmesan":"Parmesan",
-    "demo.owned":"owned","demo.buy":"buy","demo.costlabel":"Cost to buy",
-    "demo.hint":"tap any ingredient to mark owned / need to buy",
-    "compare.kicker":"// COMPETITIVE ANALYSIS","compare.title":"Everyone else answers \"how.\" plate. answers \"can I afford it.\"",
-    "compare.h1":"Feature","compare.h2":"Traditional recipe apps",
-    "compare.r1":"Recipes","compare.r2":"Nutrition","compare.r3":"Pantry management","compare.r4":"Local grocery prices",
-    "compare.r5":"Meal cost estimation","compare.r6":"Budget-based recommendations","compare.r7":"Uzbekistan focus","compare.r8":"Smart shopping list",
-    "compare.some":"Some","compare.limited":"Limited","compare.partial":"Partial",
-    "audience.kicker":"// WHO IT'S FOR","audience.title":"Target audience.",
-    "audience.primary":"Primary","audience.p1":"Students","audience.p2":"Young professionals","audience.p3":"Families","audience.p4":"Budget-conscious households",
-    "audience.secondary":"Secondary","audience.s1":"Fitness enthusiasts","audience.s2":"Busy workers","audience.s3":"Beginner cooks",
-    "roadmap.kicker":"// ROADMAP","roadmap.title":"Three phases, Uzbekistan first, Central Asia next.",
-    "roadmap.phase1":"PHASE 1","roadmap.phase1title":"Foundation",
-    "roadmap.p1a":"Pantry","roadmap.p1b":"Recipes","roadmap.p1c":"Meal cost estimation","roadmap.p1d":"Budget planner",
-    "roadmap.phase2":"PHASE 2","roadmap.phase2title":"Automation",
-    "roadmap.p2a":"Barcode scanning","roadmap.p2b":"Receipt scanning","roadmap.p2c":"AI meal planning","roadmap.p2d":"Expiration tracking",
-    "roadmap.phase3":"PHASE 3","roadmap.phase3title":"Platform",
-    "roadmap.p3a":"Grocery delivery integration","roadmap.p3b":"Nutrition coaching","roadmap.p3c":"Voice assistant","roadmap.p3d":"Family pantry sync",
-    "business.kicker":"// BUSINESS MODEL","business.title":"Freemium, with a clear B2B path.",
-    "business.free":"Free","business.f1":"Recipes","business.f2":"Pantry","business.f3":"Budgeting",
-    "business.premium":"Premium","business.pr1":"AI meal planning","business.pr2":"Advanced nutrition tracking","business.pr3":"Family accounts","business.pr4":"Personalized weekly meal plans",
-    "business.b2b":"Potential B2B revenue","business.b1":"Grocery chain partnerships","business.b2":"Sponsored products","business.b3":"Retail analytics","business.b4":"In-app promotions",
-    "script.kicker":"// JUDGE-FRIENDLY DEMO SCRIPT","script.title":"The two-minute story.",
-    "script.p1":"\"Imagine you're a university student in Tashkent with only 80,000 UZS left for food this week. Existing recipe apps can tell you how to cook lasagna — but they can't tell you whether you can actually afford it.\"",
-    "script.p2":"\"With plate., you set your budget, tell the app what you already have at home, and it recommends meals you can make using local supermarket prices. Every recipe shows the estimated total cost, what's already in your pantry, and exactly what you still need to buy.\"",
-    "script.p3":"\"Instead of asking 'What should I cook?', plate. answers the more important question: 'What can I cook today within my budget?'\"",
-    "script.note":"Positioning note: don't pitch this as a recipe app. It's a smart meal planning and grocery budgeting platform — recipes are one feature.",
-    "cta.title":"Cook smarter. Spend less. Waste less.",
-    "cta.sub":"plate. helps every household in Uzbekistan answer one question before they ever turn on the stove: what can I actually afford to cook today?",
-    "cta.btn1":"View the repo","cta.btn2":"Replay the demo",
-    "footer.made":"plate. — built by Tonto Studio"
-  }
-};
+    <footer>
+        <div class="wrap">
+            <div class="fmark" data-i18n="footer.made"></div>
+            <div class="fmark">plate. © 2026</div>
+        </div>
+    </footer>
 
-let currentLang = 'uz';
-const CURRENCY = { uz: "so'm", en: "UZS" };
+    <script>
+        const I18N = {
+            uz: {
+                "nav.story": "Muammo",
+                "nav.how": "Yechim",
+                "nav.features": "Xususiyatlar",
+                "nav.compare": "Bozor",
+                "nav.roadmap": "Yo'l xaritasi",
+                "nav.cta": "Demo",
+                "hero.eyebrow": "AI Oshpaz Yordamchisi",
+                "hero.title": "Oshxonangizdagi <span class=\"accent\">sun'iy intellekt.</span>",
+                "hero.sub": "plate. — mahalliy supermarket narxlarini, oshxonangizdagi mahsulotlarni va real vaqtda ovqat tayyorlash bo'yicha yo'riqnomani birlashtirgan AI oshpaz yordamchisi. Retseptlar — bu faqat bitta modul.",
+                "hero.cta1": "Qanday ishlashini ko'ring ↓",
+                "hero.cta2": "Nima uchun bu muhim",
+                "phone.step": "4-QADAM",
+                "phone.step_title": "Sarimsoq qo'shing.",
+                "phone.step_detail": "Xushbo'y hid chiqquncha qovuring (taxminan 45 soniya).",
+                "phone.timer_label": "qoldi",
+                "phone.prev": "← Oldingi",
+                "phone.next": "Keyingi →",
+                "story.kicker": "// HAQIQIY MUAMMO",
+                "story.title": "O'tgan oy Tovuqli Alfredo pishirmoqchi bo'ldim.",
+                "story.p1": "YouTube'dan retsept topdim. Ingredientlar ro'yxatini ko'chirib oldim. Korzinkaga bordim. Hammasi yaxshi ketayotgandi... toki <span class=\"highlight\">Parmezan topilmaguncha.</span>",
+                "story.p2": "Google'da alternativalarni qidirdim. Ularning ham hech biri yo'q edi. Pishloq tokchasi oldida turib, har bir pishloq nomini Google'ga yozib chiqdim: <span class=\"highlight\">\"Maasdam Parmesan o'rnini bosa oladimi?\"</span>",
+                "story.p3": "Keyin og'ir qaymoq navbati keldi. Retsept ingliz tilida. Supermarketdagi yorliqlar o'zbek tilida. <span class=\"highlight\">\"Heavy cream\" nima ekanligini, O'zbekistonda umuman sotilishini, \"qaymoq\" to'g'ri kelishini, 10%, 20% yoki 35% kerakligini bilmasdim.</span>",
+                "story.p4": "20 daqiqalik xarid bir soatdan ortiq davom etdi. Va bu har safar xorijiy retsept qidirganda takrorlanadi. <span class=\"highlight\">Ovqat tayyorlash oshxonadan oldin — supermarketdan boshlanadi.</span>",
+                "story.pain1_title": "Retseptlar boshqa mamlakatlar uchun",
+                "story.pain1_desc": "Ingredientlar, o'lchovlar va mahsulot nomlari — hammasi O'zbekiston uchun moslashtirilmagan.",
+                "story.pain2_title": "Mahalliy alternativalar noma'lum",
+                "story.pain2_desc": "Hech qaysi ilova \"Parmezan yo'q bo'lsa, Grana Padano o'rnini bosadi\" deb aytmaydi.",
+                "story.pain3_title": "Narx kalkulyatsiyasi yo'q",
+                "story.pain3_desc": "Kassagacha yetib borguncha ovqat qancha turishini bilmaysiz. Byudjetdan chiqib ketish oddiy hol.",
+                "usp.kicker": "// ASOSIY TAKLIF",
+                "usp.line": "O'zbekistondagi birinchi <em>AI oshpaz yordamchisi</em> — mahalliy supermarket narxlari, ingredient almashtirish va real vaqtda ovqat tayyorlash bo'yicha yo'riqnoma bilan.",
+                "usp.sub": "Bu retseptlar ilovasi emas. Bu uyda ovqat tayyorlash uchun AI operatsion tizimi. Retseptlar — faqat bitta modul. Xarid qilish, narx solishtirish, ingredient almashtirish va ovqat tayyorlash bo'yicha yo'riqnoma — alohida modullar.",
+                "how.kicker": "// QANDAY ISHLAYDI",
+                "how.title": "Uch qadam. Har safar.",
+                "how.p1": "plate. ovqat tayyorlashning har bir bosqichini qamrab oladi — nima pishirishni tanlashdan tortib, to oxirgi qadamgacha.",
+                "how.p2": "AI har bir ingredientni tekshiradi, narxini ko'rsatadi, alternativalarni taklif qiladi va ovqat tayyorlash jarayonida sizga yo'l ko'rsatadi.",
+                "how.step1_title": "Retsept tanlang yoki mahsulotlaringizni kiriting",
+                "how.step1_desc": "Nima pishirishni xohlaysiz? Yoki uyda nimalar borligini ayting — plate. mos retseptlarni topib beradi.",
+                "how.step2_title": "AI ingredientlarni tekshiradi va alternativalarni taklif qiladi",
+                "how.step2_desc": "Har bir ingredient yaqin atrofdagi supermarketlarda mavjudligi tekshiriladi. Topilmasa, AI eng yaqin alternativani tavsiya qiladi va narx farqini ko'rsatadi.",
+                "how.step3_title": "Real vaqtda ovqat tayyorlash bo'yicha yo'riqnoma",
+                "how.step3_desc": "AI ovqat tayyorlash jarayonida sizga hamrohlik qiladi. Savollaringizga javob beradi, taymerni boshqaradi va muammolarni hal qiladi.",
+                "features.kicker": "// XUSUSIYATLAR",
+                "features.title": "Nima uchun bu kuchli.",
+                "features.f1_title": "AI Oshpaz Yordamchisi ⭐",
+                "features.f1_desc": "Ovqat tayyorlash vaqtida AI sizning qaysi bosqichda ekanligingizni biladi. \"Sousim quyuqroq bo'lib qoldi\" — AI aniq maslahat beradi. ChatGPT emas — real vaqtda ovqat tayyorlash bo'yicha yo'riqnoma.",
+                "features.f2_title": "Adaptiv Taymer",
+                "features.f2_desc": "An'anaviy retseptlar \"10 daqiqa pishiring\" deydi. plate. so'raydi: \"Piyozingiz qanday rangda?\" Oltin ranggacha davom eting. Ovqat soatga emas — ovqatga moslashadi.",
+                "features.f3_title": "Aqlli Xarid Yordamchisi",
+                "features.f3_desc": "ArzonApteka kabi, lekin oziq-ovqat uchun. Yaqin atrofdagi supermarketlarda narxlarni solishtiring, mavjudlikni tekshiring va qaysi do'konga borishni tanlang.",
+                "features.f4_title": "Byudjet Intellekti",
+                "features.f4_desc": "Har bir alternativ mahsulot tanlovi ovqatning umumiy narxini yangilaydi. Kassada emas — oldindan bilib oling. \"Bu alternativ ovqat narxini 17,000 so'mga oshiradi.\"",
+                "features.f5_title": "Shaxsiylashtirilgan Tajriba",
+                "features.f5_desc": "Vegetarian, halol, laktoza intoleransi, glyuten-free — dietary imtiyozlaringizni belgilang va barcha retseptlar avtomatik moslashadi.",
+                "features.f6_title": "Hayot Tarzi Filtrlari",
+                "features.f6_desc": "Byudjetga mos, Oshiqchalar uchun, Yuqori protein, Hashamatli, Talaba taomlari, 30 daqiqa yoki kamroq, Bir qozonda, Bolalar uchun — qidiruv hayotingizga moslashadi.",
+                "demo.kicker": "// INTERAKTIV DEMO",
+                "demo.title": "Oshxonangizdagi mahsulotlarni belgilang.",
+                "demo.desc": "Quyidagi kartadagi ingredientlarni bosing — oshxonangizda borlarini belgilang. AI yo'q mahsulotlar uchun alternativalarni taklif qiladi va umumiy narx qanday o'zgarishini ko'ring.",
+                "demo.dish": "Tovuqli Alfredo",
+                "demo.source": "Korzinka & Makro narxlari asosida hisoblangan",
+                "demo.pasta": "Makaron",
+                "demo.garlic": "Sarimsoq",
+                "demo.cream": "Og'ir qaymoq (35%)",
+                "demo.parmesan": "Parmezan",
+                "demo.owned": "bor",
+                "demo.buy": "sotib olish",
+                "demo.ai_cream": "🤖 AI: \"Pishirish qaymog'i\" ham mos keladi — 22,000 so'm",
+                "demo.ai_parmesan": "🤖 AI: Grana Padano alternativasi — 28,000 so'm (Korzinkada mavjud)",
+                "demo.costlabel": "Sotib olish narxi",
+                "demo.hint": "ingredientlarni bosing — bor / sotib olish deb belgilang",
+                "compare.kicker": "// BOZOR TAHLILI",
+                "compare.title": "Boshqalar \"qanday\" deb javob beradi. plate. — \"pulim yetadimi va nima bilan almashtiraman\" deb.",
+                "compare.h1": "Xususiyat",
+                "compare.h2": "An'anaviy retsept ilovalari",
+                "compare.r1": "Retseptlar",
+                "compare.r2": "Ozuqa tarkibi",
+                "compare.r3": "Mahalliy supermarket narxlari",
+                "compare.r4": "AI ingredient almashtirish",
+                "compare.r5": "Real vaqtda ovqat tayyorlash bo'yicha AI yordam",
+                "compare.r6": "Adaptiv taymer",
+                "compare.r7": "O'zbekiston bozori uchun moslashtirilgan",
+                "compare.some": "Qisman",
+                "audience.kicker": "// KIM UCHUN",
+                "audience.title": "Maqsadli auditoriya.",
+                "audience.primary": "Asosiy",
+                "audience.p1": "Talabalar",
+                "audience.p2": "Yosh mutaxassislar",
+                "audience.p3": "Oilalar",
+                "audience.p4": "Byudjetga e'tiborli uy xo'jaliklari",
+                "audience.secondary": "Qo'shimcha",
+                "audience.s1": "Sport bilan shug'ullanuvchilar",
+                "audience.s2": "Band ishchilar",
+                "audience.s3": "Yangi boshlovchi oshpazlar",
+                "roadmap.kicker": "// YO'L XARITASI",
+                "roadmap.title": "Uch bosqich: avval O'zbekiston, keyin Markaziy Osiyo.",
+                "roadmap.phase1": "1-BOSQICH",
+                "roadmap.phase1title": "Hackathon MVP",
+                "roadmap.p1a": "Oshxona",
+                "roadmap.p1b": "Retsept tavsiyalari",
+                "roadmap.p1c": "Mahalliy supermarket narxlari",
+                "roadmap.p1d": "AI ingredient almashtirish",
+                "roadmap.phase2": "2-BOSQICH",
+                "roadmap.phase2title": "AI Oshpaz",
+                "roadmap.p2a": "AI ovqat tayyorlash yordamchisi",
+                "roadmap.p2b": "Adaptiv taymer",
+                "roadmap.p2c": "AI ingredient tushuntirishlari",
+                "roadmap.p2d": "Shaxsiy dietary imtiyozlar",
+                "roadmap.phase3": "3-BOSQICH",
+                "roadmap.phase3title": "Platforma",
+                "roadmap.p3a": "Shtrix-kod skanerlash",
+                "roadmap.p3b": "Chek skanerlash",
+                "roadmap.p3c": "Ovozli rejim",
+                "roadmap.p3d": "Oilaviy oshxona sinxronizatsiyasi",
+                "business.kicker": "// BIZNES MODELI",
+                "business.title": "Freemium model, aniq B2B yo'nalishi bilan.",
+                "business.free": "Bepul",
+                "business.f1": "Retseptlar",
+                "business.f2": "Oshxona",
+                "business.f3": "Byudjetlash",
+                "business.premium": "Premium",
+                "business.pr1": "AI ovqat rejalashtirish",
+                "business.pr2": "Kengaytirilgan ozuqa nazorati",
+                "business.pr3": "Oilaviy hisoblar",
+                "business.pr4": "Shaxsiylashtirilgan haftalik menyular",
+                "business.b2b": "Potentsial B2B daromad",
+                "business.b1": "Do'kon tarmoqlari bilan hamkorlik",
+                "business.b2": "Homiylik qilingan mahsulotlar",
+                "business.b3": "Chakana savdo tahlili",
+                "business.b4": "Ilova ichidagi reklamalar",
+                "script.kicker": "// DEMO SSENARIYSI",
+                "script.title": "Ikki daqiqalik hikoya.",
+                "script.p1": "\"Tasavvur qiling: siz Toshkentdagi talabasiz va bu hafta ovqatga atigi 80,000 so'mingiz qoldi. Mavjud retsept ilovalari lazanyani qanday pishirishni aytib berishi mumkin — lekin pulingiz yetadimi yoki ingredientlarni nima bilan almashtirishni aytib bera olmaydi.\"",
+                "script.p2": "\"plate. bilan siz byudjetingizni belgilaysiz, uyda nima borligini ilovaga aytasiz, AI esa mahalliy supermarket narxlaridan foydalangan holda tayyorlay oladigan taomlarni tavsiya qiladi. Har bir retsept uchun AI mavjud bo'lmagan ingredientlarning alternativalarini taklif qiladi va narx farqini aniq ko'rsatadi.\"",
+                "script.p3": "\"'Nima pishiray?' deb so'rash o'rniga, plate. muhim savollarga javob beradi: 'Bugun byudjetim doirasida nimani pishira olaman? Qaysi ingredientlarni nima bilan almashtira olaman? Bu menga qanchaga tushadi?'\"",
+                "cta.title": "Aqlliroq pishiring. Kamroq sarflang. Hech narsani isrof qilmang.",
+                "cta.sub": "plate. — uyda ovqat tayyorlash uchun AI operatsion tizimi. Retseptlar, xarid, narx solishtirish, ingredient almashtirish va real vaqtda ovqat tayyorlash bo'yicha yo'riqnoma — barchasi bitta platformada.",
+                "cta.btn1": "Repozitoriyni ko'rish",
+                "cta.btn2": "Demoni qayta ko'rish",
+                "footer.made": "plate. — Claive tomonidan yaratilgan"
+            },
+            en: {
+                "nav.story": "Problem",
+                "nav.how": "Solution",
+                "nav.features": "Features",
+                "nav.compare": "Landscape",
+                "nav.roadmap": "Roadmap",
+                "nav.cta": "Demo",
+                "hero.eyebrow": "AI Cooking Assistant",
+                "hero.title": "An <span class=\"accent\">AI chef</span> in your kitchen.",
+                "hero.sub": "plate. is an AI cooking assistant that combines local supermarket prices, your pantry, and real-time cooking guidance. Recipes are just one module — the real power is the AI that helps you shop, substitute, and cook.",
+                "hero.cta1": "See how it works ↓",
+                "hero.cta2": "Why this matters",
+                "phone.step": "STEP 4",
+                "phone.step_title": "Add garlic.",
+                "phone.step_detail": "Cook until fragrant (around 45 seconds).",
+                "phone.timer_label": "remaining",
+                "phone.prev": "← Previous",
+                "phone.next": "Next →",
+                "story.kicker": "// THE REAL PROBLEM",
+                "story.title": "Last month I wanted to cook Chicken Alfredo.",
+                "story.p1": "I found a recipe on YouTube. Copied the ingredient list. Went to the supermarket. Everything was going fine... until <span class=\"highlight\">there was no Parmesan.</span>",
+                "story.p2": "I Googled alternatives. None of those were available either. I stood in front of the cheese shelf manually typing every cheese name into Google: <span class=\"highlight\">\"Is Maasdam similar to Parmesan?\"</span>",
+                "story.p3": "Then came heavy cream. The recipe was in English. The supermarket labels were in Uzbek. <span class=\"highlight\">I didn't know what heavy cream is called, whether Uzbekistan even sells it, whether \"qaymoq\" is correct, whether I needed 10%, 20%, or 35%.</span>",
+                "story.p4": "A shopping trip that should have taken 20 minutes became over an hour. And that happens every time someone tries a foreign recipe. <span class=\"highlight\">Cooking starts before the kitchen — it starts in the supermarket.</span>",
+                "story.pain1_title": "Recipes written for other countries",
+                "story.pain1_desc": "Ingredients, measurements, and product names — none are adapted for Uzbekistan's supermarkets.",
+                "story.pain2_title": "No local alternatives",
+                "story.pain2_desc": "No app tells you \"Parmesan isn't available, but Grana Padano works as a substitute.\"",
+                "story.pain3_title": "Zero cost estimation",
+                "story.pain3_desc": "You don't know how much a meal will cost until you reach the checkout. Going over budget is the norm.",
+                "usp.kicker": "// UNIQUE VALUE",
+                "usp.line": "The first <em>AI cooking assistant</em> in Uzbekistan — with real supermarket prices, intelligent ingredient substitution, and real-time cooking guidance.",
+                "usp.sub": "This is not a recipe app. This is an AI operating system for home cooking. Recipes are one module. Shopping is another. Price comparison is another. Ingredient substitution is another. Cooking guidance is another.",
+                "how.kicker": "// HOW IT WORKS",
+                "how.title": "Three steps. Every time.",
+                "how.p1": "plate. covers every stage of cooking — from deciding what to make to the final step at the stove.",
+                "how.p2": "AI checks every ingredient, shows prices, suggests alternatives, and guides you through cooking in real time.",
+                "how.step1_title": "Choose a recipe or enter what you have",
+                "how.step1_desc": "What do you want to cook? Or tell plate. what's in your pantry — it'll find matching recipes.",
+                "how.step2_title": "AI checks ingredients and suggests substitutes",
+                "how.step2_desc": "Every ingredient is checked against nearby supermarkets. If something's missing, AI recommends the closest available alternative and shows the price difference.",
+                "how.step3_title": "Real-time AI cooking guidance",
+                "how.step3_desc": "AI accompanies you during cooking. It knows your current step, answers questions, manages timers, and solves problems as they happen.",
+                "features.kicker": "// FEATURES",
+                "features.title": "What makes this powerful.",
+                "features.f1_title": "AI Cooking Assistant ⭐",
+                "features.f1_desc": "During cooking, AI always knows your current recipe, step, and elapsed time. \"My sauce looks too thick\" — AI gives precise advice. Not ChatGPT — real-time cooking guidance.",
+                "features.f2_title": "Adaptive Timer",
+                "features.f2_desc": "Traditional recipes say \"cook for 10 minutes.\" plate. asks: \"What color is your onion?\" Keep going until golden. Cooking adapts to the food — not the clock.",
+                "features.f3_title": "Smart Shopping Assistant",
+                "features.f3_desc": "Like a price comparison tool, but for groceries. Compare prices across nearby supermarkets, check availability, and choose where to shop — all on a map.",
+                "features.f4_title": "Budget Intelligence",
+                "features.f4_desc": "Every substitute updates the total meal price instantly. Know before checkout: \"This alternative adds 17,000 UZS to the meal.\" No surprises at the register.",
+                "features.f5_title": "Personalized Experience",
+                "features.f5_desc": "Vegetarian, halal, lactose intolerant, gluten-free — set your dietary preferences and all recipes adapt automatically.",
+                "features.f6_title": "Lifestyle Filters",
+                "features.f6_desc": "Budget Friendly, Date Night, High Protein, Luxury, Student Meals, 30 Minutes or Less, One Pot, Kids Friendly — search adapts to your life.",
+                "demo.kicker": "// INTERACTIVE DEMO",
+                "demo.title": "Tap what you own. Watch the cost update.",
+                "demo.desc": "Click the ingredients below to mark what's already in your kitchen. AI suggests alternatives for missing items and the total cost updates instantly.",
+                "demo.dish": "Chicken Alfredo",
+                "demo.source": "estimated using Korzinka & Makro prices",
+                "demo.pasta": "Pasta",
+                "demo.garlic": "Garlic",
+                "demo.cream": "Heavy Cream (35%)",
+                "demo.parmesan": "Parmesan",
+                "demo.owned": "owned",
+                "demo.buy": "buy",
+                "demo.ai_cream": "🤖 AI: \"Cooking cream\" works too — 22,000 UZS",
+                "demo.ai_parmesan": "🤖 AI: Grana Padano alternative — 28,000 UZS (available at Korzinka)",
+                "demo.costlabel": "Cost to buy",
+                "demo.hint": "tap any ingredient to toggle owned / need to buy",
+                "compare.kicker": "// COMPETITIVE ANALYSIS",
+                "compare.title": "Others answer \"how.\" plate. answers \"can I afford it and what can I substitute.\"",
+                "compare.h1": "Feature",
+                "compare.h2": "Traditional recipe apps",
+                "compare.r1": "Recipes",
+                "compare.r2": "Nutrition info",
+                "compare.r3": "Local supermarket prices",
+                "compare.r4": "AI ingredient substitution",
+                "compare.r5": "Real-time AI cooking guidance",
+                "compare.r6": "Adaptive timer",
+                "compare.r7": "Uzbekistan market adaptation",
+                "compare.some": "Partial",
+                "audience.kicker": "// WHO IT'S FOR",
+                "audience.title": "Target audience.",
+                "audience.primary": "Primary",
+                "audience.p1": "Students",
+                "audience.p2": "Young professionals",
+                "audience.p3": "Families",
+                "audience.p4": "Budget-conscious households",
+                "audience.secondary": "Secondary",
+                "audience.s1": "Fitness enthusiasts",
+                "audience.s2": "Busy workers",
+                "audience.s3": "Beginner cooks",
+                "roadmap.kicker": "// ROADMAP",
+                "roadmap.title": "Three phases: Uzbekistan first, Central Asia next.",
+                "roadmap.phase1": "PHASE 1",
+                "roadmap.phase1title": "Hackathon MVP",
+                "roadmap.p1a": "Pantry",
+                "roadmap.p1b": "Recipe recommendations",
+                "roadmap.p1c": "Local supermarket prices",
+                "roadmap.p1d": "AI ingredient substitution",
+                "roadmap.phase2": "PHASE 2",
+                "roadmap.phase2title": "AI Chef",
+                "roadmap.p2a": "AI cooking assistant",
+                "roadmap.p2b": "Adaptive cooking timer",
+                "roadmap.p2c": "AI ingredient explanations",
+                "roadmap.p2d": "Personalized dietary preferences",
+                "roadmap.phase3": "PHASE 3",
+                "roadmap.phase3title": "Platform",
+                "roadmap.p3a": "Barcode scanner",
+                "roadmap.p3b": "Receipt scanner",
+                "roadmap.p3c": "Voice cooking mode",
+                "roadmap.p3d": "Family pantry sync",
+                "business.kicker": "// BUSINESS MODEL",
+                "business.title": "Freemium, with a clear B2B path.",
+                "business.free": "Free",
+                "business.f1": "Recipes",
+                "business.f2": "Pantry",
+                "business.f3": "Budgeting",
+                "business.premium": "Premium",
+                "business.pr1": "AI meal planning",
+                "business.pr2": "Advanced nutrition tracking",
+                "business.pr3": "Family accounts",
+                "business.pr4": "Personalized weekly meal plans",
+                "business.b2b": "Potential B2B revenue",
+                "business.b1": "Grocery chain partnerships",
+                "business.b2": "Sponsored products",
+                "business.b3": "Retail analytics",
+                "business.b4": "In-app promotions",
+                "script.kicker": "// DEMO SCRIPT",
+                "script.title": "The two-minute story.",
+                "script.p1": "\"Imagine you're a university student in Tashkent with only 80,000 UZS left for food this week. Existing recipe apps can tell you how to cook lasagna — but they can't tell you whether you can afford it or what to substitute when ingredients are missing.\"",
+                "script.p2": "\"With plate., you set your budget, tell the app what you have at home, and AI recommends meals using local supermarket prices. For every unavailable ingredient, AI suggests the closest alternative and shows exactly how it affects the total cost.\"",
+                "script.p3": "\"Instead of asking 'What should I cook?', plate. answers the questions that actually matter: 'What can I cook today within my budget? What can I substitute? How much will it actually cost me?'\"",
+                "cta.title": "Cook smarter. Spend less. Waste nothing.",
+                "cta.sub": "plate. is an AI operating system for home cooking. Recipes, shopping, price comparison, ingredient substitution, and real-time cooking guidance — all in one platform.",
+                "cta.btn1": "View the repo",
+                "cta.btn2": "Replay the demo",
+                "footer.made": "plate. — built by Claive"
+            }
+        };
 
-function applyLang(lang){
-  currentLang = lang;
-  document.documentElement.lang = lang;
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (I18N[lang][key] !== undefined) el.textContent = I18N[lang][key];
-  });
-  document.querySelectorAll('[data-i18n-html]').forEach(el => {
-    const key = el.getAttribute('data-i18n-html');
-    if (I18N[lang][key] !== undefined) el.innerHTML = I18N[lang][key];
-  });
-  document.querySelectorAll('.lang-btn').forEach(b => {
-    b.classList.toggle('active', b.dataset.lang === lang);
-  });
-  recalc();
-}
+        let currentLang = 'uz';
+        const CURRENCY = { uz: "so'm", en: "UZS" };
 
-document.querySelectorAll('.lang-btn').forEach(btn => {
-  btn.addEventListener('click', () => applyLang(btn.dataset.lang));
-});
+        function applyLang(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (I18N[lang][key] !== undefined) el.textContent = I18N[lang][key];
+            });
+            document.querySelectorAll('[data-i18n-html]').forEach(el => {
+                const key = el.getAttribute('data-i18n-html');
+                if (I18N[lang][key] !== undefined) el.innerHTML = I18N[lang][key];
+            });
+            document.querySelectorAll('.lang-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.lang === lang);
+            });
+            recalc();
+        }
 
-// Demo card interactivity
-const items = document.querySelectorAll('#demoList .demo-item');
-const totalEl = document.getElementById('demoTotal');
-const verdictEl = document.getElementById('demoVerdict');
-const BUDGET = 50000;
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+        });
 
-function fmt(n){ return n.toLocaleString('en-US') + ' ' + CURRENCY[currentLang]; }
+        const items = document.querySelectorAll('#demoList .demo-item');
+        const totalEl = document.getElementById('demoTotal');
+        const verdictEl = document.getElementById('demoVerdict');
+        const BUDGET = 80000;
 
-function recalc(){
-  let total = 0;
-  items.forEach(item => {
-    if (!item.classList.contains('owned')) total += parseInt(item.dataset.price, 10);
-  });
-  totalEl.textContent = total.toLocaleString('en-US');
-  const within = total <= BUDGET;
-  verdictEl.className = 'demo-verdict ' + (within ? 'good' : 'bad');
-  if (currentLang === 'uz'){
-    verdictEl.textContent = within
-      ? '✓ ' + fmt(BUDGET) + ' byudjetingiz doirasida — bugun pishirish mumkin'
-      : '✕ ' + fmt(BUDGET) + ' byudjetdan ' + fmt(total - BUDGET) + ' ga oshib ketdi';
-  } else {
-    verdictEl.textContent = within
-      ? '✓ Within your ' + fmt(BUDGET) + ' budget — can cook today'
-      : '✕ Over your ' + fmt(BUDGET) + ' budget by ' + fmt(total - BUDGET);
-  }
-}
+        function fmt(n) { return n.toLocaleString('en-US') + ' ' + CURRENCY[currentLang]; }
 
-items.forEach(item => {
-  item.addEventListener('click', () => {
-    item.classList.toggle('owned');
-    const box = item.querySelector('.box');
-    const tag = item.querySelector('.itag');
-    const owned = item.classList.contains('owned');
-    box.textContent = owned ? '✓' : '';
-    tag.textContent = I18N[currentLang][owned ? 'demo.owned' : 'demo.buy'];
-    recalc();
-  });
-});
+        function recalc() {
+            let total = 0;
+            items.forEach(item => {
+                if (!item.classList.contains('owned')) total += parseInt(item.dataset.price, 10);
+            });
+            totalEl.textContent = total.toLocaleString('en-US');
+            const within = total <= BUDGET;
+            verdictEl.className = 'demo-verdict ' + (within ? 'good' : 'bad');
+            if (currentLang === 'uz') {
+                verdictEl.textContent = within ?
+                    '✓ ' + fmt(BUDGET) + ' byudjetingiz doirasida — bugun pishirish mumkin' :
+                    '✕ ' + fmt(BUDGET) + ' byudjetdan ' + fmt(total - BUDGET) + ' ga oshib ketdi';
+            } else {
+                verdictEl.textContent = within ?
+                    '✓ Within your ' + fmt(BUDGET) + ' budget — can cook today' :
+                    '✕ Over your ' + fmt(BUDGET) + ' budget by ' + fmt(total - BUDGET);
+            }
+        }
 
-// Scroll reveal
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-}, { threshold: 0.15 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('owned');
+                const box = item.querySelector('.box');
+                const tag = item.querySelector('.itag');
+                const owned = item.classList.contains('owned');
+                box.textContent = owned ? '✓' : '';
+                tag.textContent = I18N[currentLang][owned ? 'demo.owned' : 'demo.buy'];
+                recalc();
+            });
+        });
 
-// init
-applyLang('uz');
-</script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+        applyLang('uz');
+    </script>
 </body>
 </html>
