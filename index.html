@@ -137,6 +137,27 @@
 
   /* Timer demo */
   .timer-card{ background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:26px; margin-top:24px; text-align:center; }
+
+  /* Dark cooking-screen phone mockup */
+  .phone-dark{ width:258px; margin:0 auto; background:#000; border-radius:34px; padding:12px; box-shadow:0 40px 70px -30px rgba(22,22,17,0.5); }
+  .phone-dark .phone-screen-dark{ background:#141414; border-radius:24px; overflow:hidden; height:490px; display:flex; flex-direction:column; color:#fff; }
+  .phone-dark .phone-status-dark{ display:flex; justify-content:space-between; padding:12px 18px 0; font-family:'IBM Plex Mono'; font-size:10.5px; color:rgba(255,255,255,0.45); }
+  .cook-video{ position:relative; margin:14px 14px 0; height:140px; border-radius:16px; background:#000; overflow:hidden; flex-shrink:0; }
+  .cook-live{ position:absolute; top:10px; right:10px; background:var(--tomato); color:#fff; font-family:'IBM Plex Mono'; font-size:9.5px; font-weight:700; padding:4px 9px; border-radius:100px; letter-spacing:0.04em; }
+  .cook-play{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:42px; height:42px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; font-size:15px; color:#111; }
+  .cook-body{ padding:14px 18px 0; flex:1; display:flex; flex-direction:column; }
+  .cook-step{ font-family:'IBM Plex Mono'; font-size:11px; color:var(--mustard); font-weight:600; }
+  .cook-title{ font-family:'Work Sans'; font-weight:700; font-size:18px; margin-top:7px; }
+  .cook-desc{ font-size:12.5px; color:rgba(255,255,255,0.5); margin-top:8px; line-height:1.55; }
+  .cook-timer-row{ margin-top:auto; display:flex; align-items:flex-end; justify-content:space-between; padding:14px 0 4px; }
+  .cook-timer{ font-family:'Archivo Black'; font-size:28px; }
+  .cook-timer .unit{ font-size:10.5px; font-family:'IBM Plex Mono'; color:rgba(255,255,255,0.45); font-weight:400; margin-left:6px; text-transform:none; letter-spacing:0; }
+  .cook-ai-orb{ width:42px; height:42px; border-radius:50%; background:radial-gradient(circle at 30% 30%, #b28dfd, #6c5ce7); display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0; }
+  .cook-nav{ display:flex; gap:10px; padding:14px 18px 18px; }
+  .cook-btn{ flex:1; text-align:center; font-family:'IBM Plex Mono'; font-size:11.5px; font-weight:600; padding:12px; border-radius:100px; border:none; cursor:pointer; }
+  .cook-btn.prev{ background:#232323; color:#fff; }
+  .cook-btn.next{ background:#fff; color:#111; }
+  .cook-btn:disabled{ opacity:0.35; cursor:default; }
   .timer-q{ font-family:'IBM Plex Mono'; font-size:13px; opacity:0.6; margin-bottom:16px; }
   .timer-btns{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
   .timer-btn{ font-family:'IBM Plex Mono'; font-size:13px; font-weight:600; padding:12px 18px; border-radius:100px; border:1.5px solid var(--line); background:var(--paper); cursor:pointer; transition:border-color .15s; }
@@ -351,6 +372,40 @@
 
 <section id="assistant">
   <div class="wrap">
+    <div class="chat-wrap" style="margin-bottom:72px;">
+      <div class="chat-copy reveal">
+        <div class="kicker" data-i18n="cookscreen.kicker"></div>
+        <h2 class="display" style="font-size:clamp(22px,3vw,34px);" data-i18n="cookscreen.title"></h2>
+        <p data-i18n="cookscreen.p1"></p>
+        <p data-i18n="cookscreen.p2"></p>
+      </div>
+
+      <div class="reveal">
+        <div class="phone-dark">
+          <div class="phone-screen-dark">
+            <div class="phone-status-dark"><span>9:41</span><span>plate. AI</span></div>
+            <div class="cook-video">
+              <span class="cook-live" data-i18n="cookscreen.live"></span>
+              <div class="cook-play">▶</div>
+            </div>
+            <div class="cook-body">
+              <div class="cook-step" id="cookStepLabel"></div>
+              <div class="cook-title" id="cookTitle"></div>
+              <div class="cook-desc" id="cookDesc"></div>
+              <div class="cook-timer-row">
+                <div class="cook-timer" id="cookTimer"></div>
+                <div class="cook-ai-orb">✨</div>
+              </div>
+            </div>
+            <div class="cook-nav">
+              <button class="cook-btn prev" id="cookPrev" data-i18n="cookscreen.prev"></button>
+              <button class="cook-btn next" id="cookNext" data-i18n="cookscreen.next"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="chat-wrap">
       <div class="chat-copy reveal">
         <div class="kicker" data-i18n="chat.kicker"></div>
@@ -513,6 +568,14 @@ const I18N = {
     "shopping.search":"Tovuqli Alfredo",
     "shopping.missing":"Parmezan yetishmaydi","shopping.full":"Hammasi mavjud","shopping.alt":"Muqobil pishloq mavjud",
     "shopping.map1":"📍 Masofa","shopping.map2":"🕒 Ish vaqti","shopping.map3":"💰 Taxminiy xarid narxi",
+    "cookscreen.kicker":"// PISHIRISH EKRANI","cookscreen.title":"Video, ko'rsatma va taymer — bitta ekranda.",
+    "cookscreen.p1":"Yuqorida bosqichning video ko'rinishi, pastda katta va aniq ko'rsatma. Har doim qo'l ostida turadi.",
+    "cookscreen.p2":"Suzuvchi AI tugmasi orqali istalgan payt savol berishingiz mumkin.",
+    "cookscreen.live":"JONLI","cookscreen.prev":"← Orqaga","cookscreen.next":"Keyingi →",
+    "cookscreen.step3":"3-BOSQICH","cookscreen.title3":"Makaronni qayting.","cookscreen.desc3":"Tuzlangan suvda 8 daqiqa qayting.","cookscreen.timer3":"8:00",
+    "cookscreen.step4":"4-BOSQICH","cookscreen.title4":"Sarimsoq qo'shing.","cookscreen.desc4":"Xushbo'y hidi chiqquncha qovuring (taxminan 45 soniya).","cookscreen.timer4":"0:45",
+    "cookscreen.step5":"5-BOSQICH","cookscreen.title5":"Qaymoq va parmezan qo'shing.","cookscreen.desc5":"Past olovda 2 daqiqa aralashtirib turing.","cookscreen.timer5":"2:00",
+    "cookscreen.remaining":"qoldi",
     "chat.kicker":"// AI PISHIRISH YORDAMCHISI","chat.title":"ChatGPT emas. Pishirish jarayonidagi haqiqiy yordam.",
     "chat.p1":"Pishirish davomida AI doim biladi: joriy retsept, joriy bosqich, o'tgan vaqt.",
     "chat.p2":"Savolingizni bosing — AI javobini ko'ring.",
@@ -584,6 +647,14 @@ const I18N = {
     "shopping.search":"Chicken Alfredo",
     "shopping.missing":"Missing Parmesan","shopping.full":"Everything available","shopping.alt":"Alternative cheese available",
     "shopping.map1":"📍 Distance","shopping.map2":"🕒 Opening hours","shopping.map3":"💰 Estimated shopping cost",
+    "cookscreen.kicker":"// COOKING SCREEN","cookscreen.title":"Video, instructions, and a timer — one screen.",
+    "cookscreen.p1":"A video preview of the step up top, a large, clear instruction card below. Always within reach.",
+    "cookscreen.p2":"A floating AI button means you can ask a question at any moment.",
+    "cookscreen.live":"LIVE","cookscreen.prev":"← Previous","cookscreen.next":"Next →",
+    "cookscreen.step3":"STEP 3","cookscreen.title3":"Boil the pasta.","cookscreen.desc3":"Cook in salted water for 8 minutes.","cookscreen.timer3":"8:00",
+    "cookscreen.step4":"STEP 4","cookscreen.title4":"Add garlic.","cookscreen.desc4":"Cook until fragrant (around 45 seconds).","cookscreen.timer4":"0:45",
+    "cookscreen.step5":"STEP 5","cookscreen.title5":"Add cream and parmesan.","cookscreen.desc5":"Stir over low heat for 2 minutes.","cookscreen.timer5":"2:00",
+    "cookscreen.remaining":"remaining",
     "chat.kicker":"// AI COOKING ASSISTANT","chat.title":"Not ChatGPT. Real help, mid-cook.",
     "chat.p1":"During cooking, the AI always knows the current recipe, the current step, and elapsed time.",
     "chat.p2":"Tap a question to see the AI's answer.",
@@ -636,6 +707,7 @@ function applyLang(lang){
   });
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
   updateSubExplain();
+  updateCookScreen();
 }
 
 document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('click', () => applyLang(btn.dataset.lang)));
@@ -673,6 +745,28 @@ subBtns.forEach(btn => {
     updateSubExplain();
   });
 });
+
+// Cooking screen mockup
+let cookStep = 4;
+const cookStepEl = document.getElementById('cookStepLabel');
+const cookTitleEl = document.getElementById('cookTitle');
+const cookDescEl = document.getElementById('cookDesc');
+const cookTimerEl = document.getElementById('cookTimer');
+const cookPrevBtn = document.getElementById('cookPrev');
+const cookNextBtn = document.getElementById('cookNext');
+
+function updateCookScreen(){
+  const t = I18N[currentLang];
+  cookStepEl.textContent = t['cookscreen.step' + cookStep];
+  cookTitleEl.textContent = t['cookscreen.title' + cookStep];
+  cookDescEl.textContent = t['cookscreen.desc' + cookStep];
+  cookTimerEl.innerHTML = t['cookscreen.timer' + cookStep] + ' <span class="unit">' + t['cookscreen.remaining'] + '</span>';
+  cookPrevBtn.disabled = cookStep <= 3;
+  cookNextBtn.disabled = cookStep >= 5;
+}
+
+cookPrevBtn.addEventListener('click', () => { if (cookStep > 3){ cookStep--; updateCookScreen(); } });
+cookNextBtn.addEventListener('click', () => { if (cookStep < 5){ cookStep++; updateCookScreen(); } });
 
 // Chat demo
 document.querySelectorAll('.chat-q').forEach(q => {
