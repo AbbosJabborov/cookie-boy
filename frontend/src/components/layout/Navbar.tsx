@@ -38,6 +38,21 @@ export function Navbar() {
                         </NavLink>
                     ))}
                 </nav>
+
+                <div className="flex items-center gap-4">
+                    <NavLink
+                        to="/login"
+                        className="text-sm font-semibold text-neutral-600 hover:text-black transition"
+                    >
+                        Log In
+                    </NavLink>
+                    <NavLink
+                        to="/register"
+                        className="rounded-full bg-green-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-green-800"
+                    >
+                        Sign Up
+                    </NavLink>
+                </div>
             </div>
         </header>
     );
