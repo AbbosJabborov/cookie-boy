@@ -91,7 +91,7 @@ export default function RecipePage() {
             <h2 className="mb-6 text-xl font-bold">Ingredients</h2>
 
             <div className="space-y-3">
-              {(recipe.ingredients ?? []).map((ingredient) => (
+              {(recipe.ingredients ?? []).map((ingredient: any) => (
                 <div
                   key={ingredient.id}
                   className="flex justify-between rounded-lg border p-3"
@@ -114,7 +114,7 @@ export default function RecipePage() {
                 {recipe.instructions
                   .split("\n")
                   .filter(Boolean)
-                  .map((step, index) => (
+                  .map((step: string, index: number) => (
                     <div key={index} className="flex gap-5">
                       <div className="bg-primary text-primary-foreground flex h-9 w-9 shrink-0 items-center justify-center rounded-full font-semibold">
                         {index + 1}

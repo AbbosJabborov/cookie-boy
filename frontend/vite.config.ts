@@ -7,6 +7,7 @@ export default defineConfig({
   server: {
     port: 5173,
   },
+  base: "/cookie-boy/",
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {

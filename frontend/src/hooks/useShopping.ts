@@ -1,11 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getShopping } from "@/api/shopping";
+import { api } from "@/services/api";
 
-export function useShopping(recipeId: number) {
-  return useQuery({
-    queryKey: ["shopping", recipeId],
-    queryFn: () => getShopping(recipeId),
-    enabled: !!recipeId,
-  });
+export function useShopping(id: number) {
+    return useQuery({
+        queryKey: ["shopping", id],
+        queryFn: async () => {
+            const res = await api.get(`shopping/${id}/`);
+            return res.data;
+        },
+    });
 }

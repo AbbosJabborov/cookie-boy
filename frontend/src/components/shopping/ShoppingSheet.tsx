@@ -41,7 +41,7 @@ export default function ShoppingSheet({ recipeId, open, onOpenChange }: Props) {
 
             <ScrollArea className="mt-6 h-[70vh]">
               <div className="space-y-4">
-                {data.items.map((item) => (
+                {data.items.map((item: any) => (
                   <ShoppingItem key={item.ingredient} item={item} />
                 ))}
               </div>
