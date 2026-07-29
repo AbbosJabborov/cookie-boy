@@ -19,4 +19,7 @@ export const router =
             path: "/register",
             element: <RegisterPage />,
         },
-    ]);
+    ],
+    {
+        basename: import.meta.env.BASE_URL
+    });
