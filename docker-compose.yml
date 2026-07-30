@@ -15,6 +15,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - internal
 
   app:
     build:
@@ -27,8 +29,14 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    ports:
-      - "8001:8000"
+    networks:
+      - internal
+      - proxy
 
+
+networks:
+  internal:
+  proxy:
+    external: true
 volumes:
   pgdata:
