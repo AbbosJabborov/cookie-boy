@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useRecipes } from "@/hooks/useRecipes";
+import { useAddFromRecipe } from "@/hooks/useShopping";
 
 const categoryCards = [
   {
@@ -71,22 +72,32 @@ export function DiscoverPage() {
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState("All");
   const { data: apiRecipes } = useRecipes();
+  const addFromRecipeMutation = useAddFromRecipe();
 
-  const filterOptions = ["All", "Vegan", "Gluten-Free", "Quick Meals"];
-  
-  const displayRecipes = (apiRecipes && apiRecipes.length > 0)
-    ? apiRecipes.slice(0, 6).map((r) => ({
+  const filterOptions = ["All", "Pantry Matches", "Quick Meals", "Vegan", "Gluten-Free"];
+
+  const rawRecipes = (apiRecipes && apiRecipes.length > 0)
+    ? apiRecipes.map((r) => ({
         id: String(r.id),
         title: r.title,
         time: `${r.total_time} min`,
         difficulty: r.difficulty || "Easy",
-        match: "100% Match",
-        status: "Ready to cook",
-        missing: undefined,
+        match: r.match_percentage ? `${r.match_percentage}% Match` : "100% Match",
+        status: r.match_percentage === 100 ? "Ready to cook" : "1 missing",
+        missing: r.match_percentage !== 100 ? "Missing 1 item" : undefined,
         image: r.image || "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80",
-        tags: ["Fresh", "Crafted"],
+        tags: [r.difficulty || "Easy", `${r.prep_time || 15}m prep`],
       }))
     : featuredRecipes;
+
+  const displayRecipes = rawRecipes.filter((r) => {
+    if (activeFilter === "All") return true;
+    if (activeFilter === "Pantry Matches") return r.match.includes("100%");
+    if (activeFilter === "Quick Meals") return parseInt(r.time) <= 30;
+    if (activeFilter === "Vegan") return r.tags.some((t) => t.toLowerCase().includes("vegan")) || r.title.toLowerCase().includes("veg");
+    if (activeFilter === "Gluten-Free") return r.tags.some((t) => t.toLowerCase().includes("gluten")) || r.title.toLowerCase().includes("salad");
+    return true;
+  });
 
   return (
     <div className="max-w-[1280px] mx-auto px-6 md:px-16 py-10 min-h-screen">
@@ -307,14 +318,32 @@ export function DiscoverPage() {
                   >
                     {recipe.status || recipe.missing}
                   </span>
-                  <div className="flex items-center gap-1">
-                    <span className="w-2 h-2 rounded-full bg-tertiary"></span>
-                    <span className="w-2 h-2 rounded-full bg-tertiary"></span>
-                    <span
-                      className={`w-2 h-2 rounded-full ${
-                        recipe.status ? "bg-tertiary" : "bg-outline-variant"
-                      }`}
-                    ></span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        addFromRecipeMutation.mutate(Number(recipe.id), {
+                          onSuccess: () => {
+                            alert(`Added missing ingredients from "${recipe.title}" to your Shopping List!`);
+                          },
+                        });
+                      }}
+                      className="p-1.5 rounded-full hover:bg-secondary/15 text-secondary transition-colors"
+                      title="Add missing ingredients to Smart Shopping List"
+                    >
+                      <span className="material-symbols-outlined text-[20px]">
+                        add_shopping_cart
+                      </span>
+                    </button>
+                    <div className="flex items-center gap-1">
+                      <span className="w-2 h-2 rounded-full bg-tertiary"></span>
+                      <span className="w-2 h-2 rounded-full bg-tertiary"></span>
+                      <span
+                        className={`w-2 h-2 rounded-full ${
+                          recipe.status ? "bg-tertiary" : "bg-outline-variant"
+                        }`}
+                      ></span>
+                    </div>
                   </div>
                 </div>
               </div>

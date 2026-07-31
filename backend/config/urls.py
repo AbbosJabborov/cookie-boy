@@ -21,6 +21,11 @@ urlpatterns = [
         include("apps.recommendations.urls"),
     ),
     path(
+        "api/shopping/",
+        include("apps.shopping.urls"),
+    ),
+
+    path(
         "api/schema/",
         SpectacularAPIView.as_view(),
         name="schema",

@@ -4,12 +4,9 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-
 import { ScrollArea } from "@/components/ui/scroll-area";
-
 import ShoppingItem from "./ShoppingItem";
-
-import { useShopping } from "@/hooks/useShopping";
+import { useShoppingLists } from "@/hooks/useShopping";
 
 interface Props {
   recipeId: number;
@@ -17,8 +14,9 @@ interface Props {
   onOpenChange: (open: boolean) => void;
 }
 
-export default function ShoppingSheet({ recipeId, open, onOpenChange }: Props) {
-  const { data, isLoading } = useShopping(recipeId);
+export default function ShoppingSheet({ recipeId: _recipeId, open, onOpenChange }: Props) {
+  const { data: lists, isLoading } = useShoppingLists();
+  const activeList = lists && lists.length > 0 ? lists[0] : null;
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -29,20 +27,20 @@ export default function ShoppingSheet({ recipeId, open, onOpenChange }: Props) {
 
         {isLoading && <p className="mt-8">Loading...</p>}
 
-        {data && (
+        {activeList && (
           <>
             <div className="bg-primary text-primary-foreground mt-8 rounded-lg p-5">
               <p className="text-sm">Estimated Cost</p>
 
               <h2 className="mt-2 text-3xl font-bold">
-                {data.estimated_cost} {data.currency}
+                {activeList.total_estimated_price.toLocaleString()} UZS
               </h2>
             </div>
 
             <ScrollArea className="mt-6 h-[70vh]">
               <div className="space-y-4">
-                {data.items.map((item: any) => (
-                  <ShoppingItem key={item.ingredient} item={item} />
+                {activeList.items.map((item) => (
+                  <ShoppingItem key={item.id} item={item} />
                 ))}
               </div>
             </ScrollArea>

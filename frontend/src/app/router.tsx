@@ -6,6 +6,7 @@ import PantryPage from "@/pages/Pantry/PantryPage";
 import { MealPlannerPage } from "@/pages/MealPlanner/MealPlannerPage";
 import { CookingGuidePage } from "@/pages/CookingGuide/CookingGuidePage";
 import { ProfilePage } from "@/pages/Profile/ProfilePage";
+import { ShoppingListPage } from "@/pages/Shopping/ShoppingListPage";
 import LoginPage from "@/pages/Login/LoginPage";
 import RegisterPage from "@/pages/Register/RegisterPage";
 
@@ -46,6 +47,10 @@ export const router = createBrowserRouter(
         {
           path: "/profile",
           element: <ProfilePage />,
+        },
+        {
+          path: "/shopping",
+          element: <ShoppingListPage />,
         },
       ],
     },

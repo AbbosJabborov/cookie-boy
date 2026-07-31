@@ -1,39 +1,29 @@
-import { CheckCircle2, AlertTriangle } from "lucide-react";
-
-import type { ShoppingItem as Item } from "@/types/shopping";
+import { CheckCircle2 } from "lucide-react";
+import type { ShoppingItem as ServiceShoppingItem } from "@/services/shopping";
 
 interface Props {
-  item: Item;
+  item: ServiceShoppingItem;
 }
 
 export default function ShoppingItem({ item }: Props) {
   return (
-    <div className="rounded-lg border p-4">
+    <div className="rounded-lg border p-4 bg-card text-card-foreground">
       <div className="flex items-center justify-between">
         <div>
-          <h4 className="font-medium">{item.ingredient}</h4>
-
-          <p className="text-muted-foreground text-sm">{item.amount}</p>
+          <h4 className="font-medium text-base capitalize">{item.ingredient_name}</h4>
+          <p className="text-muted-foreground text-sm">
+            {item.quantity} {item.unit}
+          </p>
         </div>
 
-        {item.available ? (
-          <CheckCircle2 className="text-green-500" />
-        ) : (
-          <AlertTriangle className="text-yellow-500" />
+        {item.is_bought && (
+          <CheckCircle2 className="text-green-500 w-5 h-5" />
         )}
       </div>
 
-      {item.product && <p className="mt-2 text-sm">Product: {item.product}</p>}
-
-      {!item.available && item.replacement && (
-        <div className="bg-muted mt-3 rounded-lg p-3">
-          <p className="text-sm font-medium">🤖 Suggested replacement</p>
-
-          <p>{item.replacement}</p>
-        </div>
-      )}
-
-      {item.price && <p className="mt-3 font-semibold">{item.price} UZS</p>}
+      <p className="mt-3 font-semibold text-primary">
+        {Number(item.estimated_price).toLocaleString()} UZS
+      </p>
     </div>
   );
 }

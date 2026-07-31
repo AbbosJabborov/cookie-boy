@@ -16,6 +16,7 @@ export interface Recipe {
   image: string | null;
 
   instructions: string;
+  match_percentage?: number;
 
   ingredients: Ingredient[];
 }

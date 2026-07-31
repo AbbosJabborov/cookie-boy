@@ -1,13 +1,47 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  getShoppingLists,
+  addMissingIngredientsFromRecipe,
+  toggleShoppingItemBought,
+  deleteShoppingItem,
+} from "@/services/shopping";
 
-import { api } from "@/services/api";
+export function useShoppingLists() {
+  return useQuery({
+    queryKey: ["shoppingLists"],
+    queryFn: getShoppingLists,
+  });
+}
 
-export function useShopping(id: number) {
-    return useQuery({
-        queryKey: ["shopping", id],
-        queryFn: async () => {
-            const res = await api.get(`shopping/${id}/`);
-            return res.data;
-        },
-    });
+export const useShopping = useShoppingLists;
+
+export function useAddFromRecipe() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: addMissingIngredientsFromRecipe,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["shoppingLists"] });
+    },
+  });
+}
+
+export function useToggleItemBought() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ itemId, isBought }: { itemId: number; isBought: boolean }) =>
+      toggleShoppingItemBought(itemId, isBought),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["shoppingLists"] });
+    },
+  });
+}
+
+export function useDeleteShoppingItem() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteShoppingItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["shoppingLists"] });
+    },
+  });
 }
