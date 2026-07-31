@@ -131,6 +131,13 @@ CORS_ALLOWED_ORIGINS = str(
     )
 ).split(",")
 
+CSRF_TRUSTED_ORIGINS = str(
+    config(
+        "CORS_ALLOWED_ORIGINS",  # Reuse CORS origins as trusted for CSRF
+        default="http://localhost:5173,http://127.0.0.1:5173,https://abbosjabborov.github.io",
+    )
+).split(",") + ["https://169.58.100.190.sslip.io"]
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
