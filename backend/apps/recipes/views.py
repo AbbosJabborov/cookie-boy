@@ -1,27 +1,25 @@
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework import filters
 
 from .models import Recipe
 from .models import RecipeIngredient
-
 from .serializers import RecipeSerializer
 from .serializers import RecipeIngredientSerializer
-
-
-from rest_framework import filters
-from rest_framework.viewsets import ModelViewSet
 
 
 class RecipeViewSet(ModelViewSet):
     queryset = Recipe.objects.prefetch_related(
         "ingredients__ingredient"
     )
-
     serializer_class = RecipeSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     filter_backends = [
         filters.SearchFilter,
         filters.OrderingFilter,
     ]
+
 
     search_fields = [
         "title",

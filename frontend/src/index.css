@@ -1,24 +1,206 @@
 @import "tailwindcss";
 
 @theme {
-    --color-background: #F8F5EF;
+  --color-surface: #fefae0;
+  --color-surface-dim: #dedbc2;
+  --color-surface-bright: #fefae0;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f8f4db;
+  --color-surface-container: #f2efd5;
+  --color-surface-container-high: #ede9cf;
+  --color-surface-container-highest: #e7e3ca;
 
-    --color-surface: #FFFFFF;
+  --color-on-surface: #1d1c0d;
+  --color-on-surface-variant: #544438;
+  --color-inverse-surface: #323120;
+  --color-inverse-on-surface: #f5f1d8;
 
-    --color-primary: #6DA34D;
+  --color-outline: #877366;
+  --color-outline-variant: #d9c2b3;
+  --color-surface-tint: #924c00;
 
-    --color-secondary: #F4A261;
+  --color-primary: #8f4a00;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #ae611a;
+  --color-on-primary-container: #fffbff;
+  --color-inverse-primary: #ffb781;
 
-    --color-accent: #E76F51;
+  --color-secondary: #835418;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #fdbd77;
+  --color-on-secondary-container: #784a0d;
 
-    --color-text: #2B2B2B;
+  --color-tertiary: #51613f;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #6a7a56;
+  --color-on-tertiary-container: #f9ffeb;
 
-    --color-muted: #757575;
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
 
-    --radius-sm: .75rem;
-    --radius-md: 1.25rem;
-    --radius-lg: 1.75rem;
+  --color-primary-fixed: #ffdcc4;
+  --color-primary-fixed-dim: #ffb781;
+  --color-on-primary-fixed: #2f1400;
+  --color-on-primary-fixed-variant: #6f3800;
+
+  --color-secondary-fixed: #ffdcbb;
+  --color-secondary-fixed-dim: #faba75;
+  --color-on-secondary-fixed: #2b1700;
+  --color-on-secondary-fixed-variant: #673d00;
+
+  --color-tertiary-fixed: #d7e9bd;
+  --color-tertiary-fixed-dim: #bbcda3;
+  --color-on-tertiary-fixed: #121f05;
+  --color-on-tertiary-fixed-variant: #3d4b2b;
+
+  --color-background: #fefae0;
+  --color-on-background: #1d1c0d;
+  --color-surface-variant: #e7e3ca;
+
+  --font-display-lg: "EB Garamond", serif;
+  --font-headline-lg: "EB Garamond", serif;
+  --font-headline-md: "EB Garamond", serif;
+  --font-headline-lg-mobile: "EB Garamond", serif;
+
+  --font-body-lg: "Be Vietnam Pro", sans-serif;
+  --font-body-md: "Be Vietnam Pro", sans-serif;
+  --font-label-md: "Be Vietnam Pro", sans-serif;
+  --font-caption: "Be Vietnam Pro", sans-serif;
+
+  --spacing-container-max: 1280px;
+  --spacing-margin-desktop: 64px;
+  --spacing-margin-mobile: 20px;
+  --spacing-gutter: 24px;
+  --spacing-unit: 8px;
+
+  --radius-sm: 0.25rem;
+  --radius-DEFAULT: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
 }
-body{
-    font-family: "Manrope", sans-serif;
+
+/* Custom Typography & Utility Helper Classes */
+body {
+  font-family: "Be Vietnam Pro", sans-serif;
+  background-color: #fefae0;
+  color: #1d1c0d;
+}
+
+.font-display-lg {
+  font-family: "EB Garamond", serif;
+}
+
+.font-headline-lg, .font-headline-md, .font-headline-lg-mobile {
+  font-family: "EB Garamond", serif;
+}
+
+.text-display-lg {
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+.text-headline-lg {
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 500;
+}
+
+.text-headline-lg-mobile {
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 500;
+}
+
+.text-headline-md {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 500;
+}
+
+.text-body-lg {
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
+}
+
+.text-body-md {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+.text-label-md {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+  font-weight: 600;
+}
+
+.text-caption {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+}
+
+.sun-baked-shadow {
+  box-shadow: 0 10px 25px -5px rgba(81, 97, 63, 0.08);
+}
+
+.artisanal-border {
+  border: 1px solid rgba(81, 97, 63, 0.15);
+}
+
+.recipe-card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.recipe-card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 30px -10px rgba(81, 97, 63, 0.12);
+}
+
+.filter-chip-active {
+  background-color: #8f4a00;
+  color: #fefae0;
+}
+
+.selected-glow {
+  box-shadow: 0 0 0 2px #ae611a, 0 4px 12px rgba(174, 97, 26, 0.2);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #d9c2b3;
+  border-radius: 10px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background-color: rgba(135, 115, 102, 0.2);
+}
+
+.day-cell {
+  background-color: #fefae0;
+  min-height: 200px;
 }

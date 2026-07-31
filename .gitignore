@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 
+stitch_concept_art/
+
 .env
 .venv/
 backend/.env

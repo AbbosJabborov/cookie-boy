@@ -2,39 +2,42 @@ import { AppLogo } from "@/components/ui/AppLogo";
 import { LoginForm } from "@/components/auth/LoginForm";
 
 export default function LoginPage() {
-    return (
-        <main className="min-h-screen bg-background">
+  return (
+    <main className="min-h-screen bg-surface flex items-center justify-center p-4 md:p-8">
+      <div className="w-full max-w-[1200px] grid grid-cols-1 lg:grid-cols-12 min-h-[640px] rounded-3xl overflow-hidden artisanal-border sun-baked-shadow bg-surface-container-low">
+        {/* Left Side: Culinary Imagery & Quote */}
+        <div className="lg:col-span-6 relative hidden lg:flex flex-col justify-between p-12 overflow-hidden bg-surface-container">
+          <img
+            src="https://images.unsplash.com/photo-1556761223-4c4282c73f77?auto=format&fit=crop&w=1200&q=80"
+            alt="Handmade Pasta & Ingredients"
+            className="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-700 hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/20"></div>
 
-            <div className="mx-auto grid min-h-screen max-w-7xl grid-cols-1 lg:grid-cols-2">
+          <div className="relative z-10">
+            <AppLogo />
+          </div>
 
-                {/* Left */}
+          <div className="relative z-10 text-white space-y-3">
+            <blockquote className="font-display-lg text-3xl font-medium leading-snug italic">
+              "Cultivating a deeper connection with your kitchen, one ingredient at a time."
+            </blockquote>
+            <p className="font-caption text-caption text-white/80 uppercase tracking-widest font-semibold">
+              — The Plate Artisanal Kitchen
+            </p>
+          </div>
+        </div>
 
-                <div className="hidden items-center justify-center p-12 lg:flex">
-
-                    <img
-                        src="/images/login-food.jpg"
-                        alt="Food"
-                        className="h-[85%] w-full rounded-[36px] object-cover shadow-2xl"
-                    />
-
-                </div>
-
-                {/* Right */}
-
-                <div className="flex items-center justify-center p-8">
-
-                    <div className="w-full max-w-md space-y-8">
-
-                        <AppLogo />
-
-                        <LoginForm />
-
-                    </div>
-
-                </div>
-
+        {/* Right Side: Form View */}
+        <div className="lg:col-span-6 p-6 sm:p-10 md:p-12 flex flex-col justify-center items-center bg-surface">
+          <div className="w-full max-w-md space-y-6">
+            <div className="lg:hidden flex justify-center mb-4">
+              <AppLogo />
             </div>
-
-        </main>
-    );
+            <LoginForm />
+          </div>
+        </div>
+      </div>
+    </main>
+  );
 }

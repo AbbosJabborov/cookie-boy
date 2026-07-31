@@ -1,3 +1,5 @@
-export default function LoginPage() {
-    return <div>Pantry</div>;
+import { IngredientChooserPage } from "@/pages/IngredientChooser/IngredientChooserPage";
+
+export default function PantryPage() {
+  return <IngredientChooserPage />;
 }
