@@ -35,48 +35,56 @@ DEFAULT_SUBSTITUTIONS = {
     },
 }
 
-COOKING_FAQS = [
-    {
-        "keywords": ["thick", "sauce", "heavy"],
-        "answer": "If your sauce looks too thick, stir in 2–3 tablespoons of warm pasta water or broth over low heat while whisking continuously. This emulsifies the sauce smoothly!"
-    },
-    {
-        "keywords": ["pink", "chicken", "raw", "done"],
-        "answer": "Keep cooking your chicken on medium heat. The inside should be firm and white with no translucent pink center (internal temp 74°C / 165°F)."
-    },
-    {
-        "keywords": ["separate", "curdle", "broken"],
-        "answer": "Remove from direct heat immediately! Add 1 tablespoon of ice-cold water or heavy cream and whisk vigorously for 30 seconds to bring the emulsion back together."
-    },
-    {
-        "keywords": ["substitute", "replace", "missing", "korzinka", "parmesan", "cream"],
-        "answer": "For missing ingredients in Tashkent: Parmesan → Grana Padano/Maasdam; Heavy Cream → 35% Qaymoq; Butter → Smetana or Ghee. You can save up to 15,000 UZS with local alternatives!"
-    },
-]
-
 
 def call_external_llm(prompt: str) -> str:
-    """Calls Google Gemini REST API using urllib standard library."""
+    """Calls Google Gemini REST API across fallback models."""
     gemini_key = os.getenv("GEMINI_API_KEY")
 
     if gemini_key:
-        try:
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={gemini_key}"
-            payload = json.dumps({"contents": [{"parts": [{"text": prompt}]}]}).encode("utf-8")
-            req = urllib.request.Request(
-                url,
-                data=payload,
-                headers={"Content-Type": "application/json"},
-                method="POST"
-            )
-            with urllib.request.urlopen(req, timeout=6) as response:
-                if response.status == 200:
-                    data = json.loads(response.read().decode("utf-8"))
-                    return data["candidates"][0]["content"]["parts"][0]["text"]
-        except Exception:
-            pass
+        models = [
+            "gemini-1.5-flash",
+            "gemini-1.5-pro",
+            "gemini-2.0-flash",
+            "gemini-pro"
+        ]
+        for model in models:
+            try:
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={gemini_key}"
+                payload = json.dumps({"contents": [{"parts": [{"text": prompt}]}]}).encode("utf-8")
+                req = urllib.request.Request(
+                    url,
+                    data=payload,
+                    headers={"Content-Type": "application/json"},
+                    method="POST"
+                )
+                with urllib.request.urlopen(req, timeout=6) as response:
+                    if response.status == 200:
+                        data = json.loads(response.read().decode("utf-8"))
+                        return data["candidates"][0]["content"]["parts"][0]["text"]
+            except Exception as e:
+                print(f"Gemini model {model} call failed: {e}")
+                continue
 
     return None
+
+
+def generate_backend_fallback(query: str, recipe_title: str) -> str:
+    q = query.lower()
+    if "cake" in q or "bake" in q or "dessert" in q:
+        return "To bake a classic sponge cake: Whisk 3 eggs with 100g sugar until pale and fluffy (5 mins). Gently fold in 100g flour and 1 tsp baking powder. Bake at 180°C for 22 minutes until a toothpick comes out clean!"
+    if "sauce" in q or "thick" in q or "curdle" in q:
+        return "If your sauce looks too thick, stir in 2 tablespoons of warm pasta water or milk over low heat. If it curded, whisk in 1 tbsp cold cream off the heat."
+    if "chicken" in q or "meat" in q:
+        return "Cook chicken on medium-high heat for 6-7 minutes per side until golden. Ensure internal temperature reaches 74°C (165°F) with clear juices."
+    if "parmesan" in q or "cheese" in q:
+        return "For missing Parmesan at Korzinka or Makro: Grana Padano or aged Maasdam hard cheese work best as direct substitutions!"
+    if "cream" in q or "qaymoq" in q:
+        return "In Uzbekistan, 35% fat Qaymoq on dairy shelves is the richest local match for Western heavy cream."
+
+    return (
+        f"For your query '{query}', keep your heat controlled on medium. "
+        f"Local Uzbekistan markets (Korzinka, Makro, Havas) carry fresh ingredients like Qaymoq, Maasdam, and local herbs to complete your dish!"
+    )
 
 
 class AskAssistantView(APIView):
@@ -102,16 +110,8 @@ class AskAssistantView(APIView):
         if llm_response:
             return Response({"answer": llm_response, "source": "gemini_live_ai"})
 
-        query_lower = query.lower()
-        for faq in COOKING_FAQS:
-            if any(k in query_lower for k in faq["keywords"]):
-                return Response({"answer": faq["answer"], "source": "smart_knowledge_base"})
-
-        default_answer = (
-            f"For {recipe_title}, keep your heat on medium and take your time! "
-            f"If you're missing ingredients, local Uzbekistan stores like Korzinka and Makro usually have great alternatives like Qaymoq, Maasdam, or fresh garden herbs."
-        )
-        return Response({"answer": default_answer, "source": "smart_knowledge_base"})
+        answer = generate_backend_fallback(query, recipe_title)
+        return Response({"answer": answer, "source": "dynamic_fallback"})
 
 
 class SubstituteIngredientView(APIView):

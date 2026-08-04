@@ -378,17 +378,6 @@ export function DiscoverPage() {
         </div>
       </section>
 
-      {/* Floating Action Button: Add Ingredient */}
-      <button
-        onClick={() => navigate("/ingredients")}
-        aria-label="Add Ingredient"
-        className="fixed bottom-8 right-8 w-16 h-16 bg-primary text-surface rounded-full sun-baked-shadow flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-40 group"
-      >
-        <span className="material-symbols-outlined text-[32px]">add</span>
-        <span className="absolute right-full mr-4 px-4 py-2 rounded-lg bg-surface text-on-surface artisanal-border font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-md">
-          Add Ingredient
-        </span>
-      </button>
     </div>
   );
 }
