@@ -141,7 +141,11 @@ CORS_ALLOWED_ORIGINS = str(
     )
 ).split(",")
 
-CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS + ["https://169.58.100.190.sslip.io", "http://169.58.100.190"]
+CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS + [
+    "https://api-plate.169.58.100.190.sslip.io",
+    "https://169.58.100.190.sslip.io",
+    "http://169.58.100.190",
+]
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
