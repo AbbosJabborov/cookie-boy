@@ -24,6 +24,11 @@ urlpatterns = [
         "api/shopping/",
         include("apps.shopping.urls"),
     ),
+    path(
+        "api/assistant/",
+        include("apps.assistant.urls"),
+    ),
+
 
     path(
         "api/schema/",

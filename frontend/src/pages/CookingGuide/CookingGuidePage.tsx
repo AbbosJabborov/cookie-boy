@@ -193,24 +193,32 @@ export function CookingGuidePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Equipment / Ingredients Card */}
             <div className="bg-surface-container rounded-2xl p-6 flex flex-col gap-4 artisanal-border sun-baked-shadow">
-              <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-secondary text-[24px]">
-                  kitchen
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <span className="material-symbols-outlined text-secondary text-[24px]">
+                    kitchen
+                  </span>
+                  <h3 className="font-headline-md text-headline-md text-secondary">
+                    Key Ingredients
+                  </h3>
+                </div>
+                <span className="text-caption text-tertiary font-bold flex items-center gap-1">
+                  <span className="material-symbols-outlined text-[14px]">auto_awesome</span>
+                  AI Swap Ready
                 </span>
-                <h3 className="font-headline-md text-headline-md text-secondary">
-                  Key Ingredients
-                </h3>
               </div>
               <ul className="flex flex-wrap gap-2">
                 {currentStep.equipment.map((item, idx) => (
                   <li
                     key={idx}
-                    className="bg-secondary-container/40 px-3.5 py-1.5 rounded-full text-on-secondary-container font-label-md text-caption flex items-center gap-2 capitalize"
+                    onClick={() => alert(`AI Substitute for "${item}": Check local Korzinka shelf for 35% Qaymoq or Grana Padano!`)}
+                    className="bg-secondary-container/40 hover:bg-secondary-container/80 cursor-pointer transition-all px-3.5 py-1.5 rounded-full text-on-secondary-container font-label-md text-caption flex items-center gap-2 capitalize"
+                    title="Click for AI substitute recommendation"
                   >
                     <span className="material-symbols-outlined text-[16px]">
                       flatware
                     </span>
-                    {item}
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>
