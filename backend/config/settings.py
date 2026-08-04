@@ -131,19 +131,17 @@ DATABASES = {
     }
 }
 
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+
 CORS_ALLOWED_ORIGINS = str(
     config(
         "CORS_ALLOWED_ORIGINS",
-        default="http://localhost:5173,http://127.0.0.1:5173,https://abbosjabborov.github.io",
+        default="http://localhost:5173,http://127.0.0.1:5173,https://cookie-boy.abbosjabborov12.workers.dev,https://abbosjabborov.github.io",
     )
 ).split(",")
 
-CSRF_TRUSTED_ORIGINS = str(
-    config(
-        "CORS_ALLOWED_ORIGINS",  # Reuse CORS origins as trusted for CSRF
-        default="http://localhost:5173,http://127.0.0.1:5173,https://abbosjabborov.github.io",
-    )
-).split(",") + ["https://169.58.100.190.sslip.io"]
+CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS + ["https://169.58.100.190.sslip.io", "http://169.58.100.190"]
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
