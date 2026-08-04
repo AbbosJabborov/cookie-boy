@@ -1,18 +1,18 @@
 import axios from "axios";
 import { getAccessToken } from "@/lib/auth";
 
+const rawBaseUrl = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api/";
+const baseURL = rawBaseUrl.endsWith("/") ? rawBaseUrl : `${rawBaseUrl}/`;
+
 export const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL,
+    baseURL,
 });
 
 api.interceptors.request.use((config) => {
     const token = getAccessToken();
 
-    console.log("TOKEN:", token);
-
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
-        console.log("HEADER SET");
     }
 
     return config;

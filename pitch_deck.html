@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>plate. — Startup Competition Pitch Deck</title>
+<title>plate. — Startup Competition Pitch Deck (Uzbek & English)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Work+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -49,6 +49,10 @@
     user-select: none;
   }
 
+  body.is-editing {
+    user-select: text !important;
+  }
+
   /* Dynamic ambient background */
   .bg-glow {
     position: fixed;
@@ -61,33 +65,33 @@
       radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.05) 0%, transparent 60%);
   }
 
-  /* Top Navigation & Progress Bar */
+  /* Top Navigation & Controls */
   header {
     position: relative;
     z-index: 10;
     height: 64px;
-    padding: 0 32px;
+    padding: 0 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid var(--border-card);
-    background: rgba(10, 11, 14, 0.8);
+    background: rgba(10, 11, 14, 0.85);
     backdrop-filter: blur(12px);
   }
 
   .brand-logo {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
   }
   .brand-icon {
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
     background: var(--tomato);
     color: #fff;
     font-family: var(--font-display);
-    font-size: 20px;
-    border-radius: 10px;
+    font-size: 18px;
+    border-radius: 9px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -95,7 +99,7 @@
   }
   .brand-text {
     font-family: var(--font-display);
-    font-size: 22px;
+    font-size: 20px;
     letter-spacing: -0.02em;
   }
   .deck-badge {
@@ -111,29 +115,28 @@
   .header-actions {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 8px;
   }
 
   .live-indicator {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     font-family: var(--font-mono);
-    font-size: 12px;
+    font-size: 11.5px;
     color: var(--emerald);
     background: rgba(16, 185, 129, 0.1);
     border: 1px solid rgba(16, 185, 129, 0.3);
-    padding: 6px 14px;
+    padding: 5px 11px;
     border-radius: 100px;
     text-decoration: none;
     transition: var(--transition-fast);
   }
   .live-indicator:hover {
     background: rgba(16, 185, 129, 0.2);
-    transform: translateY(-1px);
   }
   .dot-pulse {
-    width: 8px; height: 8px;
+    width: 7px; height: 7px;
     background: var(--emerald);
     border-radius: 50%;
     box-shadow: 0 0 8px var(--emerald);
@@ -144,19 +147,41 @@
     50% { transform: scale(1.4); opacity: 0.5; }
   }
 
-  .btn-fullscreen {
-    background: transparent;
+  .btn-action {
+    background: rgba(255, 255, 255, 0.06);
     border: 1px solid var(--border-card);
     color: var(--ink-light);
     font-family: var(--font-mono);
     font-size: 12px;
-    padding: 6px 14px;
+    font-weight: 600;
+    padding: 6px 12px;
     border-radius: 8px;
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     transition: var(--transition-fast);
   }
-  .btn-fullscreen:hover {
-    background: rgba(255, 255, 255, 0.1);
+  .btn-action:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+  .btn-action.active {
+    background: var(--tomato);
+    border-color: var(--tomato);
+    color: #fff;
+    box-shadow: 0 0 14px var(--tomato-glow);
+  }
+  .btn-lang {
+    background: rgba(232, 169, 59, 0.15);
+    border-color: rgba(232, 169, 59, 0.4);
+    color: var(--mustard);
+    font-weight: 700;
+  }
+  .btn-pdf {
+    background: rgba(56, 189, 248, 0.12);
+    border-color: rgba(56, 189, 248, 0.3);
+    color: var(--cyan);
   }
 
   .progress-container {
@@ -172,6 +197,26 @@
     transition: width 0.3s ease;
   }
 
+  /* Editing Banner Notice */
+  .editing-banner {
+    display: none;
+    position: relative;
+    z-index: 9;
+    background: linear-gradient(90deg, var(--tomato), #b83713);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    font-weight: 600;
+    text-align: center;
+    padding: 6px 16px;
+  }
+  body.is-editing .editing-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
   /* Presentation Slide Container */
   main {
     flex: 1;
@@ -180,19 +225,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px;
+    padding: 24px 36px;
   }
 
   .slide {
     position: absolute;
-    top: 40px; bottom: 40px;
-    left: 40px; right: 40px;
+    top: 24px; bottom: 24px;
+    left: 36px; right: 36px;
     max-width: 1280px;
     margin: 0 auto;
     background: var(--bg-card);
     border: 1px solid var(--border-card);
     border-radius: 28px;
-    padding: 56px 64px;
+    padding: 44px 52px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -211,6 +256,14 @@
     transform: translateY(0) scale(1);
   }
 
+  /* Editable Highlight outline */
+  body.is-editing [contenteditable="true"] {
+    outline: 1.5px dashed var(--mustard) !important;
+    outline-offset: 3px;
+    border-radius: 4px;
+    cursor: text;
+  }
+
   /* Typography Utilities */
   .slide-tag {
     font-family: var(--font-mono);
@@ -219,7 +272,7 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--tomato);
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -233,10 +286,10 @@
 
   .slide-title {
     font-family: var(--font-display);
-    font-size: clamp(32px, 3.8vw, 48px);
+    font-size: clamp(28px, 3.4vw, 44px);
     line-height: 1.1;
     color: #fff;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     letter-spacing: -0.01em;
   }
   .slide-title .accent { color: var(--tomato); }
@@ -244,37 +297,88 @@
   .slide-title .cyan { color: var(--cyan); }
 
   .slide-sub {
-    font-size: 18px;
+    font-size: 16.5px;
     color: var(--ink-muted);
-    line-height: 1.6;
+    line-height: 1.55;
     max-width: 75ch;
   }
 
   .slide-content {
     flex: 1;
-    margin-top: 32px;
+    margin-top: 24px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: relative;
+  }
+
+  /* Custom Image Container */
+  .custom-img-wrap {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+  }
+  .custom-img-wrap img {
+    max-width: 100%;
+    border-radius: 16px;
+    object-fit: cover;
+    border: 1px solid var(--border-card);
+  }
+  .img-edit-overlay {
+    display: none;
+    position: absolute;
+    top: 10px; right: 10px;
+    background: rgba(0,0,0,0.85);
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.3);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: #fff;
+    cursor: pointer;
+  }
+  body.is-editing .custom-img-wrap:hover .img-edit-overlay,
+  body.is-editing .has-custom-img:hover .img-edit-overlay {
+    display: block;
+  }
+
+  .btn-insert-img {
+    display: none;
+    margin-top: 14px;
+    background: rgba(56, 189, 248, 0.15);
+    border: 1.5px dashed var(--cyan);
+    color: var(--cyan);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 10px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    width: fit-content;
+  }
+  body.is-editing .btn-insert-img {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
   }
 
   /* Grid Layouts */
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; height: 100%; align-items: center; }
-  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; height: 100%; align-items: center; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 
   /* Pitch Cards */
   .pitch-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--border-card);
     border-radius: 20px;
-    padding: 28px;
+    padding: 24px;
     transition: var(--transition-fast);
   }
   .pitch-card:hover {
     background: var(--bg-card-hover);
     border-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-4px);
+    transform: translateY(-3px);
   }
   .pitch-card.highlight {
     border-color: var(--tomato);
@@ -284,52 +388,52 @@
 
   .card-num {
     font-family: var(--font-mono);
-    font-size: 14px;
+    font-size: 12.5px;
     font-weight: 700;
     color: var(--tomato);
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
   .card-title {
     font-family: var(--font-display);
-    font-size: 20px;
-    margin-bottom: 10px;
+    font-size: 18.5px;
+    margin-bottom: 8px;
     color: #fff;
   }
   .card-desc {
-    font-size: 14.5px;
+    font-size: 13.5px;
     color: var(--ink-muted);
     line-height: 1.55;
   }
 
   .metric-big {
     font-family: var(--font-display);
-    font-size: 44px;
+    font-size: 40px;
     line-height: 1;
     color: var(--mustard);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
 
   /* Slide 1 Hero Specifics */
   .hero-wrapper {
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
-    gap: 48px;
+    gap: 40px;
     align-items: center;
   }
   .hero-tagline {
-    font-size: 22px;
+    font-size: 20px;
     color: var(--ink-light);
     line-height: 1.5;
-    margin-top: 20px;
+    margin-top: 16px;
     font-weight: 500;
   }
   .hero-presenter {
-    margin-top: 36px;
+    margin-top: 28px;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
     background: rgba(255,255,255,0.04);
-    padding: 14px 20px;
+    padding: 12px 18px;
     border-radius: 14px;
     border: 1px solid var(--border-card);
     width: fit-content;
@@ -340,34 +444,40 @@
     background: linear-gradient(135deg, var(--tomato), var(--mustard));
     display: flex; align-items: center; justify-content: center;
     font-family: var(--font-display); font-size: 18px; color: #fff;
+    overflow: hidden;
   }
+  .avatar-circle img { width: 100%; height: 100%; object-fit: cover; }
+
   .presenter-meta h4 { font-size: 15px; color: #fff; }
-  .presenter-meta p { font-size: 12.5px; color: var(--ink-muted); font-family: var(--font-mono); }
+  .presenter-meta p { font-size: 12px; color: var(--ink-muted); font-family: var(--font-mono); }
 
   .phone-mockup-frame {
     background: #000;
     border: 3px solid rgba(255,255,255,0.15);
-    border-radius: 36px;
-    padding: 12px;
-    width: 280px;
+    border-radius: 34px;
+    padding: 10px;
+    width: 270px;
     margin: 0 auto;
     box-shadow: 0 30px 70px rgba(0,0,0,0.6);
+    position: relative;
   }
   .phone-screen-inner {
     background: #14161F;
-    border-radius: 26px;
-    padding: 20px 16px;
-    height: 440px;
+    border-radius: 24px;
+    padding: 18px 14px;
+    height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow: hidden;
+    position: relative;
   }
 
   /* Matrix 2x2 for Competition */
   .matrix-container {
     position: relative;
     width: 100%;
-    height: 340px;
+    height: 320px;
     border: 1.5px solid var(--border-card);
     border-radius: 20px;
     background: rgba(0,0,0,0.2);
@@ -383,7 +493,7 @@
   }
   .matrix-label {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 10.5px;
     color: var(--ink-muted);
     position: absolute;
     text-transform: uppercase;
@@ -395,9 +505,9 @@
   
   .matrix-item {
     position: absolute;
-    padding: 10px 16px;
+    padding: 9px 15px;
     border-radius: 100px;
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 600;
     border: 1px solid var(--border-card);
     background: rgba(255,255,255,0.05);
@@ -409,8 +519,8 @@
     border-color: var(--tomato);
     box-shadow: 0 0 25px var(--tomato-glow);
     font-family: var(--font-display);
-    font-size: 16px;
-    padding: 12px 24px;
+    font-size: 15px;
+    padding: 11px 22px;
     transform: scale(1.1);
   }
   .matrix-item.c1 { top: 70%; left: 15%; opacity: 0.6; }
@@ -421,14 +531,14 @@
   .timeline-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 18px;
     position: relative;
-    margin-top: 20px;
+    margin-top: 16px;
   }
   .timeline-row::before {
     content: '';
     position: absolute;
-    top: 40px; left: 10%; right: 10%;
+    top: 38px; left: 10%; right: 10%;
     height: 3px;
     background: linear-gradient(90deg, var(--tomato), var(--cyan));
     z-index: 0;
@@ -439,7 +549,7 @@
     background: var(--bg-card);
     border: 1px solid var(--border-card);
     border-radius: 20px;
-    padding: 24px;
+    padding: 22px;
   }
   .timeline-badge {
     width: 32px; height: 32px;
@@ -449,7 +559,7 @@
     font-family: var(--font-mono);
     font-weight: 700;
     display: flex; align-items: center; justify-content: center;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
     border: 3px solid var(--bg-dark);
   }
 
@@ -457,17 +567,17 @@
   .table-pitch {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 16px;
-    font-size: 14px;
+    margin-top: 14px;
+    font-size: 13.5px;
   }
   .table-pitch th, .table-pitch td {
-    padding: 14px 18px;
+    padding: 12px 16px;
     text-align: left;
     border-bottom: 1px solid var(--border-card);
   }
   .table-pitch th {
     font-family: var(--font-mono);
-    font-size: 12px;
+    font-size: 11.5px;
     color: var(--ink-muted);
     text-transform: uppercase;
   }
@@ -477,12 +587,75 @@
     background: rgba(16, 185, 129, 0.06);
   }
 
-  /* Bottom Controls & Slide Selector Drawer */
+  /* Image Modal Popup */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.open {
+    display: flex;
+  }
+  .modal-card {
+    background: #161a24;
+    border: 1px solid var(--border-card);
+    border-radius: 24px;
+    padding: 32px;
+    max-width: 480px;
+    width: 90%;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.8);
+  }
+  .modal-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  .modal-input-group {
+    margin-bottom: 20px;
+  }
+  .modal-input-group label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-muted);
+    margin-bottom: 6px;
+  }
+  .modal-input {
+    width: 100%;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--border-card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 14px;
+  }
+  .modal-file-btn {
+    display: inline-block;
+    background: rgba(255,255,255,0.08);
+    border: 1px dashed var(--cyan);
+    color: var(--cyan);
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+  }
+
+  /* Bottom Controls Bar */
   footer {
     position: relative;
     z-index: 10;
-    height: 72px;
-    padding: 0 32px;
+    height: 68px;
+    padding: 0 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -494,7 +667,7 @@
   .nav-controls {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
   }
 
   .btn-nav {
@@ -502,21 +675,20 @@
     border: 1px solid var(--border-card);
     color: var(--ink-light);
     font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 600;
-    padding: 10px 20px;
-    border-radius: 12px;
+    padding: 8px 16px;
+    border-radius: 10px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     transition: var(--transition-fast);
   }
   .btn-nav:hover:not(:disabled) {
     background: var(--tomato);
     border-color: var(--tomato);
     color: #fff;
-    transform: translateY(-1px);
     box-shadow: 0 4px 14px var(--tomato-glow);
   }
   .btn-nav:disabled {
@@ -551,7 +723,6 @@
     box-shadow: 0 0 10px var(--tomato-glow);
   }
 
-  /* Keyboard shortcut hint */
   .key-hint {
     font-family: var(--font-mono);
     font-size: 11px;
@@ -569,11 +740,56 @@
     color: var(--ink-light);
   }
 
+  @media print {
+    @page { size: A4 landscape; margin: 0; }
+    html, body {
+      background: #0a0b0e !important;
+      color: #F6F4EC !important;
+      overflow: visible !important;
+      height: auto !important;
+      width: 100% !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    header, footer, .bg-glow, .editing-banner, .key-hint, .btn-fullscreen, .live-indicator, .btn-insert-img, .img-edit-overlay {
+      display: none !important;
+    }
+    main { padding: 0 !important; display: block !important; position: static !important; }
+    .slide {
+      position: relative !important;
+      top: auto !important; bottom: auto !important;
+      left: auto !important; right: auto !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: none !important;
+      page-break-after: always !important;
+      break-after: page !important;
+      max-width: 100% !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      min-height: 100vh !important;
+      border-radius: 0 !important;
+      border: none !important;
+      box-shadow: none !important;
+      margin: 0 !important;
+      padding: 44px 52px !important;
+      box-sizing: border-box !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      background: #0a0b0e !important;
+    }
+    .pitch-card, .matrix-container, .timeline-step, .table-pitch {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+
   @media (max-width: 900px) {
-    .slide { padding: 32px 24px; top: 16px; bottom: 16px; left: 16px; right: 16px; }
-    .grid-2, .grid-3, .grid-4, .hero-wrapper { grid-template-columns: 1fr; gap: 20px; }
+    .slide { padding: 28px 20px; top: 12px; bottom: 12px; left: 12px; right: 12px; }
+    .grid-2, .grid-3, .grid-4, .hero-wrapper { grid-template-columns: 1fr; gap: 16px; }
     .phone-mockup-frame { display: none; }
-    .matrix-container { height: 260px; }
+    .matrix-container { height: 250px; }
   }
 </style>
 </head>
@@ -586,197 +802,235 @@
   <div class="brand-logo">
     <div class="brand-icon">p</div>
     <div class="brand-text">plate.</div>
-    <div class="deck-badge">STORY PITCH DECK</div>
+    <div class="deck-badge">PITCH DECK</div>
   </div>
+
   <div class="header-actions">
     <a href="https://cookie-boy.abbosjabborov12.workers.dev/" target="_blank" rel="noopener noreferrer" class="live-indicator">
-      <span class="dot-pulse"></span> Live Web App ↗
+      <span class="dot-pulse"></span> Live App ↗
     </a>
-    <button class="btn-fullscreen" onclick="toggleFullScreen()">Fullscreen ⛶</button>
+
+    <!-- Language Toggle EN/UZ -->
+    <button class="btn-action btn-lang" id="btnLang" onclick="toggleLanguage()">
+      🌐 UZ
+    </button>
+
+    <button class="btn-action" id="btnEdit" onclick="toggleEditMode()">
+      <span id="editIcon">✏️</span> <span id="editText">Edit Mode</span>
+    </button>
+
+    <button class="btn-action" id="btnReset" onclick="resetDefaults()" style="display:none;">
+      🔄 Reset
+    </button>
+
+    <button class="btn-action btn-pdf" onclick="exportPDF()">
+      📄 Export PDF
+    </button>
+
+    <button class="btn-action" onclick="toggleFullScreen()">
+      ⛶ Fullscreen
+    </button>
   </div>
+
   <div class="progress-container">
     <div class="progress-bar" id="progressBar"></div>
   </div>
 </header>
+
+<!-- Editing Active Notification -->
+<div class="editing-banner">
+  <span>✏️ <strong>Text & Image Edit Mode Active</strong> — Click any text or image to customize. Upload local GIFs/images or paste URLs!</span>
+  <button class="btn-action" onclick="saveEditsManually()" style="background:#fff; color:#000; border:none; padding:3px 10px; font-size:11px;">💾 Save Now</button>
+</div>
 
 <!-- Main Slide Viewer -->
 <main id="slideContainer">
 
   <!-- SLIDE 1: COVER -->
   <div class="slide active" data-slide="1">
-    <div class="slide-tag">Slide 01 — Introduction</div>
+    <div class="slide-tag" data-i18n="s1.tag">Slide 01 — Introduction</div>
     <div class="slide-content">
       <div class="hero-wrapper">
         <div>
-          <h1 class="slide-title">Reinventing Home Cooking & <span class="accent">Grocery Budgets</span></h1>
-          <p class="hero-tagline">plate. is an AI-powered smart kitchen operating system that eliminates food waste and calculates the lowest meal costs across local supermarkets.</p>
+          <h1 class="slide-title" data-i18n="s1.title">Reinventing Home Cooking & <span class="accent">Grocery Budgets</span></h1>
+          <p class="hero-tagline" data-i18n="s1.sub">plate. is an AI-powered smart kitchen operating system that eliminates food waste and calculates the lowest meal costs across local supermarkets.</p>
           
           <div class="hero-presenter">
-            <div class="avatar-circle">AJ</div>
+            <div class="avatar-circle has-custom-img" id="presenterAvatarWrap">
+              <span id="avatarInitials">AJ</span>
+              <button class="img-edit-overlay" onclick="openImageModal('presenterAvatar')">📷 Change</button>
+            </div>
             <div class="presenter-meta">
-              <h4>Abbos Jabborov</h4>
-              <p>Founder & Lead Developer • plate. AI</p>
+              <h4 data-i18n="s1.author">Abbos Jabborov</h4>
+              <p data-i18n="s1.role">Founder & Lead Developer • plate. AI</p>
             </div>
           </div>
         </div>
 
         <div>
-          <div class="phone-mockup-frame">
-            <div class="phone-screen-inner">
+          <div class="phone-mockup-frame has-custom-img">
+            <button class="img-edit-overlay" onclick="openImageModal('phoneMockup1')">📷 Replace Mockup/GIF</button>
+            <div class="phone-screen-inner" id="phoneMockup1Content">
               <div>
-                <div style="font-family:var(--font-mono); font-size:11px; color:var(--tomato); font-weight:700;">LIVE DEMO ACTIVE</div>
-                <div style="font-family:var(--font-display); font-size:18px; margin-top:6px; color:#fff;">Pesto Pasta Meal</div>
-                <div style="font-size:13px; color:var(--ink-muted); margin-top:4px;">4 Pantry Items Matches</div>
+                <div style="font-family:var(--font-mono); font-size:11px; color:var(--tomato); font-weight:700;" data-i18n="s1.demolabel">LIVE DEMO ACTIVE</div>
+                <div style="font-family:var(--font-display); font-size:18px; margin-top:6px; color:#fff;" data-i18n="s1.dish">Pesto Pasta Meal</div>
+                <div style="font-size:13px; color:var(--ink-muted); margin-top:4px;" data-i18n="s1.match">4 Pantry Items Matches</div>
               </div>
               <div style="background:rgba(31,59,44,0.4); border:1px solid rgba(16,185,129,0.3); border-radius:14px; padding:14px; text-align:center;">
-                <div style="font-size:11px; font-family:var(--font-mono); color:var(--emerald);">ESTIMATED COST</div>
-                <div style="font-family:var(--font-display); font-size:22px; color:var(--mustard); margin-top:2px;">85,000 UZS</div>
-                <div style="font-size:11px; color:rgba(255,255,255,0.6); margin-top:4px;">Saved 17,000 UZS via Makro</div>
+                <div style="font-size:11px; font-family:var(--font-mono); color:var(--emerald);" data-i18n="s1.costlabel">ESTIMATED COST</div>
+                <div style="font-family:var(--font-display); font-size:22px; color:var(--mustard); margin-top:2px;" data-i18n="s1.costval">85,000 UZS</div>
+                <div style="font-size:11px; color:rgba(255,255,255,0.6); margin-top:4px;" data-i18n="s1.saved">Saved 17,000 UZS via Makro</div>
               </div>
-              <a href="https://cookie-boy.abbosjabborov12.workers.dev/" target="_blank" class="btn-nav" style="justify-content:center; background:var(--tomato); border:none; text-decoration:none;">
+              <a href="https://cookie-boy.abbosjabborov12.workers.dev/" target="_blank" class="btn-nav" style="justify-content:center; background:var(--tomato); border:none; text-decoration:none;" data-i18n="s1.launch">
                 Launch Interactive App ↗
               </a>
             </div>
           </div>
         </div>
       </div>
+      
+      <button class="btn-insert-img" onclick="insertNewImage(1)">🖼️ Insert Custom Image / GIF to Slide</button>
     </div>
   </div>
 
   <!-- SLIDE 2: THE PROBLEM -->
   <div class="slide" data-slide="2">
-    <div class="slide-tag">Slide 02 — The Problem</div>
-    <h2 class="slide-title">Home Cooking is Fragmented, <span class="accent">Costly</span> & Wasteful</h2>
-    <p class="slide-sub">Consumers face record grocery inflation, lack visibility into supermarket prices, and end up wasting both time and food.</p>
+    <div class="slide-tag" data-i18n="s2.tag">Slide 02 — The Problem</div>
+    <h2 class="slide-title" data-i18n="s2.title">Home Cooking is Fragmented, <span class="accent">Costly</span> & Wasteful</h2>
+    <p class="slide-sub" data-i18n="s2.sub">Consumers face record grocery inflation, lack visibility into supermarket prices, and end up wasting both time and food.</p>
     
     <div class="slide-content">
       <div class="grid-3">
         <div class="pitch-card highlight">
-          <div class="card-num">01 / FINANCIAL WASTE</div>
-          <div class="metric-big">$1,500</div>
-          <div class="card-title">Wasted Annually</div>
-          <p class="card-desc">Average household throws away over $1,500 worth of unconsumed food every year due to poor fridge tracking.</p>
+          <div class="card-num" data-i18n="s2.c1num">01 / FINANCIAL WASTE</div>
+          <div class="metric-big" data-i18n="s2.c1val">$1,500</div>
+          <div class="card-title" data-i18n="s2.c1title">Wasted Annually</div>
+          <p class="card-desc" data-i18n="s2.c1desc">Average household throws away over $1,500 worth of unconsumed food every year due to poor fridge tracking.</p>
         </div>
 
         <div class="pitch-card">
-          <div class="card-num">02 / TIME & FRICTION</div>
-          <div class="metric-big">3.2 Hours</div>
-          <div class="card-title">Lost Every Week</div>
-          <p class="card-desc">People spend hours deciding "what to cook", drafting shopping lists, and driving between stores to find ingredients.</p>
+          <div class="card-num" data-i18n="s2.c2num">02 / TIME & FRICTION</div>
+          <div class="metric-big" data-i18n="s2.c2val">3.2 Hours</div>
+          <div class="card-title" data-i18n="s2.c2title">Lost Every Week</div>
+          <p class="card-desc" data-i18n="s2.c2desc">People spend hours deciding "what to cook", drafting shopping lists, and driving between stores to find ingredients.</p>
         </div>
 
         <div class="pitch-card">
-          <div class="card-num">03 / PRICE OPAQUENESS</div>
-          <div class="metric-big">+28%</div>
-          <div class="card-title">Food Inflation</div>
-          <p class="card-desc">Prices differ up to 25% between local supermarket chains (Korzinka vs Makro vs Havas), but buyers have zero price-comparison tools.</p>
+          <div class="card-num" data-i18n="s2.c3num">03 / PRICE OPAQUENESS</div>
+          <div class="metric-big" data-i18n="s2.c3val">+28%</div>
+          <div class="card-title" data-i18n="s2.c3title">Food Inflation</div>
+          <p class="card-desc" data-i18n="s2.c3desc">Prices differ up to 25% between local supermarket chains (Korzinka vs Makro vs Havas), but buyers have zero price-comparison tools.</p>
         </div>
       </div>
+      <button class="btn-insert-img" onclick="insertNewImage(2)">🖼️ Insert Custom Image / GIF to Slide</button>
     </div>
   </div>
 
   <!-- SLIDE 3: THE SOLUTION & USP -->
   <div class="slide" data-slide="3">
-    <div class="slide-tag">Slide 03 — Solution & USP</div>
-    <h2 class="slide-title">The First <span class="mustard">Budget-Aware</span> AI Kitchen Assistant</h2>
-    <p class="slide-sub">plate. connects what's inside your fridge directly with local supermarket pricing to optimize meal costs before you spend 1 cent.</p>
+    <div class="slide-tag" data-i18n="s3.tag">Slide 03 — Solution & USP</div>
+    <h2 class="slide-title" data-i18n="s3.title">The First <span class="mustard">Budget-Aware</span> AI Kitchen Assistant</h2>
+    <p class="slide-sub" data-i18n="s3.sub">plate. connects what's inside your fridge directly with local supermarket pricing to optimize meal costs before you spend 1 cent.</p>
     
     <div class="slide-content">
       <div class="grid-3">
         <div class="pitch-card">
-          <div class="card-title" style="color:var(--mustard);">1. Smart Pantry Scanner</div>
-          <p class="card-desc">Scan receipts or tap pantry items. Keeps real-time track of ingredients to prevent buying duplicate items.</p>
+          <div class="card-title" style="color:var(--mustard);" data-i18n="s3.c1title">1. Smart Pantry Scanner</div>
+          <p class="card-desc" data-i18n="s3.c1desc">Scan receipts or tap pantry items. Keeps real-time track of ingredients to prevent buying duplicate items.</p>
         </div>
         <div class="pitch-card highlight">
-          <div class="card-title" style="color:var(--tomato);">2. Supermarket Price Matcher</div>
-          <p class="card-desc">Calculates total basket costs dynamically across Korzinka, Makro, and Havas to suggest the cheapest shopping route.</p>
+          <div class="card-title" style="color:var(--tomato);" data-i18n="s3.c2title">2. Supermarket Price Matcher</div>
+          <p class="card-desc" data-i18n="s3.c2desc">Calculates total basket costs dynamically across Korzinka, Makro, and Havas to suggest the cheapest shopping route.</p>
         </div>
         <div class="pitch-card">
-          <div class="card-title" style="color:var(--cyan);">3. Adaptive Recipe Engine</div>
-          <p class="card-desc">Generates step-by-step personalized recipes adapted to available ingredients, dietary needs, and strict budgets.</p>
+          <div class="card-title" style="color:var(--cyan);" data-i18n="s3.c3title">3. Adaptive Recipe Engine</div>
+          <p class="card-desc" data-i18n="s3.c3desc">Generates step-by-step personalized recipes adapted to available ingredients, dietary needs, and strict budgets.</p>
         </div>
       </div>
 
-      <div style="margin-top:24px; background:rgba(31,59,44,0.4); border:1px solid rgba(16,185,129,0.3); padding:20px 28px; border-radius:16px; display:flex; align-items:center; justify-content:space-between;">
-        <span style="font-weight:700; color:var(--emerald); font-size:15px;">UNFAIR ADVANTAGE (USP)</span>
-        <span style="font-size:14.5px; color:var(--ink-light);">"Generic recipe apps tell you *how* to cook. plate. tells you *what* to cook to save 20-30% on groceries."</span>
+      <div style="margin-top:20px; background:rgba(31,59,44,0.4); border:1px solid rgba(16,185,129,0.3); padding:18px 24px; border-radius:16px; display:flex; align-items:center; justify-content:space-between;">
+        <span style="font-weight:700; color:var(--emerald); font-size:14px;" data-i18n="s3.usplabel">UNFAIR ADVANTAGE (USP)</span>
+        <span style="font-size:14px; color:var(--ink-light);" data-i18n="s3.uspval">"Generic recipe apps tell you *how* to cook. plate. tells you *what* to cook to save 20-30% on groceries."</span>
       </div>
+      <button class="btn-insert-img" onclick="insertNewImage(3)">🖼️ Insert Custom Image / GIF to Slide</button>
     </div>
   </div>
 
   <!-- SLIDE 4: PRODUCT DEMO -->
   <div class="slide" data-slide="4">
-    <div class="slide-tag">Slide 04 — Product Demo</div>
-    <h2 class="slide-title">Live Working Software on <span class="cyan">Cloudflare Workers</span></h2>
-    <p class="slide-sub">Zero mockups or slide vaporware. Our web application is live, responsive, and available on mobile & web today.</p>
+    <div class="slide-tag" data-i18n="s4.tag">Slide 04 — Product Demo</div>
+    <h2 class="slide-title" data-i18n="s4.title">Live Working Software on <span class="cyan">Cloudflare Workers</span></h2>
+    <p class="slide-sub" data-i18n="s4.sub">Zero mockups or slide vaporware. Our web application is live, responsive, and available on mobile & web today.</p>
 
     <div class="slide-content">
       <div class="grid-2">
-        <div style="display:flex; flex-direction:column; gap:16px;">
+        <div style="display:flex; flex-direction:column; gap:14px;">
           <div class="pitch-card">
-            <h4 style="color:var(--tomato); font-family:var(--font-mono); font-size:12px; margin-bottom:6px;">STEP 1 — INVENTORY MATCHING</h4>
-            <p style="color:#fff; font-weight:600;">Select available ingredients from your kitchen pantry.</p>
+            <h4 style="color:var(--tomato); font-family:var(--font-mono); font-size:12px; margin-bottom:4px;" data-i18n="s4.step1tag">STEP 1 — INVENTORY MATCHING</h4>
+            <p style="color:#fff; font-weight:600;" data-i18n="s4.step1val">Select available ingredients from your kitchen pantry.</p>
           </div>
           <div class="pitch-card highlight">
-            <h4 style="color:var(--mustard); font-family:var(--font-mono); font-size:12px; margin-bottom:6px;">STEP 2 — REAL-TIME PRICE BASKET</h4>
-            <p style="color:#fff; font-weight:600;">System aggregates missing items and outputs cheapest store options.</p>
+            <h4 style="color:var(--mustard); font-family:var(--font-mono); font-size:12px; margin-bottom:4px;" data-i18n="s4.step2tag">STEP 2 — REAL-TIME PRICE BASKET</h4>
+            <p style="color:#fff; font-weight:600;" data-i18n="s4.step2val">System aggregates missing items and outputs cheapest store options.</p>
           </div>
           <div class="pitch-card">
-            <h4 style="color:var(--cyan); font-family:var(--font-mono); font-size:12px; margin-bottom:6px;">STEP 3 — STEP-BY-STEP COOKING MODE</h4>
-            <p style="color:#fff; font-weight:600;">Dark-mode voice assistant timer & step guidance for hands-free cooking.</p>
+            <h4 style="color:var(--cyan); font-family:var(--font-mono); font-size:12px; margin-bottom:4px;" data-i18n="s4.step3tag">STEP 3 — STEP-BY-STEP COOKING MODE</h4>
+            <p style="color:#fff; font-weight:600;" data-i18n="s4.step3val">Dark-mode voice assistant timer & step guidance for hands-free cooking.</p>
           </div>
         </div>
 
-        <div style="background:rgba(0,0,0,0.4); border:1px solid var(--border-card); border-radius:24px; padding:32px; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center;">
-          <div style="font-family:var(--font-display); font-size:24px; color:#fff; margin-bottom:12px;">Test the Live Web Application</div>
-          <p style="font-size:14px; color:var(--ink-muted); margin-bottom:24px; max-width:32ch;">Scan or click below to launch the live app hosted on Cloudflare Workers edge network.</p>
+        <div style="background:rgba(0,0,0,0.4); border:1px solid var(--border-card); border-radius:24px; padding:28px; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+          <div style="font-family:var(--font-display); font-size:22px; color:#fff; margin-bottom:10px;" data-i18n="s4.cardtitle">Test the Live Web Application</div>
+          <p style="font-size:13.5px; color:var(--ink-muted); margin-bottom:20px; max-width:32ch;" data-i18n="s4.carddesc">Scan or click below to launch the live app hosted on Cloudflare Workers edge network.</p>
           
-          <a href="https://cookie-boy.abbosjabborov12.workers.dev/" target="_blank" class="btn-nav" style="padding:14px 28px; font-size:15px; background:linear-gradient(135deg, var(--tomato), #d0461d); border:none; text-decoration:none;">
+          <a href="https://cookie-boy.abbosjabborov12.workers.dev/" target="_blank" class="btn-nav" style="padding:12px 24px; font-size:14px; background:linear-gradient(135deg, var(--tomato), #d0461d); border:none; text-decoration:none;" data-i18n="s4.btn">
             🚀 Open Live Demo ↗
           </a>
-          <div style="font-family:var(--font-mono); font-size:11px; color:var(--emerald); margin-top:14px;">URL: cookie-boy.abbosjabborov12.workers.dev</div>
+          <div style="font-family:var(--font-mono); font-size:11px; color:var(--emerald); margin-top:12px;">URL: cookie-boy.abbosjabborov12.workers.dev</div>
         </div>
       </div>
+      <button class="btn-insert-img" onclick="insertNewImage(4)">🖼️ Insert Custom Image / GIF to Slide</button>
     </div>
   </div>
 
   <!-- SLIDE 5: MARKET OPPORTUNITY -->
   <div class="slide" data-slide="5">
-    <div class="slide-tag">Slide 05 — Market & Opportunity</div>
-    <h2 class="slide-title">A <span class="mustard">$280 Billion</span> Global Market Opportunity</h2>
-    <p class="slide-sub">Capturing the intersection of digital grocery retail, recipe platforms, and AI assistant technologies.</p>
+    <div class="slide-tag" data-i18n="s5.tag">Slide 05 — Market & Opportunity</div>
+    <h2 class="slide-title" data-i18n="s5.title">A <span class="mustard">$280 Billion</span> Global Market Opportunity</h2>
+    <p class="slide-sub" data-i18n="s5.sub">Capturing the intersection of digital grocery retail, recipe platforms, and AI assistant technologies.</p>
 
     <div class="slide-content">
       <div class="grid-3">
         <div class="pitch-card" style="text-align:center;">
           <div class="slide-tag" style="justify-content:center;">TAM</div>
-          <div class="metric-big" style="color:#fff;">$280B</div>
-          <div class="card-title">Global FoodTech</div>
-          <p class="card-desc">Total global market for digital grocery shopping & smart kitchen technology.</p>
+          <div class="metric-big" style="color:#fff;" data-i18n="s5.tamval">$280B</div>
+          <div class="card-title" data-i18n="s5.tamtitle">Global FoodTech</div>
+          <p class="card-desc" data-i18n="s5.tamdesc">Total global market for digital grocery shopping & smart kitchen technology.</p>
         </div>
 
         <div class="pitch-card highlight" style="text-align:center;">
           <div class="slide-tag" style="justify-content:center;">SAM</div>
-          <div class="metric-big" style="color:var(--mustard);">$1.2B</div>
-          <div class="card-title">CIS & Regional</div>
-          <p class="card-desc">Central Asian & CIS online grocery and culinary app market size.</p>
+          <div class="metric-big" style="color:var(--mustard);" data-i18n="s5.samval">$1.2B</div>
+          <div class="card-title" data-i18n="s5.samtitle">CIS & Regional</div>
+          <p class="card-desc" data-i18n="s5.samdesc">Central Asian & CIS online grocery and culinary app market size.</p>
         </div>
 
         <div class="pitch-card" style="text-align:center;">
           <div class="slide-tag" style="justify-content:center;">SOM</div>
-          <div class="metric-big" style="color:var(--emerald);">$15M</div>
-          <div class="card-title">Year 1-2 Target</div>
-          <p class="card-desc">Obtainable share focusing on urban households in major metropolitan centers.</p>
+          <div class="metric-big" style="color:var(--emerald);" data-i18n="s5.somval">$15M</div>
+          <div class="card-title" data-i18n="s5.somtitle">Year 1-2 Target</div>
+          <p class="card-desc" data-i18n="s5.somdesc">Obtainable share focusing on urban households in major metropolitan centers.</p>
         </div>
       </div>
+      <button class="btn-insert-img" onclick="insertNewImage(5)">🖼️ Insert Custom Image / GIF to Slide</button>
     </div>
   </div>
 
   <!-- SLIDE 6: COMPETITION MATRIX -->
   <div class="slide" data-slide="6">
-    <div class="slide-tag">Slide 06 — Competition</div>
-    <h2 class="slide-title">Clear Differentiation & <span class="accent">Positioning</span></h2>
-    <p class="slide-sub">While incumbents focus on generic recipes or raw delivery, plate. bridges local supermarket pricing with AI intelligence.</p>
+    <div class="slide-tag" data-i18n="s6.tag">Slide 06 — Competition</div>
+    <h2 class="slide-title" data-i18n="s6.title">Clear Differentiation & <span class="accent">Positioning</span></h2>
+    <p class="slide-sub" data-i18n="s6.sub">While incumbents focus on generic recipes or raw delivery, plate. bridges local supermarket pricing with AI intelligence.</p>
 
     <div class="slide-content">
       <div class="grid-2">
@@ -784,10 +1038,10 @@
           <div class="matrix-axis-x"></div>
           <div class="matrix-axis-y"></div>
           
-          <div class="matrix-label top">Real-Time Local Store Pricing</div>
-          <div class="matrix-label bottom">Static / Global Recipes</div>
-          <div class="matrix-label left">Generic Content</div>
-          <div class="matrix-label right">Budget Optimization</div>
+          <div class="matrix-label top" data-i18n="s6.mtop">Real-Time Local Store Pricing</div>
+          <div class="matrix-label bottom" data-i18n="s6.mbot">Static / Global Recipes</div>
+          <div class="matrix-label left" data-i18n="s6.mleft">Generic Content</div>
+          <div class="matrix-label right" data-i18n="s6.mright">Budget Optimization</div>
 
           <div class="matrix-item winner">plate. AI ✨</div>
           <div class="matrix-item c1">ChatGPT / Claude</div>
@@ -798,152 +1052,185 @@
         <div>
           <table class="table-pitch">
             <thead>
-              <tr><th>Feature</th><th>Recipe Blogs</th><th>Generic AI</th><th style="color:var(--emerald);">plate.</th></tr>
+              <tr><th data-i18n="s6.th1">Feature</th><th data-i18n="s6.th2">Recipe Blogs</th><th data-i18n="s6.th3">Generic AI</th><th style="color:var(--emerald);">plate.</th></tr>
             </thead>
             <tbody>
-              <tr><td>Inventory Match</td><td>✕</td><td>Partial</td><td class="winner-cell">✓ Full AI</td></tr>
-              <tr><td>Local Store Prices</td><td>✕</td><td>✕</td><td class="winner-cell">✓ Live Compare</td></tr>
-              <tr><td>Budget Optimization</td><td>✕</td><td>✕</td><td class="winner-cell">✓ Built-in</td></tr>
-              <tr><td>Cooking Step Timer</td><td>Static</td><td>Text only</td><td class="winner-cell">✓ Interactive</td></tr>
+              <tr><td data-i18n="s6.tr1">Inventory Match</td><td>✕</td><td>Partial</td><td class="winner-cell">✓ Full AI</td></tr>
+              <tr><td data-i18n="s6.tr2">Local Store Prices</td><td>✕</td><td>✕</td><td class="winner-cell">✓ Live Compare</td></tr>
+              <tr><td data-i18n="s6.tr3">Budget Optimization</td><td>✕</td><td>✕</td><td class="winner-cell">✓ Built-in</td></tr>
+              <tr><td data-i18n="s6.tr4">Cooking Step Timer</td><td>Static</td><td>Text only</td><td class="winner-cell">✓ Interactive</td></tr>
             </tbody>
           </table>
         </div>
       </div>
+      <button class="btn-insert-img" onclick="insertNewImage(6)">🖼️ Insert Custom Image / GIF to Slide</button>
     </div>
   </div>
 
   <!-- SLIDE 7: MONETIZATION MODEL -->
   <div class="slide" data-slide="7">
-    <div class="slide-tag">Slide 07 — Business Model</div>
-    <h2 class="slide-title">Diversified & Scalable <span class="mustard">Revenue Streams</span></h2>
-    <p class="slide-sub">High-margin subscription revenues paired with supermarket affiliate commissions and consumer intelligence data.</p>
+    <div class="slide-tag" data-i18n="s7.tag">Slide 07 — Business Model</div>
+    <h2 class="slide-title" data-i18n="s7.title">Diversified & Scalable <span class="mustard">Revenue Streams</span></h2>
+    <p class="slide-sub" data-i18n="s7.sub">High-margin subscription revenues paired with supermarket affiliate commissions and consumer intelligence data.</p>
 
     <div class="slide-content">
       <div class="grid-3">
         <div class="pitch-card">
-          <div class="card-num">STREAM 01</div>
-          <div class="metric-big" style="font-size:32px; color:#fff;">$4.99 / mo</div>
-          <div class="card-title">B2C Freemium</div>
-          <p class="card-desc">Free basic app. Premium tier unlocks unlimited AI meal planning, price alerts, and personalized nutrition tracking.</p>
+          <div class="card-num" data-i18n="s7.c1num">STREAM 01</div>
+          <div class="metric-big" style="font-size:30px; color:#fff;" data-i18n="s7.c1val">$4.99 / mo</div>
+          <div class="card-title" data-i18n="s7.c1title">B2C Freemium</div>
+          <p class="card-desc" data-i18n="s7.c1desc">Free basic app. Premium tier unlocks unlimited AI meal planning, price alerts, and personalized nutrition tracking.</p>
         </div>
 
         <div class="pitch-card highlight">
-          <div class="card-num">STREAM 02</div>
-          <div class="metric-big" style="font-size:32px; color:var(--tomato);">3% - 5%</div>
-          <div class="card-title">Supermarket Affiliate</div>
-          <p class="card-desc">Referral commissions on automated grocery cart orders routed directly to partner retail networks (Korzinka, Makro).</p>
+          <div class="card-num" data-i18n="s7.c2num">STREAM 02</div>
+          <div class="metric-big" style="font-size:30px; color:var(--tomato);" data-i18n="s7.c2val">3% - 5%</div>
+          <div class="card-title" data-i18n="s7.c2title">Supermarket Affiliate</div>
+          <p class="card-desc" data-i18n="s7.c2desc">Referral commissions on automated grocery cart orders routed directly to partner retail networks (Korzinka, Makro).</p>
         </div>
 
         <div class="pitch-card">
-          <div class="card-num">STREAM 03</div>
-          <div class="metric-big" style="font-size:32px; color:var(--cyan);">B2B SaaS</div>
-          <div class="card-title">Retail Consumer Insights</div>
-          <p class="card-desc">Anonymized demand forecasting and consumer purchasing intent data for FMCG brands & retail managers.</p>
+          <div class="card-num" data-i18n="s7.c3num">STREAM 03</div>
+          <div class="metric-big" style="font-size:30px; color:var(--cyan);" data-i18n="s7.c3val">B2B SaaS</div>
+          <div class="card-title" data-i18n="s7.c3title">Retail Consumer Insights</div>
+          <p class="card-desc" data-i18n="s7.c3desc">Anonymized demand forecasting and consumer purchasing intent data for FMCG brands & retail managers.</p>
         </div>
       </div>
+      <button class="btn-insert-img" onclick="insertNewImage(7)">🖼️ Insert Custom Image / GIF to Slide</button>
     </div>
   </div>
 
   <!-- SLIDE 8: ROADMAP & TIMELINE -->
   <div class="slide" data-slide="8">
-    <div class="slide-tag">Slide 08 — Roadmap</div>
-    <h2 class="slide-title">Execution <span class="cyan">Timeline & Milestones</span></h2>
-    <p class="slide-sub">Disciplined rollout plan focused on user growth, store API partnerships, and mobile monetization.</p>
+    <div class="slide-tag" data-i18n="s8.tag">Slide 08 — Roadmap</div>
+    <h2 class="slide-title" data-i18n="s8.title">Execution <span class="cyan">Timeline & Milestones</span></h2>
+    <p class="slide-sub" data-i18n="s8.sub">Disciplined rollout plan focused on user growth, store API partnerships, and mobile monetization.</p>
 
     <div class="slide-content">
       <div class="timeline-row">
         <div class="timeline-step">
           <div class="timeline-badge">1</div>
-          <div style="font-family:var(--font-mono); font-size:12px; color:var(--tomato); font-weight:700;">Q3 2026 (CURRENT)</div>
-          <div class="card-title" style="margin-top:4px;">MVP & Cloudflare Deployment</div>
-          <p class="card-desc">Deployed full-stack app on Cloudflare Workers edge. 5,000 active beta test users onboarded.</p>
+          <div style="font-family:var(--font-mono); font-size:12px; color:var(--tomato); font-weight:700;" data-i18n="s8.p1tag">Q3 2026 (CURRENT)</div>
+          <div class="card-title" style="margin-top:4px;" data-i18n="s8.p1title">MVP & Cloudflare Deployment</div>
+          <p class="card-desc" data-i18n="s8.p1desc">Deployed full-stack app on Cloudflare Workers edge. 5,000 active beta test users onboarded.</p>
         </div>
 
         <div class="timeline-step">
           <div class="timeline-badge" style="background:var(--mustard);">2</div>
-          <div style="font-family:var(--font-mono); font-size:12px; color:var(--mustard); font-weight:700;">Q4 2026</div>
-          <div class="card-title" style="margin-top:4px;">Retail API Integrations</div>
-          <p class="card-desc">Direct API sync with top 3 local supermarket chains. Mobile App Store (iOS/Android) native launch.</p>
+          <div style="font-family:var(--font-mono); font-size:12px; color:var(--mustard); font-weight:700;" data-i18n="s8.p2tag">Q4 2026</div>
+          <div class="card-title" style="margin-top:4px;" data-i18n="s8.p2title">Retail API Integrations</div>
+          <p class="card-desc" data-i18n="s8.p2desc">Direct API sync with top 3 local supermarket chains. Mobile App Store (iOS/Android) native launch.</p>
         </div>
 
         <div class="timeline-step">
           <div class="timeline-badge" style="background:var(--cyan);">3</div>
-          <div style="font-family:var(--font-mono); font-size:12px; color:var(--cyan); font-weight:700;">Q1-Q2 2027</div>
-          <div class="card-title" style="margin-top:4px;">Regional Scale & Monetization</div>
-          <p class="card-desc">Launch B2C Premium subscriptions. Expand platform to neighboring regional metropolitan markets.</p>
+          <div style="font-family:var(--font-mono); font-size:12px; color:var(--cyan); font-weight:700;" data-i18n="s8.p3tag">Q1-Q2 2027</div>
+          <div class="card-title" style="margin-top:4px;" data-i18n="s8.p3title">Regional Scale & Monetization</div>
+          <p class="card-desc" data-i18n="s8.p3desc">Launch B2C Premium subscriptions. Expand platform to neighboring regional metropolitan markets.</p>
         </div>
       </div>
+      <button class="btn-insert-img" onclick="insertNewImage(8)">🖼️ Insert Custom Image / GIF to Slide</button>
     </div>
   </div>
 
   <!-- SLIDE 9: TEAM -->
   <div class="slide" data-slide="9">
-    <div class="slide-tag">Slide 09 — Team & Execution</div>
-    <h2 class="slide-title">Built by Agile <span class="accent">Product Builders</span></h2>
-    <p class="slide-sub">Combining technical full-stack engineering expertise with modern AI product execution capability.</p>
+    <div class="slide-tag" data-i18n="s9.tag">Slide 09 — Team & Execution</div>
+    <h2 class="slide-title" data-i18n="s9.title">Built by Agile <span class="accent">Product Builders</span></h2>
+    <p class="slide-sub" data-i18n="s9.sub">Combining technical full-stack engineering expertise with modern AI product execution capability.</p>
 
     <div class="slide-content">
       <div class="grid-2">
-        <div class="pitch-card highlight" style="display:flex; gap:20px; align-items:center;">
-          <div class="avatar-circle" style="width:72px; height:72px; font-size:28px; flex-shrink:0;">AJ</div>
+        <div class="pitch-card highlight" style="display:flex; gap:18px; align-items:center;">
+          <div class="avatar-circle has-custom-img" id="presenterAvatarWrap2" style="width:68px; height:68px; font-size:24px; flex-shrink:0;">
+            <span id="avatarInitials2">AJ</span>
+            <button class="img-edit-overlay" onclick="openImageModal('presenterAvatar')">📷 Change</button>
+          </div>
           <div>
-            <div class="card-title" style="margin-bottom:2px;">Abbos Jabborov</div>
-            <div style="font-family:var(--font-mono); font-size:13px; color:var(--tomato); font-weight:700; margin-bottom:8px;">Founder & Lead Architect</div>
-            <p class="card-desc">Full-stack software engineer specialized in React, Python/Django, Cloudflare Workers, and modern Web AI systems.</p>
+            <div class="card-title" style="margin-bottom:2px;" data-i18n="s9.name">Abbos Jabborov</div>
+            <div style="font-family:var(--font-mono); font-size:12.5px; color:var(--tomato); font-weight:700; margin-bottom:6px;" data-i18n="s9.role">Founder & Lead Architect</div>
+            <p class="card-desc" data-i18n="s9.desc">Full-stack software engineer specialized in React, Python/Django, Cloudflare Workers, and modern Web AI systems.</p>
           </div>
         </div>
 
         <div class="pitch-card" style="display:flex; flex-direction:column; justify-content:center;">
-          <div class="card-title" style="color:var(--mustard);">Execution Capability</div>
-          <ul style="list-style:none; margin-top:10px; display:flex; flex-direction:column; gap:8px; font-size:14px; color:var(--ink-light);">
-            <li>⚡ <strong>Speed to Market:</strong> Production MVP built and deployed in record time.</li>
-            <li>🌐 <strong>Modern Architecture:</strong> Cloudflare edge infrastructure for ultra-fast global latency.</li>
-            <li>🎯 <strong>Targeted Focus:</strong> Deep understanding of Central Asian retail grocery dynamics.</li>
+          <div class="card-title" style="color:var(--mustard);" data-i18n="s9.capstitle">Execution Capability</div>
+          <ul style="list-style:none; margin-top:8px; display:flex; flex-direction:column; gap:6px; font-size:13.5px; color:var(--ink-light);">
+            <li data-i18n="s9.cap1">⚡ <strong>Speed to Market:</strong> Production MVP built and deployed in record time.</li>
+            <li data-i18n="s9.cap2">🌐 <strong>Modern Architecture:</strong> Cloudflare edge infrastructure for ultra-fast global latency.</li>
+            <li data-i18n="s9.cap3">🎯 <strong>Targeted Focus:</strong> Deep understanding of Central Asian retail grocery dynamics.</li>
           </ul>
         </div>
       </div>
+      <button class="btn-insert-img" onclick="insertNewImage(9)">🖼️ Insert Custom Image / GIF to Slide</button>
     </div>
   </div>
 
   <!-- SLIDE 10: THE ASK & VISION -->
   <div class="slide" data-slide="10">
-    <div class="slide-tag">Slide 10 — The Ask</div>
-    <h2 class="slide-title">Join Us in Building the <span class="mustard">Future of Food</span></h2>
-    <p class="slide-sub">We are seeking strategic partnership and competition backing to accelerate retailer integrations.</p>
+    <div class="slide-tag" data-i18n="s10.tag">Slide 10 — The Ask</div>
+    <h2 class="slide-title" data-i18n="s10.title">Join Us in Building the <span class="mustard">Future of Food</span></h2>
+    <p class="slide-sub" data-i18n="s10.sub">We are seeking strategic partnership and competition backing to accelerate retailer integrations.</p>
 
     <div class="slide-content">
       <div class="grid-2">
         <div class="pitch-card highlight" style="background:rgba(228,87,46,0.08);">
-          <div class="card-num">COMPETITION ASK</div>
-          <div class="metric-big" style="color:#fff;">$25,000 – $50,000</div>
-          <div class="card-title" style="margin-top:8px;">Grant / Competition Prize Allocation</div>
-          <ul style="margin-top:12px; font-size:14px; color:var(--ink-light); display:flex; flex-direction:column; gap:6px; padding-left:16px;">
-            <li>60% Retail Store API Integrations & Data Scraping Pipelines</li>
-            <li>25% User Acquisition & Growth Marketing</li>
-            <li>15% Infrastructure & Server Operations</li>
+          <div class="card-num" data-i18n="s10.asktag">COMPETITION ASK</div>
+          <div class="metric-big" style="color:#fff;" data-i18n="s10.askval">$25,000 – $50,000</div>
+          <div class="card-title" style="margin-top:6px;" data-i18n="s10.asktitle">Grant / Competition Prize Allocation</div>
+          <ul style="margin-top:10px; font-size:13.5px; color:var(--ink-light); display:flex; flex-direction:column; gap:5px; padding-left:16px;">
+            <li data-i18n="s10.use1">60% Retail Store API Integrations & Data Scraping Pipelines</li>
+            <li data-i18n="s10.use2">25% User Acquisition & Growth Marketing</li>
+            <li data-i18n="s10.use3">15% Infrastructure & Server Operations</li>
           </ul>
         </div>
 
-        <div style="display:flex; flex-direction:column; justify-content:space-between; background:var(--bg-card-hover); border:1px solid var(--border-card); border-radius:20px; padding:28px;">
+        <div style="display:flex; flex-direction:column; justify-content:space-between; background:var(--bg-card-hover); border:1px solid var(--border-card); border-radius:20px; padding:24px;">
           <div>
-            <div style="font-family:var(--font-mono); font-size:12px; color:var(--emerald); font-weight:700;">VISION STATEMENT</div>
-            <div style="font-family:var(--font-display); font-size:22px; color:#fff; margin-top:10px; line-height:1.3;">
+            <div style="font-family:var(--font-mono); font-size:11.5px; color:var(--emerald); font-weight:700;" data-i18n="s10.vistag">VISION STATEMENT</div>
+            <div style="font-family:var(--font-display); font-size:20px; color:#fff; margin-top:8px; line-height:1.3;" data-i18n="s10.visval">
               "Making smart, sustainable, and budget-friendly home cooking effortless for millions."
             </div>
           </div>
 
-          <div style="margin-top:24px; border-top:1px solid var(--border-card); padding-top:16px;">
-            <div style="font-size:13px; color:var(--ink-muted);">GET IN TOUCH & TEST DEMO:</div>
-            <a href="https://cookie-boy.abbosjabborov12.workers.dev/" target="_blank" style="color:var(--mustard); font-family:var(--font-mono); font-weight:700; font-size:14px; text-decoration:underline;">
+          <div style="margin-top:20px; border-top:1px solid var(--border-card); padding-top:14px;">
+            <div style="font-size:12.5px; color:var(--ink-muted);" data-i18n="s10.contact">GET IN TOUCH & TEST DEMO:</div>
+            <a href="https://cookie-boy.abbosjabborov12.workers.dev/" target="_blank" style="color:var(--mustard); font-family:var(--font-mono); font-weight:700; font-size:13.5px; text-decoration:underline;">
               cookie-boy.abbosjabborov12.workers.dev ↗
             </a>
           </div>
         </div>
       </div>
+      <button class="btn-insert-img" onclick="insertNewImage(10)">🖼️ Insert Custom Image / GIF to Slide</button>
     </div>
   </div>
 
 </main>
+
+<!-- Image Upload/URL Modal -->
+<div class="modal-overlay" id="imageModal">
+  <div class="modal-card">
+    <div class="modal-title">🖼️ Custom Image / GIF Selector</div>
+    
+    <div class="modal-input-group">
+      <label>OPTION 1 — Upload File (PNG, JPG, GIF, WebP)</label>
+      <label class="modal-file-btn">
+        📁 Choose Local Image / GIF File
+        <input type="file" id="modalFileInput" accept="image/*" style="display:none;" onchange="handleFileSelect(event)">
+      </label>
+    </div>
+
+    <div class="modal-input-group">
+      <label>OPTION 2 — Paste Image / GIF Web URL</label>
+      <input type="url" class="modal-input" id="modalUrlInput" placeholder="https://example.com/demo.gif">
+    </div>
+
+    <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+      <button class="btn-action" onclick="closeImageModal()">Cancel</button>
+      <button class="btn-action active" onclick="applyImageFromUrl()">Apply Image</button>
+    </div>
+  </div>
+</div>
 
 <!-- Bottom Controls Bar -->
 <footer>
@@ -963,14 +1250,191 @@
 <script>
   let currentSlide = 1;
   const totalSlides = 10;
+  let isEditing = false;
+  let currentLang = 'en';
+  let targetImageTarget = null;
+  let targetSlideNum = null;
+
   const slides = document.querySelectorAll('.slide');
   const progressBar = document.getElementById('progressBar');
   const currentSlideNum = document.getElementById('currentSlideNum');
   const btnPrev = document.getElementById('btnPrev');
   const btnNext = document.getElementById('btnNext');
   const thumbContainer = document.getElementById('thumbContainer');
+  const btnEdit = document.getElementById('btnEdit');
+  const btnReset = document.getElementById('btnReset');
+  const editIcon = document.getElementById('editIcon');
+  const editText = document.getElementById('editText');
+  const btnLang = document.getElementById('btnLang');
 
-  // Initialize dots
+  // I18N Translation Dictionary (EN & UZ)
+  const DICT = {
+    en: {
+      "s1.tag": "Slide 01 — Introduction",
+      "s1.title": 'Reinventing Home Cooking & <span class="accent">Grocery Budgets</span>',
+      "s1.sub": "plate. is an AI-powered smart kitchen operating system that eliminates food waste and calculates the lowest meal costs across local supermarkets.",
+      "s1.author": "Abbos Jabborov",
+      "s1.role": "Founder & Lead Developer • plate. AI",
+      "s1.demolabel": "LIVE DEMO ACTIVE",
+      "s1.dish": "Pesto Pasta Meal",
+      "s1.match": "4 Pantry Items Matches",
+      "s1.costlabel": "ESTIMATED COST",
+      "s1.costval": "85,000 UZS",
+      "s1.saved": "Saved 17,000 UZS via Makro",
+      "s1.launch": "Launch Interactive App ↗",
+
+      "s2.tag": "Slide 02 — The Problem",
+      "s2.title": 'Home Cooking is Fragmented, <span class="accent">Costly</span> & Wasteful',
+      "s2.sub": "Consumers face record grocery inflation, lack visibility into supermarket prices, and end up wasting both time and food.",
+      "s2.c1num": "01 / FINANCIAL WASTE", "s2.c1val": "$1,500", "s2.c1title": "Wasted Annually", "s2.c1desc": "Average household throws away over $1,500 worth of unconsumed food every year due to poor fridge tracking.",
+      "s2.c2num": "02 / TIME & FRICTION", "s2.c2val": "3.2 Hours", "s2.c2title": "Lost Every Week", "s2.c2desc": "People spend hours deciding \"what to cook\", drafting shopping lists, and driving between stores to find ingredients.",
+      "s2.c3num": "03 / PRICE OPAQUENESS", "s2.c3val": "+28%", "s2.c3title": "Food Inflation", "s2.c3desc": "Prices differ up to 25% between local supermarket chains (Korzinka vs Makro vs Havas), but buyers have zero price-comparison tools.",
+
+      "s3.tag": "Slide 03 — Solution & USP",
+      "s3.title": 'The First <span class="mustard">Budget-Aware</span> AI Kitchen Assistant',
+      "s3.sub": "plate. connects what's inside your fridge directly with local supermarket pricing to optimize meal costs before you spend 1 cent.",
+      "s3.c1title": "1. Smart Pantry Scanner", "s3.c1desc": "Scan receipts or tap pantry items. Keeps real-time track of ingredients to prevent buying duplicate items.",
+      "s3.c2title": "2. Supermarket Price Matcher", "s3.c2desc": "Calculates total basket costs dynamically across Korzinka, Makro, and Havas to suggest the cheapest shopping route.",
+      "s3.c3title": "3. Adaptive Recipe Engine", "s3.c3desc": "Generates step-by-step personalized recipes adapted to available ingredients, dietary needs, and strict budgets.",
+      "s3.usplabel": "UNFAIR ADVANTAGE (USP)", "s3.uspval": "\"Generic recipe apps tell you *how* to cook. plate. tells you *what* to cook to save 20-30% on groceries.\"",
+
+      "s4.tag": "Slide 04 — Product Demo",
+      "s4.title": 'Live Working Software on <span class="cyan">Cloudflare Workers</span>',
+      "s4.sub": "Zero mockups or slide vaporware. Our web application is live, responsive, and available on mobile & web today.",
+      "s4.step1tag": "STEP 1 — INVENTORY MATCHING", "s4.step1val": "Select available ingredients from your kitchen pantry.",
+      "s4.step2tag": "STEP 2 — REAL-TIME PRICE BASKET", "s4.step2val": "System aggregates missing items and outputs cheapest store options.",
+      "s4.step3tag": "STEP 3 — STEP-BY-STEP COOKING MODE", "s4.step3val": "Dark-mode voice assistant timer & step guidance for hands-free cooking.",
+      "s4.cardtitle": "Test the Live Web Application", "s4.carddesc": "Scan or click below to launch the live app hosted on Cloudflare Workers edge network.", "s4.btn": "🚀 Open Live Demo ↗",
+
+      "s5.tag": "Slide 05 — Market & Opportunity",
+      "s5.title": 'A <span class="mustard">$280 Billion</span> Global Market Opportunity',
+      "s5.sub": "Capturing the intersection of digital grocery retail, recipe platforms, and AI assistant technologies.",
+      "s5.tamval": "$280B", "s5.tamtitle": "Global FoodTech", "s5.tamdesc": "Total global market for digital grocery shopping & smart kitchen technology.",
+      "s5.samval": "$1.2B", "s5.samtitle": "CIS & Regional", "s5.samdesc": "Central Asian & CIS online grocery and culinary app market size.",
+      "s5.somval": "$15M", "s5.somtitle": "Year 1-2 Target", "s5.somdesc": "Obtainable share focusing on urban households in major metropolitan centers.",
+
+      "s6.tag": "Slide 06 — Competition",
+      "s6.title": 'Clear Differentiation & <span class="accent">Positioning</span>',
+      "s6.sub": "While incumbents focus on generic recipes or raw delivery, plate. bridges local supermarket pricing with AI intelligence.",
+      "s6.mtop": "Real-Time Local Store Pricing", "s6.mbot": "Static / Global Recipes", "s6.mleft": "Generic Content", "s6.mright": "Budget Optimization",
+      "s6.th1": "Feature", "s6.th2": "Recipe Blogs", "s6.th3": "Generic AI",
+      "s6.tr1": "Inventory Match", "s6.tr2": "Local Store Prices", "s6.tr3": "Budget Optimization", "s6.tr4": "Cooking Step Timer",
+
+      "s7.tag": "Slide 07 — Business Model",
+      "s7.title": 'Diversified & Scalable <span class="mustard">Revenue Streams</span>',
+      "s7.sub": "High-margin subscription revenues paired with supermarket affiliate commissions and consumer intelligence data.",
+      "s7.c1num": "STREAM 01", "s7.c1val": "$4.99 / mo", "s7.c1title": "B2C Freemium", "s7.c1desc": "Free basic app. Premium tier unlocks unlimited AI meal planning, price alerts, and personalized nutrition tracking.",
+      "s7.c2num": "STREAM 02", "s7.c2val": "3% - 5%", "s7.c2title": "Supermarket Affiliate", "s7.c2desc": "Referral commissions on automated grocery cart orders routed directly to partner retail networks (Korzinka, Makro).",
+      "s7.c3num": "STREAM 03", "s7.c3val": "B2B SaaS", "s7.c3title": "Retail Consumer Insights", "s7.c3desc": "Anonymized demand forecasting and consumer purchasing intent data for FMCG brands & retail managers.",
+
+      "s8.tag": "Slide 08 — Roadmap",
+      "s8.title": 'Execution <span class="cyan">Timeline & Milestones</span>',
+      "s8.sub": "Disciplined rollout plan focused on user growth, store API partnerships, and mobile monetization.",
+      "s8.p1tag": "Q3 2026 (CURRENT)", "s8.p1title": "MVP & Cloudflare Deployment", "s8.p1desc": "Deployed full-stack app on Cloudflare Workers edge. 5,000 active beta test users onboarded.",
+      "s8.p2tag": "Q4 2026", "s8.p2title": "Retail API Integrations", "s8.p2desc": "Direct API sync with top 3 local supermarket chains. Mobile App Store (iOS/Android) native launch.",
+      "s8.p3tag": "Q1-Q2 2027", "s8.p3title": "Regional Scale & Monetization", "s8.p3desc": "Launch B2C Premium subscriptions. Expand platform to neighboring regional metropolitan markets.",
+
+      "s9.tag": "Slide 09 — Team & Execution",
+      "s9.title": 'Built by Agile <span class="accent">Product Builders</span>',
+      "s9.sub": "Combining technical full-stack engineering expertise with modern AI product execution capability.",
+      "s9.name": "Abbos Jabborov", "s9.role": "Founder & Lead Architect", "s9.desc": "Full-stack software engineer specialized in React, Python/Django, Cloudflare Workers, and modern Web AI systems.",
+      "s9.capstitle": "Execution Capability", "s9.cap1": "⚡ <strong>Speed to Market:</strong> Production MVP built and deployed in record time.",
+      "s9.cap2": "🌐 <strong>Modern Architecture:</strong> Cloudflare edge infrastructure for ultra-fast global latency.",
+      "s9.cap3": "🎯 <strong>Targeted Focus:</strong> Deep understanding of Central Asian retail grocery dynamics.",
+
+      "s10.tag": "Slide 10 — The Ask",
+      "s10.title": 'Join Us in Building the <span class="mustard">Future of Food</span>',
+      "s10.sub": "We are seeking strategic partnership and competition backing to accelerate retailer integrations.",
+      "s10.asktag": "COMPETITION ASK", "s10.askval": "$25,000 – $50,000", "s10.asktitle": "Grant / Competition Prize Allocation",
+      "s10.use1": "60% Retail Store API Integrations & Data Scraping Pipelines", "s10.use2": "25% User Acquisition & Growth Marketing", "s10.use3": "15% Infrastructure & Server Operations",
+      "s10.vistag": "VISION STATEMENT", "s10.visval": "\"Making smart, sustainable, and budget-friendly home cooking effortless for millions.\"",
+      "s10.contact": "GET IN TOUCH & TEST DEMO:"
+    },
+
+    uz: {
+      "s1.tag": "1-Slayd — Kirish",
+      "s1.title": 'Uyda Ovqat Tayyorlash va <span class="accent">Budjetni Tejash</span>',
+      "s1.sub": "plate. — oziq-ovqat isrofgarchiligini tugatuvchi hamda mahalliy tarmoqlardagi eng arzon mahsulot narxlarini hisoblab beruvchi AI oshxona tizimi.",
+      "s1.author": "Abbos Jabborov",
+      "s1.role": "Asoschi va Bosh Dasturchi • plate. AI",
+      "s1.demolabel": "JONLI DEMO FAOL",
+      "s1.dish": "Pesto Pastasi Taomi",
+      "s1.match": "Muzlatgichda 4 ta mahsulot bor",
+      "s1.costlabel": "HISOBLANGAN NARX",
+      "s1.costval": "85,000 UZS",
+      "s1.saved": "Makro orqali 17,000 UZS tejaldi",
+      "s1.launch": "Interaktiv Ilovani Ochish ↗",
+
+      "s2.tag": "2-Slayd — Muammo",
+      "s2.title": 'Uy Oshxonasi — Qimmat, Murakkab va <span class="accent">Isrofgarchilikka Boy</span>',
+      "s2.sub": "Iste'molchilar oziq-ovqat inflyatsiyasiga duch kelmoqda, supermarketchalar narxlarini bilmaydi va vaqt hamda pulni yo'qotmoqda.",
+      "s2.c1num": "01 / MOLIYAVIY ISROF", "s2.c1val": "$1,500", "s2.c1title": "Yillik Yo'qotish", "s2.c1desc": "Har bir oila muzlatgichdagi mahsulotlarni nazorat qilmagani sababli yiliga $1,500 lik oziq-ovqatni tashlab yuboradi.",
+      "s2.c2num": "02 / VAQT VA NOQULAYLIK", "s2.c2val": "3.2 Soat", "s2.c2title": "Haftalik Yo'qotish", "s2.c2desc": "Odamlar har hafta nima pishirishni o'ylash, ro'yxat tuzish va do'konma-do'kon yurishga soatlab vaqt sarflaydi.",
+      "s2.c3num": "03 / NARXLAR NOMA'LUMLIGI", "s2.c3val": "+28%", "s2.c3title": "Oziq-ovqat Inflyatsiyasi", "s2.c3desc": "Supermarketlar (Korzinka, Makro, Havas) o'rtasidagi narxlar 25% gacha farq qiladi, lekin narx taqqoslash vositalari mavjud emas.",
+
+      "s3.tag": "3-Slayd — Yechim va USP",
+      "s3.title": 'Budjetni Tejovchi Birinchi <span class="mustard">AI Oshxona Yordamchisi</span>',
+      "s3.sub": "plate. muzlatgichingizdagi mahsulotlarni mahalliy supermarketlar narxlari bilan bog'lab, xarid qilishdan oldin budjetni optimallashtiradi.",
+      "s3.c1title": "1. Aqlli Ombor Skaneri", "s3.c1desc": "Cheklarni skan qiling yoki mahsulotlarni kiriting. Bir xil mahsulotni qayta sotib olmaslik uchun real vaqtda kuzatib boradi.",
+      "s3.c2title": "2. Supermarket Narx Taqqoslagichi", "s3.c2desc": "Korzinka, Makro va Havas bo'yicha savatcha narxini hisoblab, eng arzon do'kon marshrutini taklif qiladi.",
+      "s3.c3title": "3. Moslashuvchan Retsept AI Engine", "s3.c3desc": "Mavjud mahsulotlar, parhez va aniq budjetga moslashtirilgan bosqichma-bosqich retseptlar yaratadi.",
+      "s3.usplabel": "NOYOQ AFZALLIK (USP)", "s3.uspval": "\"Oddiy retsept ilovalari *qanday* pishirishni o'rgatadi. plate. esa 20-30% tejash uchun *nima* pishirishni ko'rsatadi.\"",
+
+      "s4.tag": "4-Slayd — Mahsulot Demosi",
+      "s4.title": '<span class="cyan">Cloudflare Workers</span> da Ishlayotgan Jonli Tizim',
+      "s4.sub": "Qog'ozdagi proyekt emas. Veb-ilovamiz bugun mobil va veb brauzerlarda faol va ishlamoqda.",
+      "s4.step1tag": "1-BOSQICH — MAHSULOTLARNI MOSLASH", "s4.step1val": "Oshxonangizda bor mahsulotlarni tanlang.",
+      "s4.step2tag": "2-BOSQICH — REAL VAQTDA ENG ARZON NARX", "s4.step2val": "Tizim yetishmayotgan mahsulotlarni hisoblab eng arzon do'konni topadi.",
+      "s4.step3tag": "3-BOSQICH — PISHIRISH REJIMIDAGI TAYMER", "s4.step3val": "Qo'lsiz taom pishirish uchun tungi rejimdagi aqlli taymer va bosqichlar.",
+      "s4.cardtitle": "Jonli Veb Ilovani Sinab Ko'ring", "s4.carddesc": "Cloudflare Workers tarmog'ida faol ishlayotgan ilovani ochish uchun bosing.", "s4.btn": "🚀 Demoni Ochish ↗",
+
+      "s5.tag": "5-Slayd — Bozor Imkoniyati",
+      "s5.title": '<span class="mustard">$280 Milliardlik</span> Global Bozor Imkoniyati',
+      "s5.sub": "Raqamli oziq-ovqat savdosi, retsept platformalari va AI yordamchilari chorrahasini egallash.",
+      "s5.tamval": "$280B", "s5.tamtitle": "Global FoodTech", "s5.tamdesc": "Raqamli oziq-ovqat xaridlari va aqlli oshxona texnologiyalarining dunyo bozori.",
+      "s5.samval": "$1.2B", "s5.samtitle": "MDH va Mintaqaviy", "s5.samdesc": "Markaziy Osiyo va MDH onlayn grocery hamda oshpazlik ilovalari bozori.",
+      "s5.somval": "$15M", "s5.somtitle": "1-2 Yillik Maqsad", "s5.somdesc": "Yirik shahar markazlaridagi xonadonlarni qamrab olish maqsadli ulushi.",
+
+      "s6.tag": "6-Slayd — Raqobat",
+      "s6.title": 'Aniq Farqlanish va <span class="accent">Pozitsiya</span>',
+      "s6.sub": "Raqobatchilar faqat umumiy retsept yoki yetkazib berishga urg'u bersa, plate. mahalliy narxlar bilan sun'iy intellektni birlashtiradi.",
+      "s6.mtop": "Real vaqtdagi mahalliy narxlar", "s6.mbot": "Statik / Umumiy retseptlar", "s6.mleft": "Umumiy kontent", "s6.mright": "Budjet optimizatsiyasi",
+      "s6.th1": "Imkoniyat", "s6.th2": "Retsept Saytlari", "s6.th3": "Umumiy AI",
+      "s6.tr1": "Omborni Moslash", "s6.tr2": "Mahalliy Narxlar", "s6.tr3": "Budjet Optimizatsiyasi", "s6.tr4": "Interaktiv Taymer",
+
+      "s7.tag": "7-Slayd — Biznes Modeli",
+      "s7.title": 'Ko\'p Tarmoqli va Kengayuvchi <span class="mustard">Daromad Manbalari</span>',
+      "s7.sub": "Yuqori marjali obuna daromadi va supermarketlar bilan affiliat komissiyalari hamda tahliliy ma'lumotlar.",
+      "s7.c1num": "DAROMAD 01", "s7.c1val": "$4.99 / oy", "s7.c1title": "B2C Freemium Obuna", "s7.c1desc": "Bepul bazaviy ilova. Premium obuna cheksiz AI meal-plan va narx bildirishnomalarini ochadi.",
+      "s7.c2num": "DAROMAD 02", "s7.c2val": "3% - 5%", "s7.c2title": "Supermarket Affiliat", "s7.c2desc": "Hamkor supermarketlar (Korzinka, Makro)ga yo'naltirilgan xarid savatchalaridan komissiya.",
+      "s7.c3num": "DAROMAD 03", "s7.c3val": "B2B SaaS", "s7.c3title": "Retail Analitika Data", "s7.c3desc": "FMCG brendlari va retail menejerlari uchun anonimlashtirilgan xaridorlar talabi analitikasi.",
+
+      "s8.tag": "8-Slayd — Roadmap",
+      "s8.title": 'Rivojlanish <span class="cyan">Bosqichlari va Reja</span>',
+      "s8.sub": "Foydalanuvchilar o'sishi, do'kon API hamkorliklari va monetizatsiyaga qaratilgan bosqichma-bosqich reja.",
+      "s8.p1tag": "Q3 2026 (HOZIRGI)", "s8.p1title": "MVP va Cloudflare Ishga Tushishi", "s8.p1desc": "Cloudflare Workers platformasida to'liq MVP ishga tushdi. 5,000+ aktiv beta foydalanuvchilar.",
+      "s8.p2tag": "Q4 2026", "s8.p2title": "Supermarket API Integratsiyasi", "s8.p2desc": "Top 3 ta supermarket zanjirlari bilan API sinxronizatsiya hamda mobil ilovalar taqdimoti.",
+      "s8.p3tag": "Q1-Q2 2027", "s8.p3title": "Mintaqaviy O'sish va Monetizatsiya", "s8.p3desc": "B2C Premium obunasini yo'lga qo'yish va qo'shni mintaqaviy bozorlarga kengayish.",
+
+      "s9.tag": "9-Slayd — Jamoa",
+      "s9.title": 'Agil va Tajribali <span class="accent">Mahsulot Yaratuvchilari</span>',
+      "s9.sub": "Dasturchilik muhandisligi hamda zamonaviy AI mahsulotlarini yaratish tajribasi birlashmasi.",
+      "s9.name": "Abbos Jabborov", "s9.role": "Asoschi va Lead Architect", "s9.desc": "React, Python/Django, Cloudflare Workers va Web AI tizimlariga ixtisoslashgan Full-stack muhandis.",
+      "s9.capstitle": "Bajarish Imkoniyati (Execution)", "s9.cap1": "⚡ <strong>Bozorga Tez Chiqish:</strong> MVP rekord darajada qisqa vaqtda ishlab chiqildi va joylashtirildi.",
+      "s9.cap2": "🌐 <strong>Zamonaviy Arxitektura:</strong> Ultra-tez global tezlik uchun Cloudflare Edge infratuzilmasi.",
+      "s9.cap3": "🎯 <strong>Chuqur Bilim:</strong> Markaziy Osiyo retail va oziq-ovqat bozori dinamikasini yaxshi tushunish.",
+
+      "s10.tag": "10-Slayd — Taklif (The Ask)",
+      "s10.title": 'Oziq-ovqat <span class="mustard">Kelajagini Birga Quring</span>',
+      "s10.sub": "Do'konlar integratsiyasini tezlashtirish uchun strategik hamkorlik va tanlov investitsiyasini izlamoqdamiz.",
+      "s10.asktag": "TANLOV TAKLIFI", "s10.askval": "$25,000 – $50,000", "s10.asktitle": "Grant / Tanlov Mukofoti Ajratilishi",
+      "s10.use1": "60% Supermarket API Integratsiyalari va Data Pipeline lari", "s10.use2": "25% Marketing va Foydalanuvchilarni Jalb Qilish", "s10.use3": "15% Infratuzilma va Server Xarajatlari",
+      "s10.vistag": "MISSIYA VA VISUALLASH", "s10.visval": "\"Mionlab xonadonlar uchun mazali, arzon va aqlli ovqat tayyorlashni osonlashtirish.\"",
+      "s10.contact": "ALOQA VA JONLI DEMO:"
+    }
+  };
+
+  // Initialize dot thumbs
   for (let i = 1; i <= totalSlides; i++) {
     const dot = document.createElement('div');
     dot.className = `thumb-dot ${i === 1 ? 'active' : ''}`;
@@ -978,8 +1442,36 @@
     thumbContainer.appendChild(dot);
   }
 
+  function applyLanguage(lang) {
+    currentLang = lang;
+    btnLang.textContent = lang === 'en' ? '🌐 UZ' : '🌐 EN';
+    
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (DICT[lang] && DICT[lang][key]) {
+        el.innerHTML = DICT[lang][key];
+      }
+    });
+  }
+
+  function toggleLanguage() {
+    const nextLang = currentLang === 'en' ? 'uz' : 'en';
+    applyLanguage(nextLang);
+  }
+
+  // Restore saved edits from localStorage on load
+  function restoreSavedContent() {
+    const savedHtml = localStorage.getItem('plate_pitch_deck_content_v2');
+    if (savedHtml) {
+      document.getElementById('slideContainer').innerHTML = savedHtml;
+      btnReset.style.display = 'inline-flex';
+    }
+  }
+
   function updateSlideState() {
-    slides.forEach((slide, index) => {
+    const currentSlides = document.querySelectorAll('.slide');
+    currentSlides.forEach((slide, index) => {
       const slideNum = index + 1;
       if (slideNum === currentSlide) {
         slide.classList.add('active');
@@ -988,15 +1480,12 @@
       }
     });
 
-    // Update Counter & Progress
     currentSlideNum.textContent = currentSlide;
     progressBar.style.width = `${(currentSlide / totalSlides) * 100}%`;
 
-    // Update buttons
     btnPrev.disabled = currentSlide === 1;
     btnNext.disabled = currentSlide === totalSlides;
 
-    // Update dots
     document.querySelectorAll('.thumb-dot').forEach((dot, index) => {
       if (index + 1 === currentSlide) {
         dot.classList.add('active');
@@ -1027,6 +1516,125 @@
     }
   }
 
+  /* -------------------------------------------------------------
+     LIVE TEXT & IMAGE EDITING FEATURE
+  ------------------------------------------------------------- */
+  function toggleEditMode() {
+    isEditing = !isEditing;
+    document.body.classList.toggle('is-editing', isEditing);
+
+    const editableElements = document.querySelectorAll('.slide-title, .slide-sub, .hero-tagline, .card-title, .card-desc, .metric-big, .card-num, .slide-tag, .presenter-meta h4, .presenter-meta p');
+    editableElements.forEach(el => {
+      el.contentEditable = isEditing ? 'true' : 'false';
+    });
+
+    if (isEditing) {
+      btnEdit.classList.add('active');
+      editIcon.textContent = '✔️';
+      editText.textContent = 'Editing Active';
+      btnReset.style.display = 'inline-flex';
+    } else {
+      btnEdit.classList.remove('active');
+      editIcon.textContent = '✏️';
+      editText.textContent = 'Edit Mode';
+      saveEditsManually();
+    }
+  }
+
+  function saveEditsManually() {
+    const container = document.getElementById('slideContainer');
+    localStorage.setItem('plate_pitch_deck_content_v2', container.innerHTML);
+  }
+
+  function resetDefaults() {
+    if (confirm('Are you sure you want to reset all text/image changes back to the original deck content?')) {
+      localStorage.removeItem('plate_pitch_deck_content_v2');
+      location.reload();
+    }
+  }
+
+  /* -------------------------------------------------------------
+     CUSTOM IMAGE / GIF INSERTION & REPLACEMENT MODAL
+  ------------------------------------------------------------- */
+  function openImageModal(targetId) {
+    targetImageTarget = targetId;
+    document.getElementById('imageModal').classList.add('open');
+  }
+
+  function closeImageModal() {
+    document.getElementById('imageModal').classList.remove('open');
+    document.getElementById('modalUrlInput').value = '';
+    targetImageTarget = null;
+    targetSlideNum = null;
+  }
+
+  function handleFileSelect(evt) {
+    const file = evt.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        applyImageSrc(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  function applyImageFromUrl() {
+    const url = document.getElementById('modalUrlInput').value.trim();
+    if (url) {
+      applyImageSrc(url);
+    } else {
+      alert('Please select a file or paste an image URL.');
+    }
+  }
+
+  function applyImageSrc(src) {
+    if (targetImageTarget === 'presenterAvatar') {
+      const avatarWraps = [document.getElementById('presenterAvatarWrap'), document.getElementById('presenterAvatarWrap2')];
+      avatarWraps.forEach(wrap => {
+        if (wrap) {
+          wrap.innerHTML = `<img src="${src}" alt="Avatar"><button class="img-edit-overlay" onclick="openImageModal('presenterAvatar')">📷 Change</button>`;
+        }
+      });
+    } else if (targetImageTarget === 'phoneMockup1') {
+      const phoneContent = document.getElementById('phoneMockup1Content');
+      if (phoneContent) {
+        phoneContent.innerHTML = `<img src="${src}" style="width:100%; height:100%; object-fit:cover; border-radius:18px;" alt="Custom Mockup/GIF">`;
+      }
+    } else if (typeof targetImageTarget === 'number') {
+      // Inserting custom image card into slide
+      const slide = document.querySelector(`.slide[data-slide="${targetImageTarget}"] .slide-content`);
+      if (slide) {
+        const imgCard = document.createElement('div');
+        imgCard.className = 'custom-img-wrap has-custom-img';
+        imgCard.style.marginTop = '16px';
+        imgCard.innerHTML = `
+          <img src="${src}" alt="Custom Slide Media" style="max-height:220px;">
+          <button class="img-edit-overlay" onclick="this.parentElement.remove(); saveEditsManually();">❌ Delete Image</button>
+        `;
+        slide.appendChild(imgCard);
+      }
+    }
+    
+    saveEditsManually();
+    closeImageModal();
+  }
+
+  function insertNewImage(slideNum) {
+    targetImageTarget = slideNum;
+    document.getElementById('imageModal').classList.add('open');
+  }
+
+  /* -------------------------------------------------------------
+     EXPORT TO PDF FEATURE
+  ------------------------------------------------------------- */
+  function exportPDF() {
+    if (isEditing) {
+      toggleEditMode();
+    }
+    window.print();
+  }
+
   function toggleFullScreen() {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen().catch(err => {
@@ -1041,18 +1649,22 @@
 
   // Keyboard navigation listener
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
-      e.preventDefault();
-      nextSlide();
-    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
-      e.preventDefault();
-      prevSlide();
-    } else if (e.key === 'Home') {
-      e.preventDefault();
-      goToSlide(1);
-    } else if (e.key === 'End') {
-      e.preventDefault();
-      goToSlide(totalSlides);
+    const isTyping = document.activeElement && document.activeElement.isContentEditable;
+    
+    if (!isTyping) {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        goToSlide(1);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        goToSlide(totalSlides);
+      }
     }
   });
 
@@ -1065,6 +1677,7 @@
     if (touchEndX - touchStartX > 50) prevSlide();
   });
 
+  restoreSavedContent();
   updateSlideState();
 </script>
 </body>

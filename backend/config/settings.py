@@ -32,12 +32,7 @@ if GEMINI_API_KEY:
     os.environ["GEMINI_API_KEY"] = GEMINI_API_KEY
 
 
-ALLOWED_HOSTS = str(
-    config(
-        "ALLOWED_HOSTS",
-        default="127.0.0.1,localhost",
-    )
-).split(",")
+ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
