@@ -37,15 +37,17 @@ DEFAULT_SUBSTITUTIONS = {
 
 
 def call_external_llm(prompt: str) -> str:
-    """Calls Google Gemini REST API across fallback models."""
-    gemini_key = os.getenv("GEMINI_API_KEY")
+    """Calls Google Gemini REST API across active free tier models."""
+    gemini_key = os.getenv("GEMINI_API_KEY", "").strip()
 
     if gemini_key:
         models = [
-            "gemini-1.5-flash",
-            "gemini-1.5-pro",
-            "gemini-2.0-flash",
-            "gemini-pro"
+            "gemini-3.1-flash-lite",
+            "gemini-3-flash-preview",
+            "gemini-3.5-flash-lite",
+            "gemini-3.1-pro-preview",
+            "gemini-2.0-flash-lite",
+            "gemini-1.5-flash-8b",
         ]
         for model in models:
             try:
@@ -60,9 +62,11 @@ def call_external_llm(prompt: str) -> str:
                 with urllib.request.urlopen(req, timeout=6) as response:
                     if response.status == 200:
                         data = json.loads(response.read().decode("utf-8"))
-                        return data["candidates"][0]["content"]["parts"][0]["text"]
+                        text = data["candidates"][0]["content"]["parts"][0]["text"]
+                        if text and text.strip():
+                            return text.strip()
             except Exception as e:
-                print(f"Gemini model {model} call failed: {e}")
+                print(f"Gemini model {model} attempt error: {e}")
                 continue
 
     return None
@@ -71,7 +75,7 @@ def call_external_llm(prompt: str) -> str:
 def generate_backend_fallback(query: str, recipe_title: str) -> str:
     q = query.lower()
     if "cake" in q or "bake" in q or "dessert" in q:
-        return "To bake a classic sponge cake: Whisk 3 eggs with 100g sugar until pale and fluffy (5 mins). Gently fold in 100g flour and 1 tsp baking powder. Bake at 180°C for 22 minutes until a toothpick comes out clean!"
+        return "To bake a classic cake: Whisk 3 eggs with 100g sugar until pale and fluffy (5 mins). Gently fold in 100g flour and 1 tsp baking powder. Bake at 180°C for 22 minutes until a toothpick comes out clean!"
     if "sauce" in q or "thick" in q or "curdle" in q:
         return "If your sauce looks too thick, stir in 2 tablespoons of warm pasta water or milk over low heat. If it curded, whisk in 1 tbsp cold cream off the heat."
     if "chicken" in q or "meat" in q:
