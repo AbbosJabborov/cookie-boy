@@ -3,11 +3,10 @@ import { useState, useEffect, useRef } from "react";
 import { useAuth } from "@/hooks/useAuth";
 
 const navLinks = [
-  { to: "/ingredients", label: "Ingredients" },
-  { to: "/", label: "Discover" },
-  { to: "/planner", label: "Planner" },
-  { to: "/shopping", label: "Shopping List" },
-  { to: "/cooking-guide", label: "Cookbook" },
+  { to: "/ingredients", label: "Ingredients", protected: true },
+  { to: "/", label: "Discover", protected: false },
+  { to: "/planner", label: "Planner", protected: true },
+  { to: "/shopping", label: "Shopping List", protected: true },
 ];
 
 export function Navbar() {
@@ -61,6 +60,12 @@ export function Navbar() {
               <NavLink
                 key={link.to}
                 to={link.to}
+                onClick={(e) => {
+                  if (link.protected && !isAuthenticated) {
+                    e.preventDefault();
+                    navigate("/login");
+                  }
+                }}
                 className={({ isActive }) =>
                   isActive
                     ? "text-primary font-bold border-b-2 border-primary pb-1 font-body-md"
